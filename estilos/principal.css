@@ -1,0 +1,36 @@
+:root {
+	--fondo_ult: #223;
+	--fondo_cab: #448;
+	--texto: #fff;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	background-color: var(--fondo_ult);
+	font-family: sans-serif;
+	color: var(--texto);
+}
+
+header {
+	background-color: var(--fondo_cab);
+}
+
+.cabecera {
+	max-height: 20vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+h1 {
+	padding: 10px;
+}
+
+#logo {
+	max-width: 64px;
+	max-height: 64px;
+	margin: 10px;
+}
