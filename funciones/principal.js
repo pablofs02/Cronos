@@ -12,12 +12,18 @@ const botón_nueva_línea = document.getElementById("nueva_línea");
 const botón_cargar_línea = document.getElementById("cargar_línea");
 const botón_mis_líneas = document.getElementById("mis_líneas");
 
+const panel = document.getElementById("panel");
+
+const panel_línea = "paneles/línea.html";
+const panel_colección = "paneles/colección.html";
+
 botón_nueva_línea.addEventListener("click", () => {
-	console.log("Creando nueva línea...");
+	panel.setAttribute("src", panel_línea);
 });
 botón_cargar_línea.addEventListener("click", () => {
+	panel.setAttribute("src", panel_colección);
 	console.log("Cargando línea...");
 });
 botón_mis_líneas.addEventListener("click", () => {
-	console.log("Viendo mis líneas...");
+	panel.setAttribute("src", panel_colección);
 });

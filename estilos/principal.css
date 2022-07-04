@@ -1,6 +1,7 @@
 :root {
 	--fondo_ult: #223;
 	--fondo_cab: #448;
+	--fondo_pan: #333;
 	--texto: #fff;
 	--botón: #f70;
 }
@@ -49,4 +50,12 @@ h1 {
 
 .botón:hover {
 	opacity: 80%;
+}
+
+.panel {
+	min-height: 85vh;
+	width: 98vw;
+	display: block;
+	margin: 0 auto;
+	background-color: var(--fondo_pan);
 }
