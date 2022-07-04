@@ -2,6 +2,7 @@
 	--fondo_ult: #223;
 	--fondo_cab: #448;
 	--texto: #fff;
+	--botón: #f70;
 }
 
 * {
@@ -33,4 +34,19 @@ h1 {
 	max-width: 64px;
 	max-height: 64px;
 	margin: 10px;
+}
+
+.botón {
+	margin-right: 20px;
+	border: 0 solid;
+	border-radius: 16px;
+	padding: 8px;
+	background-color: var(--botón);
+	color: var(--texto);
+	font-size: medium;
+	cursor: pointer;
+}
+
+.botón:hover {
+	opacity: 80%;
 }
