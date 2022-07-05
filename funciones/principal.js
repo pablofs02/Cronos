@@ -27,3 +27,32 @@ botón_cargar_línea.addEventListener("click", () => {
 botón_mis_líneas.addEventListener("click", () => {
 	panel.setAttribute("src", panel_colección);
 });
+
+// Almacén de datos.
+const almacén = window.indexedDB;
+
+let hola = {
+	nombre: "yo",
+	apellido: "no"
+};
+
+if (almacén) {
+	let bd;
+	const petición = almacén.open("líneas", 1);
+
+	petición.onsuccess = () => {
+		bd = petición.result;
+		console.log("Base abierta", bd);
+	};
+
+	petición.onupgradeneeded = () => {
+		bd = petición.result;
+		console.log("Base creada", bd);
+		const obj = bd.createObjectStore("líneas");
+		obj.add(hola);
+	};
+
+	petición.onerror = (error) => {
+		console.log("Error:", error);
+	};
+}
