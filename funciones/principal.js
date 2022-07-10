@@ -4,7 +4,7 @@ import carga_json from "./json.js";
 const línea_temporal = carga_json("archivos/hola.json");
 
 línea_temporal.then(datos => {
-	console.log(datos);
+	// console.log(datos);
 });
 
 // Botones.
@@ -31,11 +31,6 @@ botón_mis_líneas.addEventListener("click", () => {
 // Almacén de datos.
 const almacén = window.indexedDB;
 
-let hola = {
-	nombre: "yo",
-	apellido: "no"
-};
-
 if (almacén) {
 	let bd;
 	const petición = almacén.open("líneas", 1);
@@ -49,7 +44,6 @@ if (almacén) {
 		bd = petición.result;
 		console.log("Base creada", bd);
 		const obj = bd.createObjectStore("líneas");
-		obj.add(hola);
 	};
 
 	petición.onerror = (error) => {
