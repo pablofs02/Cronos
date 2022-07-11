@@ -1,6 +1,6 @@
 {
 	"nombre": "egipto",
-	"descripción": "línea temporal simple de prueba",
+	"comentario": "línea temporal simple de prueba",
 	"rango": {
 		"inicio": 0,
 		"fin": 100
@@ -9,7 +9,7 @@
 		"periodos": [
 			{
 				"nombre": "PERIODO",
-				"descripción": "periodo de prueba",
+				"comentario": "periodo de prueba",
 				"inicio": 10,
 				"fin": 30
 			}
@@ -17,12 +17,12 @@
 		"eventos": [
 			{
 				"nombre": "EVENTO1",
-				"descripción": "evento de prueba",
+				"comentario": "evento de prueba",
 				"tiempo": 70
 			},
 			{
 				"nombre": "EVENTO2",
-				"descripción": "evento de prueba 2",
+				"comentario": "evento de prueba 2",
 				"tiempo": 20
 			}
 		]

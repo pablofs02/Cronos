@@ -8,9 +8,22 @@
 </head>
 
 <body>
+	<style>
+		#entrada {
+			display: grid;
+			grid: 2;
+			overflow: visible;
+		}
+	</style>
 	<form id="entrada">
-		<label for="info"> Texto </label>
-		<input type="text" name="info">
+		<label for="nombre"> Nombre </label>
+		<input type="text" name="nombre">
+		<label for="comentario"> Comentario </label>
+		<input type="text" name="comentario">
+		<label for="inicio"> Inicio </label>
+		<input type="text" name="inicio">
+		<label for="fin"> Fin </label>
+		<input type="text" name="fin">
 		<button> Listo </button>
 	</form>
 	<script type="module" src="../funciones/creación.js"></script>
