@@ -15,7 +15,7 @@
 
 		#entrada {
 			display: grid;
-			grid-template-columns: auto auto;
+			grid-template-columns: auto auto auto auto;
 			gap: 10px;
 			background-color: #29F;
 			padding: 10px;
@@ -23,15 +23,22 @@
 	</style>
 	<form id="entrada">
 		<label for="nombre"> Nombre </label>
-		<input type="text" name="nombre">
+		<input type="text" name="nombre" style="grid-column: 2/5;">
+
 		<label for="comentario"> Comentario </label>
-		<input type="text" name="comentario">
+		<input type="text" name="comentario" style="grid-column: 2/5;">
+
 		<label for="inicio"> Inicio </label>
 		<input type="text" name="inicio">
+		<input type="checkbox" name="inicio-AC">
+		<label for="inicio-AC"> AC </label>
+
 		<label for="fin"> Fin </label>
 		<input type="text" name="fin">
+		<input type="checkbox" name="fin-AC">
+		<label for="fin-AC"> AC </label>
+
 		<button> Listo </button>
-		<div></div>
 	</form>
 	<script type="module" src="../funciones/creación.js"></script>
 </body>

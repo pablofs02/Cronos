@@ -8,6 +8,12 @@ entrada.addEventListener("submit", (evento) => {
 		inicio: evento.target.inicio.value,
 		fin: evento.target.fin.value
 	};
+	if (evento.target["inicio-AC"].checked) {
+		data.inicio = -data.inicio;
+	}
+	if (evento.target["fin-AC"].checked) {
+		data.fin = -data.fin;
+	}
 	console.log(data);
 	entrada.reset();
 });
