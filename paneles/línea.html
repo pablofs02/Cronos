@@ -9,10 +9,16 @@
 
 <body>
 	<style>
+		form {
+			max-width: 20vw;
+		}
+
 		#entrada {
 			display: grid;
-			grid: 2;
-			overflow: visible;
+			grid-template-columns: auto auto;
+			gap: 10px;
+			background-color: #29F;
+			padding: 10px;
 		}
 	</style>
 	<form id="entrada">
@@ -25,6 +31,7 @@
 		<label for="fin"> Fin </label>
 		<input type="text" name="fin">
 		<button> Listo </button>
+		<div></div>
 	</form>
 	<script type="module" src="../funciones/creación.js"></script>
 </body>
