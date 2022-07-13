@@ -37,16 +37,16 @@ if (almacén) {
 
 	petición.onsuccess = () => {
 		bd = petición.result;
-		console.log("Base abierta", bd);
+		// console.log("Base abierta", bd);
 	};
 
 	petición.onupgradeneeded = () => {
 		bd = petición.result;
-		console.log("Base creada", bd);
+		// console.log("Base creada", bd);
 		const obj = bd.createObjectStore("líneas");
 	};
 
 	petición.onerror = (error) => {
-		console.log("Error:", error);
+		console.log("Error: ", error);
 	};
 }

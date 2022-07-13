@@ -1,19 +1,35 @@
-const entrada = document.getElementById("entrada");
+const periodo = document.getElementById("insertar-periodo");
 
-entrada.addEventListener("submit", (evento) => {
-	evento.preventDefault();
+periodo.addEventListener("submit", (e) => {
+	e.preventDefault();
 	const data = {
-		nombre: evento.target.nombre.value,
-		comentario: evento.target.comentario.value,
-		inicio: evento.target.inicio.value,
-		fin: evento.target.fin.value
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		inicio: e.target.inicio.value,
+		fin: e.target.fin.value
 	};
-	if (evento.target["inicio-AC"].checked) {
+	if (e.target["inicio-AC"].checked) {
 		data.inicio = -data.inicio;
 	}
-	if (evento.target["fin-AC"].checked) {
+	if (e.target["fin-AC"].checked) {
 		data.fin = -data.fin;
 	}
 	console.log(data);
-	entrada.reset();
+	periodo.reset();
+});
+
+const evento = document.getElementById("insertar-evento");
+
+evento.addEventListener("submit", (e) => {
+	e.preventDefault();
+	const data = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		fecha: e.target.fecha.value,
+	};
+	if (e.target["fecha-AC"].checked) {
+		data.fecha = -data.fecha;
+	}
+	console.log(data);
+	evento.reset();
 });

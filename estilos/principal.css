@@ -67,3 +67,15 @@ iframe {
 	margin: 0 auto;
 	background-color: var(--fondo_pan);
 }
+
+form {
+	max-width: 20vw;
+}
+
+.entrada {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 10px;
+	background-color: #29F;
+	padding: 10px;
+}

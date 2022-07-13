@@ -10,20 +10,22 @@
 			{
 				"nombre": "PERIODO",
 				"comentario": "periodo de prueba",
-				"inicio": 10,
-				"fin": 30
+				"fecha": {
+					"inicio": 10,
+					"fin": 30
+				}
 			}
 		],
 		"eventos": [
 			{
 				"nombre": "EVENTO1",
 				"comentario": "evento de prueba",
-				"tiempo": 70
+				"fecha": 70
 			},
 			{
 				"nombre": "EVENTO2",
 				"comentario": "evento de prueba 2",
-				"tiempo": 20
+				"fecha": 20
 			}
 		]
 	}
