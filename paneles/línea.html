@@ -8,40 +8,50 @@
 </head>
 
 <body>
-	<form id="insertar-periodo" class="entrada">
-		<label for="nombre"> Nombre </label>
-		<input type="text" name="nombre" style="grid-column: 2/5;">
+	<button id="añadir-periodo" class="botón"> Añadir Periodo </button>
+	<button id="añadir-evento" class="botón"> Añadir Evento </button>
 
-		<label for="comentario"> Comentario </label>
-		<input type="text" name="comentario" style="grid-column: 2/5;">
+	<div id="ventana_formulario_periodo" class="ventana_formulario oculto">
+		<h2 class="título"> Periodo Nuevo </h2>
+		<button id="cerrar-periodo-nuevo" class="cerrar"> X </button>
+		<form id="insertar-periodo" class="entrada">
+			<label for="nombre"> Nombre </label>
+			<input type="text" name="nombre" style="grid-column: 2/5;">
 
-		<label for="inicio"> Inicio </label>
-		<input type="text" name="inicio">
-		<input type="checkbox" name="inicio-AC">
-		<label for="inicio-AC"> AC </label>
+			<label for="comentario"> Comentario </label>
+			<input type="text" name="comentario" style="grid-column: 2/5;">
 
-		<label for="fin"> Fin </label>
-		<input type="text" name="fin">
-		<input type="checkbox" name="fin-AC">
-		<label for="fin-AC"> AC </label>
+			<label for="inicio"> Inicio </label>
+			<input type="text" name="inicio">
+			<input type="checkbox" name="inicio-AC">
+			<label for="inicio-AC"> AC </label>
 
-		<button> Listo </button>
-	</form>
+			<label for="fin"> Fin </label>
+			<input type="text" name="fin">
+			<input type="checkbox" name="fin-AC">
+			<label for="fin-AC"> AC </label>
 
-	<form id="insertar-evento" class="entrada">
-		<label for="nombre"> Nombre </label>
-		<input type="text" name="nombre" style="grid-column: 2/5;">
+			<button> Listo </button>
+		</form>
+	</div>
+	<div id="ventana_formulario_evento" class="ventana_formulario oculto">
+		<h2 class="título"> Evento Nuevo </h2>
+		<button id="cerrar-evento-nuevo" class="cerrar"> X </button>
+		<form id="insertar-evento" class="entrada">
+			<label for="nombre"> Nombre </label>
+			<input type="text" name="nombre" style="grid-column: 2/5;">
 
-		<label for="comentario"> Comentario </label>
-		<input type="text" name="comentario" style="grid-column: 2/5;">
+			<label for="comentario"> Comentario </label>
+			<input type="text" name="comentario" style="grid-column: 2/5;">
 
-		<label for="inicio"> Fecha </label>
-		<input type="text" name="fecha">
-		<input type="checkbox" name="fecha-AC">
-		<label for="inicio-AC"> AC </label>
+			<label for="inicio"> Fecha </label>
+			<input type="text" name="fecha">
+			<input type="checkbox" name="fecha-AC">
+			<label for="inicio-AC"> AC </label>
 
-		<button> Listo </button>
-	</form>
+			<button> Listo </button>
+		</form>
+	</div>
 	<script type="module" src="../funciones/creación.js"></script>
 </body>
 

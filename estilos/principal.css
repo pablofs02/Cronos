@@ -68,14 +68,42 @@ iframe {
 	background-color: var(--fondo_pan);
 }
 
-form {
-	max-width: 20vw;
-}
-
 .entrada {
 	display: grid;
 	grid-template-columns: auto auto auto auto;
 	gap: 10px;
-	background-color: #29F;
 	padding: 10px;
+}
+
+.oculto {
+	display: none;
+}
+
+.cerrar {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 1px solid #000;
+	border-radius: 20%;
+	background-color: #A33;
+}
+
+.cerrar:hover {
+	opacity: 80%;
+	cursor: pointer;
+}
+
+.título {
+	padding: 10px;
+}
+
+.ventana_formulario {
+	background-color: #29F;
+	max-width: 25vw;
+	min-width: 20vw;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
 }
