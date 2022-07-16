@@ -1,7 +1,12 @@
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
 const cerrar_periodo = document.getElementById("cerrar-periodo-nuevo");
-const ventana_formulario_periodo = document.getElementById("ventana_formulario_periodo");
+const nuevo_periodo = document.getElementById("nuevo_periodo");
+
+const evento = document.getElementById("insertar-evento");
+const evento_nuevo = document.getElementById("añadir-evento");
+const cerrar_evento = document.getElementById("cerrar-evento-nuevo");
+const nuevo_evento = document.getElementById("nuevo_evento");
 
 periodo.addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -21,21 +26,16 @@ periodo.addEventListener("submit", (e) => {
 	periodo.reset();
 });
 periodo_nuevo.addEventListener("click", () => {
-	ventana_formulario_periodo.classList.remove("oculto");
-	if (!ventana_formulario_evento.classList.contains("oculto")) {
-		ventana_formulario_evento.classList.add("oculto");
+	nuevo_periodo.classList.remove("oculto");
+	if (!nuevo_evento.classList.contains("oculto")) {
+		nuevo_evento.classList.add("oculto");
 		evento.reset();
 	}
 });
 cerrar_periodo.addEventListener("click", () => {
-	ventana_formulario_periodo.classList.add("oculto");
+	nuevo_periodo.classList.add("oculto");
 	periodo.reset();
 });
-
-const evento = document.getElementById("insertar-evento");
-const evento_nuevo = document.getElementById("añadir-evento");
-const cerrar_evento = document.getElementById("cerrar-evento-nuevo");
-const ventana_formulario_evento = document.getElementById("ventana_formulario_evento");
 
 evento.addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -51,13 +51,13 @@ evento.addEventListener("submit", (e) => {
 	evento.reset();
 });
 evento_nuevo.addEventListener("click", () => {
-	ventana_formulario_evento.classList.remove("oculto");
-	if (!ventana_formulario_periodo.classList.contains("oculto")) {
-		ventana_formulario_periodo.classList.add("oculto");
+	nuevo_evento.classList.remove("oculto");
+	if (!nuevo_periodo.classList.contains("oculto")) {
+		nuevo_periodo.classList.add("oculto");
 		periodo.reset();
 	}
 });
 cerrar_evento.addEventListener("click", () => {
-	ventana_formulario_evento.classList.add("oculto");
+	nuevo_evento.classList.add("oculto");
 	evento.reset();
 });
