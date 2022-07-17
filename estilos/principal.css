@@ -107,3 +107,11 @@ iframe {
 	left: 0;
 	margin: auto;
 }
+
+.visualizador {
+	position: absolute;
+	width: 100vw;
+	height: 90vh;
+	margin-top: 20px;
+	background-color: #000;
+}
