@@ -115,3 +115,9 @@ iframe {
 	margin-top: 20px;
 	background-color: #000;
 }
+
+.colección {
+	width: 100vw;
+	height: 90vh;
+	background-color: #A33;
+}
