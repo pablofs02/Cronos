@@ -106,6 +106,7 @@ iframe {
 	right: 0;
 	left: 0;
 	margin: auto;
+	z-index: 100;
 }
 
 .visualizador {
@@ -117,7 +118,9 @@ iframe {
 }
 
 .colección {
+	position: absolute;
 	width: 100vw;
 	height: 90vh;
+	margin-top: 20px;
 	background-color: #A33;
 }

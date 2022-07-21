@@ -9,7 +9,6 @@ línea_temporal.then(datos => {
 
 // Botones.
 const botón_nueva_línea = document.getElementById("nueva_línea");
-const botón_cargar_línea = document.getElementById("cargar_línea");
 const botón_mis_líneas = document.getElementById("mis_líneas");
 
 const panel = document.getElementById("panel");
@@ -19,10 +18,6 @@ const panel_colección = "paneles/colección.html";
 
 botón_nueva_línea.addEventListener("click", () => {
 	panel.setAttribute("src", panel_línea);
-});
-botón_cargar_línea.addEventListener("click", () => {
-	panel.setAttribute("src", panel_colección);
-	console.log("Cargando línea...");
 });
 botón_mis_líneas.addEventListener("click", () => {
 	panel.setAttribute("src", panel_colección);
