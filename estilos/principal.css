@@ -115,6 +115,7 @@ iframe {
 	height: 90vh;
 	margin-top: 20px;
 	background-color: #000;
+	overflow: hidden;
 }
 
 .colección {
@@ -123,4 +124,10 @@ iframe {
 	height: 90vh;
 	margin-top: 20px;
 	background-color: #A33;
+}
+
+.periodo {
+	position: absolute;
+	height: 20px;
+	background-color: #29F;
 }
