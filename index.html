@@ -4,23 +4,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="archivos/logo.png">
+	<link rel="shortcut icon" href="archivos/imágenes/logo.png">
 	<link rel="stylesheet" href="estilos/principal.css">
+	<link rel="stylesheet" href="estilos/oscuro.css" id="tema">
 	<title> Cronos - Líneas Temporales </title>
 </head>
 
 <body>
-	<header>
+	<header class="cabecera">
 		<div class="cabecera">
-			<div class="cabecera">
-				<img id="logo" src="archivos/logo.png" alt="Logo-Waifu Temporal">
-				<h1> Cronos - Líneas Temporales </h1>
-			</div>
-			<div>
-				<button id="mis_líneas" class="botón"> Mis Líneas </button>
-				<button id="nueva_línea" class="botón"> Nueva Línea </button>
-			</div>
+			<img id="logo" src="archivos/imágenes/logo.png" alt="Logo-Waifu Temporal">
+			<h1> Cronos - Líneas Temporales </h1>
 		</div>
+		<div>
+			<button id="mis_líneas" class="botón"> Mis Líneas </button>
+			<button id="nueva_línea" class="botón"> Nueva Línea </button>
+		</div>
+		<aside id="opciones">
+			<p id="botón_idioma"><img id="img_bandera" src="archivos/imágenes/banderas/es.png" alt="Idioma"></p>
+			<ul id="lista_idioma" class="oculto"></ul>
+			<input id="botón_tema" type="image" src="archivos/vectores/modo_claro.svg" alt="Cambiar a modo claro">
+		</aside>
 	</header>
 	<main>
 		<div style="height: 20px;"></div>

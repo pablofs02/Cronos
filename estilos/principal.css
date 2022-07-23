@@ -1,11 +1,3 @@
-:root {
-	--fondo_ult: #223;
-	--fondo_cab: #448;
-	--fondo_pan: #333;
-	--texto: #fff;
-	--botón: #f70;
-}
-
 * {
 	margin: 0;
 }
@@ -13,7 +5,7 @@
 body {
 	background-color: var(--fondo_ult);
 	font-family: sans-serif;
-	color: var(--texto);
+	color: var(--fuente);
 }
 
 header {
@@ -43,7 +35,7 @@ h1 {
 	border-radius: 16px;
 	padding: 8px;
 	background-color: var(--botón);
-	color: var(--texto);
+	color: var(--fuente);
 	font-size: medium;
 	cursor: pointer;
 }
@@ -130,4 +122,64 @@ iframe {
 	position: absolute;
 	height: 20px;
 	background-color: #29F;
+}
+
+#opciones {
+	display: flex;
+}
+
+#botón_idioma {
+	width: 32px;
+	height: 32px;
+	margin: 10px 5px 10px 10px;
+	padding: 0px;
+	border: 0;
+	background: transparent;
+	border-radius: 20%;
+	font-size: 28px;
+	color: var(--fuente);
+}
+
+#botón_idioma:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
+
+#botón_tema {
+	width: 28px;
+	margin: 10px 20px 10px 5px;
+	padding: 0;
+}
+
+#botón_tema:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#lista_idioma {
+	position: absolute;
+	top: 60px;
+	right: 15px;
+	width: max-content;
+	padding: 2px;
+	border: 2px solid var(--borde1);
+	background-color: var(--fondo2);
+}
+
+#lista_idioma > li {
+	padding: 8px;
+}
+
+#lista_idioma > li:hover {
+	cursor: pointer;
+	background-color: var(--borde2);
+}
+
+#lista_idioma > li > img {
+	position: relative;
+	top: 2px;
 }

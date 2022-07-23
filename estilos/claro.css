@@ -1,0 +1,18 @@
+:root {
+	--fondo1: rgb(238, 238, 238);
+	--fondo2: rgb(194, 194, 194);
+	--fondo3: rgb(170, 170, 170);
+	--borde1: rgb(68, 68, 68);
+	--borde2: rgb(102, 102, 102);
+	--fondo_ult: #223;
+	--fondo_cab: #448;
+	--fondo_pan: #333;
+	--fuente: #fff;
+	--botón: #f70;
+	--azul: #4040ff;
+	--verde: #46d146;
+	--amarillo: #d2d200;
+	--naranja: #ffa600;
+	--rojo: #ff0000;
+	--negro: #000000;
+}

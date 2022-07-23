@@ -22,3 +22,22 @@ botón_nueva_línea.addEventListener("click", () => {
 botón_mis_líneas.addEventListener("click", () => {
 	panel.setAttribute("src", panel_colección);
 });
+
+import configurar_idioma from "./configuración/opciones.js";
+// import cambiar_idioma from "./configuración/idioma.js";
+import cambiar_tema from "./configuración/tema.js";
+
+const botón_idioma = document.getElementById("botón_idioma");
+const botón_tema = document.getElementById("botón_tema");
+const nodo_idioma = document.getElementById("lista_idioma");
+const nodo_estilo = document.getElementById("tema");
+
+botón_idioma.addEventListener("click", () => {
+	nodo_idioma.classList.toggle("oculto");
+});
+
+configurar_idioma(nodo_idioma, ["español", "english"]);
+
+botón_tema.addEventListener("click", () => {
+	cambiar_tema(nodo_estilo, botón_tema);
+});
