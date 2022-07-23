@@ -1,3 +1,4 @@
+// ¡Refactorizar e implementar los idiomas!
 export default function cambiar_idioma(idioma) {
 	const lang = {
 		"deutsch": "de", "english": "en", "español": "es", "français": "fr", "italiano": "it", "português": "pt", "中文": "zh", "日本語": "ja", "한국어": "ko"

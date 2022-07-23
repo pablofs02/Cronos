@@ -1,3 +1,4 @@
+// ¿Añadir división por campos en una misma línea temporal?
 const visualizador = document.getElementById("visualizador");
 
 export default function cargar_visualizador(línea_temporal) {
@@ -8,7 +9,7 @@ export default function cargar_visualizador(línea_temporal) {
 
 	actualizar_visualizador();
 }
-
+// ¡Mostrar los diferentes elementos en el visualizador!
 function actualizar_visualizador() {
 	// Actualizar elementos para que ocupen el espacio justo.
 }
@@ -27,6 +28,7 @@ function añadir_eventos(eventos) {
 	});
 }
 
+// ¡Crear correcto objeto HTML para eventos y periodos!
 function crear_periodo(periodo) {
 	const nodo = document.createElement("div");
 	nodo.textContent = periodo.nombre;

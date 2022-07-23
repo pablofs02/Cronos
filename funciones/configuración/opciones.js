@@ -1,3 +1,4 @@
+// ¡Implementar idiomas y refactorizar!
 import cambiar_idioma from "./idioma.js";
 
 export default function configurar_idioma(nodo, idiomas) {

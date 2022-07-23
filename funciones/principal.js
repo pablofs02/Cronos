@@ -23,6 +23,7 @@ botón_mis_líneas.addEventListener("click", () => {
 	panel.setAttribute("src", panel_colección);
 });
 
+// ¡Completar configuración de idiomas!
 import configurar_idioma from "./configuración/opciones.js";
 // import cambiar_idioma from "./configuración/idioma.js";
 import cambiar_tema from "./configuración/tema.js";

@@ -47,6 +47,7 @@ evento.addEventListener("submit", (e) => {
 	if (e.target["fecha-AC"].checked) {
 		data.fecha = -data.fecha;
 	}
+	// ¡Guardar la data en el almacén!
 	console.log(data);
 	evento.reset();
 });

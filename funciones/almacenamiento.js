@@ -1,3 +1,4 @@
+// ¡Almacen que no almacena!
 const almacén = window.indexedDB;
 
 if (almacén) {
