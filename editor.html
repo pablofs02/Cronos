@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="archivos/imágenes/logo.png">
+	<link rel="stylesheet" href="estilos/principal.css">
+	<link rel="stylesheet" href="estilos/oscuro.css" id="tema">
+	<title> Cronos - Líneas Temporales </title>
+</head>
+
+<body>
+	<header class="cabecera">
+		<div class="cabecera">
+			<img id="logo" src="archivos/imágenes/logo.png" alt="Logo-Waifu Temporal">
+			<h1> Cronos </h1>
+		</div>
+		<div>
+			<button id="mis_líneas" class="botón"> Mis Líneas </button>
+			<button id="nueva_línea" class="botón"> Nueva Línea </button>
+		</div>
+		<div id="opciones">
+			<img id="botón_idioma" src="archivos/imágenes/banderas/es.png" alt="Idioma">
+			<ul id="lista_idioma" class="oculto"></ul>
+			<input id="botón_tema" type="image" src="archivos/vectores/modo_claro.svg" alt="Cambiar a modo claro">
+		</div>
+	</header>
+
+	<main>
+		<div style="height: 20px;"></div>
+		<div class="panel">
+			<!-- ¡Arreglar distribución de botones! -->
+			<button id="añadir-periodo" class="botón"> Añadir Periodo </button>
+			<button id="añadir-evento" class="botón"> Añadir Evento </button>
+
+			<div id="nuevo_periodo" class="ventana_formulario oculto">
+				<h2 class="título_formulario"> Periodo Nuevo </h2>
+				<button id="cerrar-periodo-nuevo" class="cerrar"> X </button>
+				
+				<form id="insertar-periodo" class="entrada">
+					<label for="nombre"> Nombre </label>
+					<input type="text" name="nombre" style="grid-column: 2/5;" required>
+
+					<label for="comentario"> Comentario </label>
+					<input type="text" name="comentario" style="grid-column: 2/5;">
+
+					<label for="inicio"> Inicio </label>
+					<input type="text" name="inicio" required>
+					<input type="checkbox" name="inicio-AC">
+					<label for="inicio-AC"> AC </label>
+
+					<label for="fin"> Fin </label>
+					<input type="text" name="fin" required>
+					<input type="checkbox" name="fin-AC">
+					<label for="fin-AC"> AC </label>
+
+					<button> Listo </button>
+				</form>
+			</div>
+
+			<div id="nuevo_evento" class="ventana_formulario oculto">
+				<h2 class="título_formulario"> Evento Nuevo </h2>
+				<button id="cerrar-evento-nuevo" class="cerrar"> X </button>
+
+				<form id="insertar-evento" class="entrada">
+					<label for="nombre"> Nombre </label>
+					<input type="text" name="nombre" style="grid-column: 2/5;" required>
+
+					<label for="comentario"> Comentario </label>
+					<input type="text" name="comentario" style="grid-column: 2/5;">
+
+					<label for="inicio"> Fecha </label>
+					<input type="text" name="fecha" required>
+					<input type="checkbox" name="fecha-AC">
+					<label for="inicio-AC"> AC </label>
+
+					<button> Listo </button>
+				</form>
+			</div>
+
+			<div id="visualizador" class="visualizador">
+			</div>
+		</div>
+	</main>
+
+	<script type="module" src="funciones/creación.js"></script>
+	<script type="module" src="funciones/visualizar.js"></script>
+	<script type="module" src="funciones/principal.js"></script>
+	<script src="funciones/almacenamiento.js"></script>
+</body>
+
+</html>
