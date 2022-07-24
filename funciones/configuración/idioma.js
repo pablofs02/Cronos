@@ -8,7 +8,7 @@ export default function cambiar_idioma(idioma) {
 	};
 
 	// Poner la bandera del idioma en el botón del cambio de idioma.
-	const nodo_bandera = document.getElementById("img_bandera");
+	const nodo_bandera = document.getElementById("botón_idioma");
 	nodo_bandera.setAttribute("src", "archivos/imágenes/banderas/" + banderas[idioma] + ".png");
 
 	// Ponemos la página web en el idioma correspondiente.

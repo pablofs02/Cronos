@@ -1,34 +1,98 @@
-/* ¡Ordenar este desastre! */
+/******************/
+/**** ESENCIAL ****/
+/******************/
+
 * {
 	margin: 0;
 }
 
 body {
-	background-color: var(--fondo_ult);
+	background-color: var(--fondo_base);
 	font-family: sans-serif;
 	color: var(--fuente);
 }
 
+/******************/
+/**** CABECERA ****/
+/******************/
+
 header {
-	background-color: var(--fondo_cab);
+	height: 50px;
+	background-color: var(--fondo_cabecera);
 }
 
 .cabecera {
-	max-height: 20vh;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-h1 {
-	padding: 10px;
+#logo {
+	width: 46px;
+	height: 46px;
+	margin: 2px 20px 2px 20px;
 }
 
-#logo {
-	max-width: 64px;
-	max-height: 64px;
-	margin: 10px;
+/***********************/
+/**** CONFIGURACIÓN ****/
+/***********************/
+
+#opciones {
+	display: flex;
 }
+
+#botón_tema {
+	width: 28px;
+	margin: 10px 20px 10px 8px;
+}
+
+#botón_tema:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
+
+#botón_idioma {
+	width: 32px;
+	height: 22px;
+	margin: auto 8px;
+	border-radius: 16%;
+}
+
+#botón_idioma:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
+
+#lista_idioma {
+	position: absolute;
+	top: 45px;
+	right: 16px;
+	padding: 4px;
+	border: 2px solid var(--borde);
+	background-color: var(--fondo_base);
+	list-style-type: none;
+}
+
+#lista_idioma > li {
+	padding: 6px;
+}
+
+#lista_idioma > li:hover {
+	cursor: pointer;
+	opacity: 80%;
+	background-color: var(--fondo_selección);
+}
+
+#lista_idioma > li > img {
+	position: relative;
+	top: 2px;
+	border-radius: 16%;
+}
+
+/* ¡Ordenar este desastre! */
+/***************/
+/**** OTROS ****/
+/***************/
 
 .botón {
 	margin-right: 20px;
@@ -50,7 +114,7 @@ h1 {
 	width: 98vw;
 	display: block;
 	margin: 0 auto;
-	background-color: var(--fondo_pan);
+	background-color: var(--fondo_panel);
 }
 
 iframe {
@@ -58,7 +122,7 @@ iframe {
 	width: 98vw;
 	display: block;
 	margin: 0 auto;
-	background-color: var(--fondo_pan);
+	background-color: var(--fondo_panel);
 }
 
 .entrada {
@@ -123,64 +187,4 @@ iframe {
 	position: absolute;
 	height: 20px;
 	background-color: #29F;
-}
-
-#opciones {
-	display: flex;
-}
-
-#botón_idioma {
-	width: 32px;
-	height: 32px;
-	margin: 10px 5px 10px 10px;
-	padding: 0px;
-	border: 0;
-	background: transparent;
-	border-radius: 20%;
-	font-size: 28px;
-	color: var(--fuente);
-}
-
-#botón_idioma:hover {
-	cursor: pointer;
-	opacity: 80%;
-}
-
-#botón_tema {
-	width: 28px;
-	margin: 10px 20px 10px 5px;
-	padding: 0;
-}
-
-#botón_tema:hover {
-	cursor: pointer;
-	opacity: 80%;
-}
-
-ul {
-	list-style-type: none;
-}
-
-#lista_idioma {
-	position: absolute;
-	top: 60px;
-	right: 15px;
-	width: max-content;
-	padding: 2px;
-	border: 2px solid var(--borde1);
-	background-color: var(--fondo2);
-}
-
-#lista_idioma > li {
-	padding: 8px;
-}
-
-#lista_idioma > li:hover {
-	cursor: pointer;
-	background-color: var(--borde2);
-}
-
-#lista_idioma > li > img {
-	position: relative;
-	top: 2px;
 }

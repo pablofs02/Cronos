@@ -1,19 +1,15 @@
-/* ¡Limpiar y simplificar todo! */
 :root {
-	--fondo1: rgb(238, 238, 238);
-	--fondo2: rgb(194, 194, 194);
-	--fondo3: rgb(170, 170, 170);
-	--borde1: rgb(68, 68, 68);
-	--borde2: rgb(102, 102, 102);
-	--fondo_ult: #223;
-	--fondo_cab: #448;
-	--fondo_pan: #333;
-	--fuente: #fff;
+	--fondo_base: #223;
+	--fondo_cabecera: #448;
+	--fondo_selección: #ccc;
+	--fondo_panel: #333;
+	--borde: #666;
+	--fuente: #000;
 	--botón: #f70;
-	--azul: #4040ff;
-	--verde: #46d146;
-	--amarillo: #d2d200;
-	--naranja: #ffa600;
-	--rojo: #ff0000;
-	--negro: #000000;
+	--azul: #44f;
+	--verde: #4d4;
+	--amarillo: #dd0;
+	--naranja: #fa0;
+	--rojo: #f00;
+	--negro: #000;
 }
