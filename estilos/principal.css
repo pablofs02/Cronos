@@ -8,8 +8,8 @@
 
 body {
 	background-color: var(--fondo_base);
-	font-family: sans-serif;
 	color: var(--fuente);
+	font-family: sans-serif;
 }
 
 /******************/
@@ -33,13 +33,13 @@ header {
 	margin: 2px 20px 2px 20px;
 }
 
-/***********************/
-/**** CONFIGURACIÓN ****/
-/***********************/
-
 #opciones {
 	display: flex;
 }
+
+/***********************/
+/**** CONFIGURACIÓN ****/
+/***********************/
 
 #botón_tema {
 	width: 28px;
@@ -47,8 +47,8 @@ header {
 }
 
 #botón_tema:hover {
-	cursor: pointer;
 	opacity: 80%;
+	cursor: pointer;
 }
 
 #botón_idioma {
@@ -59,8 +59,8 @@ header {
 }
 
 #botón_idioma:hover {
-	cursor: pointer;
 	opacity: 80%;
+	cursor: pointer;
 }
 
 #lista_idioma {
@@ -71,6 +71,7 @@ header {
 	border: 2px solid var(--borde);
 	background-color: var(--fondo_base);
 	list-style-type: none;
+	z-index: 10;
 }
 
 #lista_idioma > li {
@@ -78,8 +79,8 @@ header {
 }
 
 #lista_idioma > li:hover {
-	cursor: pointer;
 	opacity: 80%;
+	cursor: pointer;
 	background-color: var(--fondo_selección);
 }
 
@@ -89,60 +90,86 @@ header {
 	border-radius: 16%;
 }
 
-/* ¡Ordenar este desastre! */
 /***************/
-/**** OTROS ****/
+/**** BOTÓN ****/
 /***************/
 
 .botón {
-	margin-right: 20px;
-	border: 0 solid;
+	margin: 0 10px;
+	border: 0;
 	border-radius: 16px;
 	padding: 8px;
 	background-color: var(--botón);
 	color: var(--fuente);
 	font-size: medium;
-	cursor: pointer;
 }
 
 .botón:hover {
 	opacity: 80%;
+	cursor: pointer;
 }
 
-.panel {
-	min-height: 85vh;
-	width: 98vw;
-	display: block;
-	margin: 0 auto;
-	background-color: var(--fondo_panel);
-}
+/***************/
+/**** PANEL ****/
+/***************/
 
 iframe {
-	min-height: 85vh;
-	width: 98vw;
+	width: 1200px;
+	height: 680px;
 	display: block;
 	margin: 0 auto;
 	background-color: var(--fondo_panel);
 }
 
-.entrada {
-	display: grid;
-	grid-template-columns: auto auto auto auto;
-	gap: 10px;
-	padding: 10px;
+.visualizador {
+	width: 1200px;
+	height: 620px;
+	position: absolute;
+	margin-top: 20px;
+	background-color: var(--fondo_visualizador);
+	overflow: hidden;
 }
 
-.oculto {
-	display: none;
+.colección {
+	width: 1200px;
+	height: 620px;
+	position: absolute;
+	margin-top: 20px;
+	background-color: var(--fondo_colección);
+}
+
+.periodo {
+	height: 20px;
+	position: absolute;
+	background-color: var(--periodo);
+}
+
+/********************/
+/**** FORMULARIO ****/
+/********************/
+
+.ventana_formulario {
+	width: 360px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	background-color: var(--fondo_formulario);
+	z-index: 10;
+}
+
+.título_formulario {
+	padding: 10px;
 }
 
 .cerrar {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 14px;
+	right: 14px;
 	border: 1px solid #000;
 	border-radius: 20%;
-	background-color: #A33;
+	background-color: var(--rojo);
 }
 
 .cerrar:hover {
@@ -150,41 +177,13 @@ iframe {
 	cursor: pointer;
 }
 
-.título {
-	padding: 10px;
+.entrada {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 10px;
+	padding: 16px;
 }
 
-.ventana_formulario {
-	background-color: #29F;
-	max-width: 25vw;
-	min-width: 20vw;
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	margin: auto;
-	z-index: 100;
-}
-
-.visualizador {
-	position: absolute;
-	width: 100vw;
-	height: 90vh;
-	margin-top: 20px;
-	background-color: #000;
-	overflow: hidden;
-}
-
-.colección {
-	position: absolute;
-	width: 100vw;
-	height: 90vh;
-	margin-top: 20px;
-	background-color: #A33;
-}
-
-.periodo {
-	position: absolute;
-	height: 20px;
-	background-color: #29F;
+.oculto {
+	display: none;
 }
