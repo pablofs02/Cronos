@@ -22,16 +22,3 @@ botón_nueva_línea.addEventListener("click", () => {
 botón_mis_líneas.addEventListener("click", () => {
 	panel.setAttribute("src", panel_colección);
 });
-
-// ¡Completar configuración de idiomas!
-import configurar_idioma from "./configuración/opciones.js";
-// import cambiar_idioma from "./configuración/idioma.js";
-
-const botón_idioma = document.getElementById("botón_idioma");
-const nodo_idioma = document.getElementById("lista_idioma");
-
-botón_idioma.addEventListener("click", () => {
-	nodo_idioma.classList.toggle("oculto");
-});
-
-configurar_idioma(nodo_idioma, ["español", "english"]);
