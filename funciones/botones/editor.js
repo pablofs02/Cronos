@@ -1,4 +1,4 @@
-import { guardar_dato } from "./almacenamiento.js";
+import { guardar_dato } from "../almacenamiento.js";
 
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
@@ -44,15 +44,15 @@ cerrar_periodo.addEventListener("click", () => {
 
 evento.addEventListener("submit", (e) => {
 	e.preventDefault();
-	const data = {
+	const dato = {
 		nombre: e.target.nombre.value,
 		comentario: e.target.comentario.value,
 		fecha: e.target.fecha.value,
 	};
 	if (e.target["fecha-AC"].checked) {
-		data.fecha = -data.fecha;
+		dato.fecha = -dato.fecha;
 	}
-	console.log(data);
+	guardar_dato(dato, tabla, base);
 	evento.reset();
 });
 evento_nuevo.addEventListener("click", () => {
