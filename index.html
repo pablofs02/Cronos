@@ -17,8 +17,8 @@
 			<h1> Cronos </h1>
 		</div>
 		<div>
-			<button id="mis_líneas" class="botón"> Mis Líneas </button>
-			<button id="nueva_línea" class="botón"> Nueva Línea </button>
+			<a href="index.html"> <button class="botón"> Mis Líneas </button> </a>
+			<a href="editor.html"> <button class="botón"> Nueva Línea </button> </a>
 		</div>
 		<div id="opciones">
 			<img id="botón_idioma" src="archivos/imágenes/banderas/es.png" alt="Idioma">
@@ -32,13 +32,14 @@
 		<div class="panel">
 			<button id="cargar_línea" class="botón"> Cargar Línea </button>
 			<!-- ¡Añadir los datos y mostrarlos en forma de rejilla rejilla! -->
-			<div id="colección" class="colección"></div>
+			<div id="colección"></div>
 		</div>
 	</main>
 
-	<script src="funciones/colección.js"></script>
-	<script type="module" src="funciones/principal.js"></script>
+	<script src="funciones/configuración/tema.js"></script>
+	<script src="funciones/configuración/idioma.js"></script>
 	<script src="funciones/almacenamiento.js"></script>
+	<script src="funciones/colección.js"></script>
 </body>
 
 </html>
