@@ -7,16 +7,28 @@ const idiomas = {
 
 const idiomas_disponibles = ["español", "english"];
 
+if (!localStorage.getItem("idioma"))
+	localStorage.setItem("idioma", tema_actual());
+else
+	cambiar_idioma(localStorage.getItem("idioma"));
+
 crear_listado_idiomas();
 
 botón_idioma.addEventListener("click", () => {
 	listado_idioma.classList.toggle("oculto");
 });
 
+function idioma_actual() {
+	const lang = document.querySelector("html").getAttribute("lang");
+	const posición = Object.values(idiomas).indexOf(lang);
+	return Object.keys(idiomas)[posición];
+}
+
 function cambiar_idioma(idioma) {
 	botón_idioma.setAttribute("src", "archivos/imágenes/banderas/" + idiomas[idioma] + ".png");
 	document.querySelector("html").setAttribute("lang", idiomas[idioma]);
 	listado_idioma.classList.toggle("oculto");
+	localStorage.setItem("idioma", idioma);
 }
 
 function crear_listado_idiomas() {
