@@ -1,22 +1,21 @@
-// ¡Almacen que no almacena!
-const almacén = window.indexedDB;
+const base_de_datos = indexedDB;
 
-if (almacén) {
-	let bd;
-	const petición = almacén.open("líneas", 1);
+if (base_de_datos) {
+	let respuesta;
+	const petición = base_de_datos.open("Cronos", 1);
 
 	petición.onsuccess = () => {
-		bd = petición.result;
-		// console.log("Base abierta", bd);
+		respuesta = petición.result;
+		console.log("Base abierta", respuesta);
 	};
 
 	petición.onupgradeneeded = () => {
-		bd = petición.result;
-		// console.log("Base creada", bd);
-		const obj = bd.createObjectStore("líneas");
+		respuesta = petición.result;
+		console.log("Base creada", respuesta);
+		const almacén = respuesta.createObjectStore("líneas_temporales");
 	};
 
 	petición.onerror = (error) => {
-		console.log("Error: ", error);
+		console.error(error);
 	};
 }

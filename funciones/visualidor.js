@@ -1,7 +1,7 @@
 // ¿Añadir división por campos en una misma línea temporal?
 const visualizador = document.getElementById("visualizador");
 
-export default function cargar_visualizador(línea_temporal) {
+function cargar_visualizador(línea_temporal) {
 	limpiar_visualizador();
 
 	añadir_periodos(línea_temporal.contenido.periodos);
@@ -45,7 +45,7 @@ function crear_periodo(periodo) {
 	ej.style.width = "2000px";
 	ej.style.bottom = "20px";
 	ej.style.backgroundColor = "#986";
-	ej.style.left = "-500px"
+	ej.style.left = "-500px";
 	visualizador.appendChild(ej);
 	return nodo;
 }
