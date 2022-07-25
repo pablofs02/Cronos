@@ -1,3 +1,5 @@
+import { guardar_dato } from "./almacenamiento.js";
+
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
 const cerrar_periodo = document.getElementById("cerrar-periodo-nuevo");
@@ -8,21 +10,24 @@ const evento_nuevo = document.getElementById("añadir-evento");
 const cerrar_evento = document.getElementById("cerrar-evento-nuevo");
 const nuevo_evento = document.getElementById("nuevo_evento");
 
+const base = "Cronos";
+const tabla = "líneas_temporales";
+
 periodo.addEventListener("submit", (e) => {
 	e.preventDefault();
-	const data = {
+	const dato = {
 		nombre: e.target.nombre.value,
 		comentario: e.target.comentario.value,
 		inicio: e.target.inicio.value,
 		fin: e.target.fin.value
 	};
 	if (e.target["inicio-AC"].checked) {
-		data.inicio = -data.inicio;
+		dato.inicio = -dato.inicio;
 	}
 	if (e.target["fin-AC"].checked) {
-		data.fin = -data.fin;
+		dato.fin = -dato.fin;
 	}
-	console.log(data);
+	guardar_dato(dato, tabla, base);
 	periodo.reset();
 });
 periodo_nuevo.addEventListener("click", () => {
@@ -47,7 +52,6 @@ evento.addEventListener("submit", (e) => {
 	if (e.target["fecha-AC"].checked) {
 		data.fecha = -data.fecha;
 	}
-	// ¡Guardar la data en el almacén!
 	console.log(data);
 	evento.reset();
 });
