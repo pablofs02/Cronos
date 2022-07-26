@@ -1,70 +1,65 @@
-export function guardar_dato(dato, tabla, base) {
-	const base_de_datos_indexada = indexedDB;
-
-	if (base_de_datos_indexada) {
-		let base_de_datos;
-		const petición = base_de_datos_indexada.open(base, 1);
-
-		petición.onsuccess = () => {
-			base_de_datos = petición.result;
-			console.log("Base abierta", base_de_datos);
-			const transacción = base_de_datos.transaction([tabla], "readwrite");
-			const almacén = transacción.objectStore(tabla);
-			almacén.add(dato);
-			console.log("Guardado: ", dato);
-		};
-
-		petición.onupgradeneeded = () => {
-			base_de_datos = petición.result;
-			console.log("Base creada", base_de_datos);
-			base_de_datos.createObjectStore(tabla, {
-				keyPath: "nombre"
-			});
-		};
-
-		petición.onerror = (error) => {
-			console.error(error);
-		};
-	}
+export function guardar_dato(base, tabla, dato) {
+	acceder_almacén("guardar", { base, tabla, dato });
 }
 
-export function tomar_dato(dato, tabla, base) {
+export function tomar_dato(base, tabla, dato) {
+	acceder_almacén("tomar", { base, tabla, dato });
+}
+
+export function listar_datos(base, tabla) {
+	acceder_almacén("listar", { base, tabla });
+}
+
+function acceder_almacén(operación, { base, tabla, dato }) {
 	const base_de_datos_indexada = indexedDB;
 
 	if (base_de_datos_indexada) {
 		let base_de_datos;
-		const petición = base_de_datos_indexada.open(base, 1);
+		const petición_abrir = base_de_datos_indexada.open(base, 1);
 
-		petición.onsuccess = () => {
-			base_de_datos = petición.result;
+		petición_abrir.onsuccess = () => {
+			base_de_datos = petición_abrir.result;
 			console.log("Base abierta", base_de_datos);
-			const transacción = base_de_datos.transaction([tabla], "readonly");
-			const almacén = transacción.objectStore(tabla);
-			const puntero = almacén.openCursor();
+			if (operación === "guardar") {
+				const transacción = base_de_datos.transaction([tabla], "readwrite");
+				const almacén = transacción.objectStore(tabla);
+				almacén.add(dato);
+				console.log("Guardado: ", dato);
+			} else if (operación === "tomar") {
+				const transacción = base_de_datos.transaction([tabla], "readonly");
+				const almacén = transacción.objectStore(tabla);
+				const petición_tomar = almacén.get(dato);
 
-			puntero.onsuccess = (par) => {
-				const cursor = par.target.result;
-				if (cursor) {
-					console.log("Dato extraído: ", cursor.value);
-					cursor.continue();
-				}
-			};
+				petición_tomar.onsuccess = () => {
+					const objeto = petición_tomar.result;
+					if (objeto)
+						console.log(objeto);
+					else
+						console.error("No existe un objeto asociada a esa clave.");
+				};
+			} else if (operación === "listar") {
+				const transacción = base_de_datos.transaction([tabla], "readonly");
+				const almacén = transacción.objectStore(tabla);
+				const petición_listar = almacén.openCursor();
 
-			puntero.onerror = () => {
-				console.error("No se pudo crear el puntero.");
-			};
+				petición_listar.onsuccess = (objeto) => {
+					const cursor = objeto.target.result;
+					if (cursor) {
+						console.log("Dato extraído: ", cursor.value);
+						cursor.continue();
+					}
+				};
+			} else {
+				console.error("Operación desconocida.");
+			}
 		};
 
-		petición.onupgradeneeded = () => {
-			base_de_datos = petición.result;
+		petición_abrir.onupgradeneeded = () => {
+			base_de_datos = petición_abrir.result;
 			console.log("Base creada", base_de_datos);
 			base_de_datos.createObjectStore(tabla, {
 				keyPath: "nombre"
 			});
-		};
-
-		petición.onerror = (error) => {
-			console.error(error);
 		};
 	}
 }

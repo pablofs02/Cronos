@@ -1,4 +1,4 @@
-import { guardar_dato, tomar_dato } from "../almacenamiento.js";
+import { guardar_dato, listar_datos, tomar_dato } from "../almacenamiento.js";
 
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
@@ -12,6 +12,8 @@ const nuevo_evento = document.getElementById("nuevo_evento");
 
 const base = "Cronos";
 const tabla = "líneas_temporales";
+
+listar_datos(base, tabla);
 
 periodo.addEventListener("submit", (e) => {
 	e.preventDefault();
@@ -27,7 +29,7 @@ periodo.addEventListener("submit", (e) => {
 	if (e.target["fin-AC"].checked) {
 		dato.fin = -dato.fin;
 	}
-	guardar_dato(dato, tabla, base);
+	guardar_dato(base, tabla, dato);
 	periodo.reset();
 });
 periodo_nuevo.addEventListener("click", () => {
@@ -52,7 +54,7 @@ evento.addEventListener("submit", (e) => {
 	if (e.target["fecha-AC"].checked) {
 		dato.fecha = -dato.fecha;
 	}
-	guardar_dato(dato, tabla, base);
+	guardar_dato(base, tabla, dato);
 	evento.reset();
 });
 evento_nuevo.addEventListener("click", () => {
