@@ -27,8 +27,20 @@ function idioma_actual() {
 function cambiar_idioma(idioma) {
 	botón_idioma.setAttribute("src", "archivos/imágenes/banderas/" + idiomas[idioma] + ".png");
 	document.querySelector("html").setAttribute("lang", idiomas[idioma]);
-	listado_idioma.classList.toggle("oculto");
+	ocultar_listado();
 	localStorage.setItem("idioma", idioma);
+}
+
+function mostrar_listado() {
+	if (listado_idioma.classList.contains("oculto")) {
+		listado_idioma.classList.remove("oculto");
+	}
+}
+
+function ocultar_listado() {
+	if (!listado_idioma.classList.contains("oculto")) {
+		listado_idioma.classList.add("oculto");
+	}
 }
 
 function crear_listado_idiomas() {
