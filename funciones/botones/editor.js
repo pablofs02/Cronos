@@ -1,4 +1,4 @@
-import { guardar_dato, listar_datos, tomar_dato } from "../almacenamiento.js";
+import { guardar_dato, cambiar_dato, tomar_dato } from "../almacenamiento.js";
 
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
@@ -12,8 +12,6 @@ const nuevo_evento = document.getElementById("nuevo_evento");
 
 const base = "Cronos";
 const tabla = "líneas_temporales";
-
-listar_datos(base, tabla);
 
 periodo.addEventListener("submit", (e) => {
 	e.preventDefault();

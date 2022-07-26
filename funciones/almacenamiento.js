@@ -10,6 +10,10 @@ export function listar_datos(base, tabla) {
 	acceder_almacén("listar", { base, tabla });
 }
 
+export function cambiar_dato(base, tabla, dato) {
+	acceder_almacén("cambiar", { base, tabla, dato });
+}
+
 function acceder_almacén(operación, { base, tabla, dato }) {
 	const base_de_datos_indexada = indexedDB;
 
@@ -25,6 +29,10 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 				const almacén = transacción.objectStore(tabla);
 				almacén.add(dato);
 				console.log("Guardado: ", dato);
+			} else if (operación === "cambiar") {
+				const transacción = base_de_datos.transaction([tabla], "readwrite");
+				const almacén = transacción.objectStore(tabla);
+				almacén.put(dato);
 			} else if (operación === "tomar") {
 				const transacción = base_de_datos.transaction([tabla], "readonly");
 				const almacén = transacción.objectStore(tabla);
