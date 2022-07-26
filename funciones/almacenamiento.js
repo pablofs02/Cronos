@@ -14,6 +14,10 @@ export function cambiar_dato(base, tabla, dato) {
 	acceder_almacén("cambiar", { base, tabla, dato });
 }
 
+export function borrar_dato(base, tabla, dato) {
+	acceder_almacén("borrar", { base, tabla, dato });
+}
+
 function acceder_almacén(operación, { base, tabla, dato }) {
 	const base_de_datos_indexada = indexedDB;
 
@@ -57,6 +61,10 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 						cursor.continue();
 					}
 				};
+			} else if (operación === "borrar") {
+				const transacción = base_de_datos.transaction([tabla], "readwrite");
+				const almacén = transacción.objectStore(tabla);
+				almacén.delete(dato.nombre);
 			} else {
 				console.error("Operación desconocida.");
 			}
