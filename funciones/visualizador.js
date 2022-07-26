@@ -28,30 +28,24 @@ function añadir_eventos(eventos) {
 	});
 }
 
-// ¡Crear correcto objeto HTML para eventos y periodos!
 function crear_periodo(periodo) {
 	const nodo = document.createElement("div");
 	nodo.textContent = periodo.nombre;
 	nodo.title = periodo.comentario;
 	nodo.setAttribute("class", "periodo");
-	nodo.style.width = "2000px";
+	nodo.style.width = "200px";
 	nodo.style.left = "10px";
 	nodo.style.bottom = 0;
-
-	const ej = document.createElement("div");
-	ej.textContent = "EJEMPlo";
-	ej.setAttribute("class", "periodo");
-	ej.title;
-	ej.style.width = "2000px";
-	ej.style.bottom = "20px";
-	ej.style.backgroundColor = "#986";
-	ej.style.left = "-500px";
-	visualizador.appendChild(ej);
 	return nodo;
 }
 
 function crear_evento(evento) {
 	const nodo = document.createElement("div");
+	nodo.textContent = evento.nombre;
+	nodo.title = evento.comentario;
+	nodo.setAttribute("class", "evento");
+	nodo.style.bottom = "20px";
+	nodo.style.left = "25px";
 	return nodo;
 }
 
@@ -66,13 +60,17 @@ cargar_visualizador(
 	{
 		contenido: {
 			periodos: [{
-				"nombre": "Nombre del periodo",
-				"comentario": "Comentario del periodo",
-				"fecha": {
-					"inicio": 10,
-					"fin": 30
+				nombre: "Nombre del Periodo",
+				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
+				fecha: {
+					inicio: 10,
+					fin: 30
 				}
 			}],
-			eventos: []
+			eventos: [{
+				nombre: "Nombre del Evento",
+				comentario: "Comentario del evento que voy a hacer largo para que se vea claramente si funciona.",
+				fecha: 20
+			}]
 		}
 	});

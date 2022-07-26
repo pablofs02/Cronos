@@ -151,6 +151,13 @@ header {
 	background-color: var(--periodo);
 }
 
+.evento {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	background-color: var(--evento);
+}
+
 /********************/
 /**** FORMULARIO ****/
 /********************/
