@@ -1,4 +1,4 @@
-import { guardar_dato } from "../almacenamiento.js";
+import { guardar_dato, tomar_dato } from "../almacenamiento.js";
 
 const periodo = document.getElementById("insertar-periodo");
 const periodo_nuevo = document.getElementById("añadir-periodo");
