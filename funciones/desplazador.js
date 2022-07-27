@@ -6,7 +6,9 @@ let posición_inicial_barra = 0;
 let posición_inicial_ratón = 0;
 let diferencia_ratón = 0;
 
-desplazador.addEventListener("mousedown", () => {
+desplazador.addEventListener("mousedown", (ratón) => {
+	if (!sobre_barra(ratón))
+		barra.style.left = ratón.offsetX - (barra.clientWidth / 2) + "px";
 	posición_inicial_barra = desunizar(barra.style.left);
 	agarrando = true;
 	document.body.style.cursor = "grabbing";
@@ -48,4 +50,10 @@ function límite_derecho() {
 	const posición_barra = Number(desunizar(barra.style.left));
 	const máximo_barra = Number(desplazador.clientWidth - barra.clientWidth);
 	return posición_barra_futura > máximo_barra || posición_barra > máximo_barra;
+}
+
+function sobre_barra(ratón) {
+	const izquierda = desunizar(barra.style.left);
+	const derecha = Number(izquierda) + Number(barra.clientWidth);
+	return ratón.offsetX > izquierda && ratón.offsetX < derecha;
 }
