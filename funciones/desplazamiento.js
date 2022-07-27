@@ -12,6 +12,14 @@ let agarrando_v = false;
 let posición_inicial_barra_v = 0;
 let posición_inicial_ratón_y = 0;
 
+export function activar_barra_lateral() {
+	desplazador_v.classList.remove("oculto");
+}
+
+export function desactivar_barra_lateral() {
+	desplazador_v.classList.add("oculto");
+}
+
 desplazador_h.addEventListener("mousedown", (ratón) => {
 	if (!sobre_barra_h(ratón)) {
 		barra_h.style.left = ratón.offsetX - (barra_h.clientWidth / 2) + "px";

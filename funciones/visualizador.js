@@ -5,7 +5,7 @@ const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
 
 const propiedades = {
-	dimenesiones: 10
+	escala: 100
 };
 
 function cargar_visualizador(línea_temporal) {
@@ -48,11 +48,11 @@ function crear_periodo(periodo) {
 
 function crear_evento(evento) {
 	const nodo = document.createElement("div");
-	nodo.textContent = evento.nombre;
-	nodo.title = evento.comentario;
-	nodo.setAttribute("class", "evento");
-	nodo.style.bottom = "20px";
-	nodo.style.left = "25px";
+	// nodo.textContent = evento.nombre;
+	// nodo.title = evento.comentario;
+	// nodo.setAttribute("class", "evento");
+	// nodo.style.bottom = "20px";
+	// nodo.style.left = "25px";
 	return nodo;
 }
 
