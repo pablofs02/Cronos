@@ -4,16 +4,13 @@
 
 * {
 	margin: 0;
+	user-select: none;
 }
 
 body {
 	background-color: var(--fondo_base);
 	color: var(--fuente);
 	font-family: sans-serif;
-}
-
-a {
-	text-decoration: none;
 }
 
 .oculto {
@@ -128,21 +125,31 @@ header {
 	margin: 0 auto;
 }
 
-#visualizador {
-	width: 1200px;
-	height: 620px;
-	position: absolute;
-	margin-top: 20px;
-	background-color: var(--fondo_visualizador);
-	overflow: hidden;
-}
-
 #colección {
 	width: 1200px;
 	height: 620px;
 	position: absolute;
 	margin-top: 20px;
 	background-color: var(--fondo_colección);
+}
+
+/**********************/
+/**** VISUALIZADOR ****/
+/**********************/
+
+#visualizador {
+	width: 1200px;
+	height: 620px;
+	position: absolute;
+	margin-top: 20px;
+	background-color: var(--fondo_visualizador);
+}
+
+#mostrador {
+	width: 1200px;
+	height: 580px;
+	position: absolute;
+	overflow: hidden;
 }
 
 .periodo {
@@ -156,6 +163,36 @@ header {
 	height: 40px;
 	position: absolute;
 	background-color: var(--evento);
+}
+
+/*********************/
+/**** DESPLAZADOR ****/
+/*********************/
+
+#desplazador {
+	width: 1200px;
+	height: 40px;
+	position: absolute;
+	bottom: 0;
+	cursor: grab;
+}
+
+#desplazador:active {
+	cursor: grabbing;
+}
+
+#barra {
+	width: 200px;
+	height: 40px;
+	position: absolute;
+	background-color: var(--naranja);
+}
+
+#protector_barra {
+	width: 1200px;
+	height: 40px;
+	position: absolute;
+	bottom: 0;
 }
 
 /********************/
