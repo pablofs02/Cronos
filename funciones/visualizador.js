@@ -1,6 +1,12 @@
 // ¿Añadir división por campos en una misma línea temporal?
 const visualizador = document.getElementById("visualizador");
 const mostrador = document.getElementById("mostrador");
+const mostrador_periodos = document.getElementById("periodos");
+const mostrador_eventos = document.getElementById("eventos");
+
+const propiedades = {
+	dimenesiones: 10
+};
 
 function cargar_visualizador(línea_temporal) {
 	limpiar_visualizador();
@@ -18,14 +24,14 @@ function actualizar_visualizador() {
 function añadir_periodos(periodos) {
 	periodos.forEach(periodo => {
 		const nodo_periodo = crear_periodo(periodo);
-		mostrador.appendChild(nodo_periodo);
+		mostrador_periodos.appendChild(nodo_periodo);
 	});
 }
 
 function añadir_eventos(eventos) {
 	eventos.forEach(evento => {
 		const nodo_evento = crear_evento(evento);
-		mostrador.appendChild(nodo_evento);
+		mostrador_eventos.appendChild(nodo_evento);
 	});
 }
 
@@ -51,8 +57,11 @@ function crear_evento(evento) {
 }
 
 function limpiar_visualizador() {
-	while (mostrador.firstChild) {
-		mostrador.firstChild.remove();
+	while (mostrador_periodos.firstChild) {
+		mostrador_periodos.firstChild.remove();
+	}
+	while (mostrador_eventos.firstChild) {
+		mostrador_eventos.firstChild.remove();
 	}
 }
 
