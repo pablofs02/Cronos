@@ -27,12 +27,10 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 
 		petición_abrir.onsuccess = () => {
 			base_de_datos = petición_abrir.result;
-			console.log("Base abierta", base_de_datos);
 			if (operación === "guardar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
 				almacén.add(dato);
-				console.log("Guardado: ", dato);
 			} else if (operación === "cambiar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
@@ -57,7 +55,6 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 				petición_listar.onsuccess = (objeto) => {
 					const cursor = objeto.target.result;
 					if (cursor) {
-						console.log("Dato extraído: ", cursor.value);
 						cursor.continue();
 					}
 				};
@@ -72,7 +69,6 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 
 		petición_abrir.onupgradeneeded = () => {
 			base_de_datos = petición_abrir.result;
-			console.log("Base creada", base_de_datos);
 			base_de_datos.createObjectStore(tabla, {
 				keyPath: "nombre"
 			});
