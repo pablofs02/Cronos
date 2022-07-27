@@ -1,5 +1,5 @@
-const desplazador = document.getElementById("desplazador");
-const barra = document.getElementById("barra");
+const desplazador = document.getElementById("desplazador_horizontal");
+const barra = document.getElementById("barra_horizontal");
 
 let agarrando = false;
 let posición_inicial_barra = 0;

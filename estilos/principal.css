@@ -171,26 +171,32 @@ header {
 
 #desplazador {
 	width: 1200px;
+	height: 620px;
+	position: absolute;
+}
+
+#desplazador_horizontal {
+	width: 1160px;
 	height: 40px;
 	position: absolute;
 	bottom: 0;
 	cursor: grab;
 }
 
-#desplazador:active {
+#desplazador_horizontal:active {
 	cursor: grabbing;
 }
 
-#barra {
+#barra_horizontal {
 	width: 200px;
 	height: 40px;
 	position: absolute;
 	background-color: var(--naranja);
 }
 
-#protector_barra {
-	width: 1200px;
-	height: 40px;
+#barra_horizontal_protector {
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	bottom: 0;
 }
