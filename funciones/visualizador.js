@@ -1,14 +1,33 @@
+import { actualizar_barra_h } from "./desplazamiento.js";
+
 // ¿Añadir división por campos en una misma línea temporal?
-const visualizador = document.getElementById("visualizador");
-const mostrador = document.getElementById("mostrador");
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
 
 const propiedades = {
-	escala: 100
+	proporción: 100,
+	inicio: 0,
+	final: 10
 };
 
-function cargar_visualizador(línea_temporal) {
+const aumentar = document.getElementById("aumentar");
+const disminuir = document.getElementById("disminuir");
+
+aumentar.addEventListener("click", () => {
+	if (propiedades.proporción < 100) {
+		propiedades.proporción += 10;
+		actualizar_barra_h(propiedades.proporción);
+	}
+});
+
+disminuir.addEventListener("click", () => {
+	if (propiedades.proporción > 10) {
+		propiedades.proporción -= 10;
+		actualizar_barra_h(propiedades.proporción);
+	}
+});
+
+export function cargar_visualizador(línea_temporal) {
 	limpiar_visualizador();
 
 	añadir_periodos(línea_temporal.contenido.periodos);
@@ -16,9 +35,9 @@ function cargar_visualizador(línea_temporal) {
 
 	actualizar_visualizador();
 }
-// ¡Mostrar los diferentes elementos en el visualizador!
-function actualizar_visualizador() {
-	// Actualizar elementos para que ocupen el espacio justo.
+
+export function actualizar_visualizador() {
+	actualizar_barra_h(propiedades.proporción);
 }
 
 function añadir_periodos(periodos) {
@@ -40,19 +59,14 @@ function crear_periodo(periodo) {
 	nodo.textContent = periodo.nombre;
 	nodo.title = periodo.comentario;
 	nodo.setAttribute("class", "periodo");
-	nodo.style.width = "200px";
-	nodo.style.left = "10px";
 	nodo.style.bottom = 0;
 	return nodo;
 }
 
 function crear_evento(evento) {
 	const nodo = document.createElement("div");
-	// nodo.textContent = evento.nombre;
-	// nodo.title = evento.comentario;
-	// nodo.setAttribute("class", "evento");
-	// nodo.style.bottom = "20px";
-	// nodo.style.left = "25px";
+	nodo.setAttribute("class", "evento");
+	nodo.title = evento.comentario;
 	return nodo;
 }
 

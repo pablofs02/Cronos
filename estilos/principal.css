@@ -164,8 +164,8 @@ header {
 }
 
 .evento {
-	width: 40px;
-	height: 40px;
+	/* width: 40px; */
+	/* height: 40px; */
 	position: absolute;
 	background-color: var(--evento);
 }
@@ -252,17 +252,17 @@ header {
 	position: absolute;
 }
 
-/***********************/
-/**** DIMENSIONADOR ****/
-/***********************/
+/************************/
+/**** PROPORCIONADOR ****/
+/************************/
 
-#dimensionador {
+#proporcionador {
 	position: absolute;
 	display: flex;
 	margin: 20px;
 }
 
-.dimensión {
+.proporción {
 	width: 32px;
 	height: 32px;
 	margin-right: 16px;
@@ -270,7 +270,7 @@ header {
 	background-color: var(--rojo);
 }
 
-.dimensión:hover {
+.proporción:hover {
 	opacity: 80%;
 	cursor: pointer;
 }

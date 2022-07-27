@@ -12,6 +12,11 @@ let agarrando_v = false;
 let posición_inicial_barra_v = 0;
 let posición_inicial_ratón_y = 0;
 
+export function actualizar_barra_h(proporción) {
+	barra_h.style.width = (desplazador_h.clientWidth / 100) * proporción + "px";
+	comprobar_límites_h();
+}
+
 export function activar_barra_lateral() {
 	desplazador_v.classList.remove("oculto");
 }
