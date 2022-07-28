@@ -1,4 +1,4 @@
-import { actualizar_barra_h, longitud_desplazamiento } from "./desplazamiento.js";
+import { actualizar_barra_h, desunizar, longitud_desplazamiento } from "./desplazamiento.js";
 
 // ¿Añadir división por campos en una misma línea temporal?
 const mostrador_periodos = document.getElementById("periodos");
@@ -15,16 +15,18 @@ const aumentar = document.getElementById("aumentar");
 const disminuir = document.getElementById("disminuir");
 
 aumentar.addEventListener("click", () => {
-	if (propiedades.proporción < 100) {
-		propiedades.proporción += 10;
+	if (propiedades.proporción > 10) {
+		propiedades.proporción -= 10;
 		actualizar_barra_h(propiedades.proporción);
+		actualizar_proporción_periodos();
 	}
 });
 
 disminuir.addEventListener("click", () => {
-	if (propiedades.proporción > 10) {
-		propiedades.proporción -= 10;
+	if (propiedades.proporción < 100) {
+		propiedades.proporción += 10;
 		actualizar_barra_h(propiedades.proporción);
+		actualizar_proporción_periodos();
 	}
 });
 
@@ -47,6 +49,16 @@ function actualizar_posición() {
 
 }
 
+function actualizar_proporción_periodos() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const ancho_100 = desunizar(periodo.getAttribute("ancho"));
+		const ancho = ancho_100 / propiedades.proporción * 100 + "px";
+		periodo.style.width = ancho;
+	}
+}
+
 function actualizar_longitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
@@ -57,6 +69,7 @@ function actualizar_longitud() {
 		const dif_fecha_periodo = fin - inicio;
 		const dif_max_min = propiedades.máximo - propiedades.mínimo;
 		const ancho = desplazador / dif_max_min * dif_fecha_periodo + "px";
+		periodo.setAttribute("ancho", ancho);
 		periodo.style.width = ancho;
 	}
 

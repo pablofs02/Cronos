@@ -163,6 +163,7 @@ header {
 	position: absolute;
 	background-color: var(--periodo);
 	overflow: hidden;
+	z-index: 5;
 }
 
 .evento {
@@ -170,6 +171,8 @@ header {
 	/* height: 40px; */
 	position: absolute;
 	background-color: var(--evento);
+	overflow: hidden;
+	z-index: 5;
 }
 
 /***************/
