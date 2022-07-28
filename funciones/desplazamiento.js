@@ -81,6 +81,10 @@ document.body.addEventListener("mouseup", () => {
 	}
 });
 
+export function longitud_desplazamiento() {
+	return desplazador_h.clientWidth;
+}
+
 function desunizar(variable) {
 	return variable.substring(0, variable.length - 2);
 }
