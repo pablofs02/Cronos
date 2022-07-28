@@ -67,9 +67,7 @@ function actualizar_proporción_periodos() {
 		const ancho = ancho_100 / propiedades.proporción * 100 + "px";
 		periodo.style.width = ancho;
 		const posición_100 = periodo.getAttribute("pos_x");
-		console.log(posición_100);
 		const posición = posición_100 / propiedades.proporción * 100 + "px";
-		console.log(posición);
 		periodo.style.left = posición;
 	}
 }
