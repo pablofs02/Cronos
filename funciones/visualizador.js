@@ -27,6 +27,7 @@ disminuir.addEventListener("click", () => {
 		propiedades.proporción += 10;
 		actualizar_barra_h(propiedades.proporción);
 		actualizar_proporción_periodos();
+		actualizar_posición();
 	}
 });
 
@@ -46,7 +47,15 @@ export function actualizar_visualizador() {
 }
 
 function actualizar_posición() {
-
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const desplazador = longitud_desplazamiento();
+		const dif_max_min = propiedades.máximo - propiedades.mínimo;
+		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
+		const distancia = desplazador / dif_max_min * dif_min_per + "px";
+		periodo.style.left = distancia;
+	}
 }
 
 function actualizar_proporción_periodos() {
