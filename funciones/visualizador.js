@@ -44,6 +44,7 @@ export function actualizar_visualizador() {
 	actualizar_barra_h(propiedades.proporción);
 	actualizar_posición();
 	actualizar_longitud();
+	actualizar_proporción_periodos();
 }
 
 function actualizar_posición() {
@@ -53,8 +54,8 @@ function actualizar_posición() {
 		const desplazador = longitud_desplazamiento();
 		const dif_max_min = propiedades.máximo - propiedades.mínimo;
 		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
-		const distancia = desplazador / dif_max_min * dif_min_per + "px";
-		periodo.style.left = distancia;
+		const distancia = desplazador / dif_max_min * dif_min_per;
+		periodo.setAttribute("pos_x", distancia);
 	}
 }
 
@@ -65,6 +66,11 @@ function actualizar_proporción_periodos() {
 		const ancho_100 = desunizar(periodo.getAttribute("ancho"));
 		const ancho = ancho_100 / propiedades.proporción * 100 + "px";
 		periodo.style.width = ancho;
+		const posición_100 = periodo.getAttribute("pos_x");
+		console.log(posición_100);
+		const posición = posición_100 / propiedades.proporción * 100 + "px";
+		console.log(posición);
+		periodo.style.left = posición;
 	}
 }
 
