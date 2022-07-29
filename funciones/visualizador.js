@@ -48,14 +48,27 @@ export function actualizar_visualizador() {
 	actualizar_longitud();
 }
 
+export function desplazar_elementos() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const posición_base = periodo.getAttribute("pos_x");
+		const longitud_total = longitud_visualizador() * 100 / propiedades.proporción;
+		const desplazamiento = posición_actual() / 100 * longitud_total;
+		const exceso = posición_actual() / 100 * longitud_visualizador();
+		const posición_desplazada = posición_base - desplazamiento + exceso;
+		periodo.style.left = posición_desplazada + "px";
+	}
+}
+
 function actualizar_posición() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_relativa = periodo.getAttribute("posición");
 		const posición_absoluta = longitud_visualizador() / 100 * posición_relativa;
-		console.log(posición_absoluta);
 		const distancia = posición_absoluta * (100 / propiedades.proporción);
+		periodo.setAttribute("pos_x", distancia);
 		periodo.style.left = distancia + "px";
 	}
 }

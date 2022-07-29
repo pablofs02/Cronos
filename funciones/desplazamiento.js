@@ -1,3 +1,5 @@
+import { desplazar_elementos } from "./visualizador.js";
+
 const desplazador_h = document.getElementById("desplazador_horizontal");
 const barra_h = document.getElementById("barra_horizontal");
 
@@ -33,6 +35,7 @@ desplazador_h.addEventListener("mousedown", (ratón) => {
 	if (!sobre_barra_h(ratón)) {
 		barra_h.style.left = ratón.offsetX - (barra_h.clientWidth / 2) + "px";
 		comprobar_límites_h();
+		desplazar_elementos();
 	}
 	posición_inicial_barra_h = desunizar(barra_h.style.left);
 	agarrando_h = true;
@@ -65,7 +68,7 @@ document.body.addEventListener("mousemove", (ratón) => {
 		const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
 		barra_h.style.left = movimiento_x + "px";
 		comprobar_límites_h();
-		console.log(posición_actual());
+		desplazar_elementos();
 	}
 	if (agarrando_v) {
 		const diferencia_ratón_y = -(ratón.pageY - posición_inicial_ratón_y);
