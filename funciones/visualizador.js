@@ -1,4 +1,4 @@
-import { actualizar_barra_h, desunizar, longitud_desplazamiento } from "./desplazamiento.js";
+import { actualizar_barra_h, desunizar, longitud_visualizador, posición_actual } from "./desplazamiento.js";
 
 // ¿Añadir división por campos en una misma línea temporal?
 const mostrador_periodos = document.getElementById("periodos");
@@ -7,7 +7,7 @@ const mostrador_eventos = document.getElementById("eventos");
 const propiedades = {
 	proporción: 100,
 	máximo: null,
-	máximo: null,
+	mínimo: null,
 	posición: 0
 };
 
@@ -18,7 +18,7 @@ aumentar.addEventListener("click", () => {
 	if (propiedades.proporción > 10) {
 		propiedades.proporción -= 10;
 		actualizar_barra_h(propiedades.proporción);
-		actualizar_proporción_periodos();
+		actualizar_longitud_periodos();
 	}
 });
 
@@ -26,13 +26,13 @@ disminuir.addEventListener("click", () => {
 	if (propiedades.proporción < 100) {
 		propiedades.proporción += 10;
 		actualizar_barra_h(propiedades.proporción);
-		actualizar_proporción_periodos();
+		actualizar_longitud_periodos();
 		actualizar_posición();
 	}
 });
 
 export function cargar_visualizador(línea_temporal) {
-	limpiar_visualizador();
+	limpiar_mostrador();
 
 	añadir_periodos(línea_temporal.contenido.periodos);
 	añadir_eventos(línea_temporal.contenido.eventos);
@@ -43,15 +43,15 @@ export function cargar_visualizador(línea_temporal) {
 export function actualizar_visualizador() {
 	actualizar_barra_h(propiedades.proporción);
 	actualizar_posición();
-	actualizar_longitud();
-	actualizar_proporción_periodos();
+	definir_longitud();
+	actualizar_longitud_periodos();
 }
 
 function actualizar_posición() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
-		const desplazador = longitud_desplazamiento();
+		const desplazador = posición_actual();
 		const dif_max_min = propiedades.máximo - propiedades.mínimo;
 		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
 		const distancia = desplazador / dif_max_min * dif_min_per;
@@ -59,56 +59,68 @@ function actualizar_posición() {
 	}
 }
 
-function actualizar_proporción_periodos() {
+function actualizar_longitud_periodos() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
-		const ancho_100 = desunizar(periodo.getAttribute("ancho"));
-		const ancho = ancho_100 / propiedades.proporción * 100 + "px";
-		periodo.style.width = ancho;
-		const posición_100 = periodo.getAttribute("pos_x");
-		const posición = posición_100 / propiedades.proporción * 100 + "px";
-		periodo.style.left = posición;
+		const ancho_relativo = desunizar(periodo.getAttribute("ancho"));
+		const ancho_escalado = ancho_relativo / propiedades.proporción * 100;
+		const ancho_pantalla = longitud_visualizador();
+		const ancho_absoluto = ancho_escalado / 100 * ancho_pantalla;
+		periodo.style.width = ancho_absoluto + "px";
 	}
 }
 
-function actualizar_longitud() {
+function definir_longitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = periodo.getAttribute("inicio");
 		const fin = periodo.getAttribute("fin");
-		const desplazador = longitud_desplazamiento();
 		const dif_fecha_periodo = fin - inicio;
-		const dif_max_min = propiedades.máximo - propiedades.mínimo;
-		const ancho = desplazador / dif_max_min * dif_fecha_periodo + "px";
+		const dif_fecha_total = propiedades.máximo - propiedades.mínimo;
+		const ancho = 100 / dif_fecha_total * dif_fecha_periodo;
 		periodo.setAttribute("ancho", ancho);
-		periodo.style.width = ancho;
 	}
+}
 
-	const eventos = mostrador_eventos.childNodes;
-	for (let i = 0; i < eventos.length; i++) {
-		const evento = periodos[i];
-	}
+function crear_periodo(periodo) {
+	const nodo = document.createElement("div");
+	nodo.textContent = periodo.nombre;
+	nodo.title = periodo.comentario;
+	nodo.setAttribute("class", "periodo");
+	nodo.setAttribute("inicio", periodo.fecha.inicio);
+	nodo.setAttribute("fin", periodo.fecha.fin);
+	nodo.style.bottom = 0;
+	return nodo;
+}
+
+function crear_evento(evento) {
+	const nodo = document.createElement("div");
+	nodo.title = evento.comentario;
+	nodo.setAttribute("class", "evento");
+	nodo.setAttribute("fecha", evento.fecha);
+	return nodo;
 }
 
 function añadir_periodos(periodos) {
+	const fragmento = document.createDocumentFragment();
 	periodos.forEach(periodo => {
 		const nodo_periodo = crear_periodo(periodo);
-		nodo_periodo.setAttribute("inicio", periodo.fecha.inicio);
-		nodo_periodo.setAttribute("fin", periodo.fecha.fin);
-		mostrador_periodos.appendChild(nodo_periodo);
+		fragmento.appendChild(nodo_periodo);
 		actualizar_límites(periodo);
 	});
+	mostrador_periodos.appendChild(fragmento);
 }
 
 function añadir_eventos(eventos) {
+	const fragmento = document.createDocumentFragment();
 	eventos.forEach(evento => {
 		const nodo_evento = crear_evento(evento);
-		nodo_evento.setAttribute("fecha", evento.fecha);
-		mostrador_eventos.appendChild(nodo_evento);
+		fragmento.appendChild(nodo_evento);
 		actualizar_límites(evento);
 	});
+	mostrador_eventos.appendChild(fragmento);
 }
 
 function actualizar_límites(objeto) {
@@ -144,23 +156,7 @@ function actualizar_máximos(fecha) {
 	}
 }
 
-function crear_periodo(periodo) {
-	const nodo = document.createElement("div");
-	nodo.textContent = periodo.nombre;
-	nodo.title = periodo.comentario;
-	nodo.setAttribute("class", "periodo");
-	nodo.style.bottom = 0;
-	return nodo;
-}
-
-function crear_evento(evento) {
-	const nodo = document.createElement("div");
-	nodo.setAttribute("class", "evento");
-	nodo.title = evento.comentario;
-	return nodo;
-}
-
-function limpiar_visualizador() {
+function limpiar_mostrador() {
 	while (mostrador_periodos.firstChild) {
 		mostrador_periodos.firstChild.remove();
 	}

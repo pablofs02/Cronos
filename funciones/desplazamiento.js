@@ -12,6 +12,10 @@ let agarrando_v = false;
 let posición_inicial_barra_v = 0;
 let posición_inicial_ratón_y = 0;
 
+export function longitud_visualizador() {
+	return desplazador_h.clientWidth;
+}
+
 export function actualizar_barra_h(proporción) {
 	barra_h.style.width = (desplazador_h.clientWidth / 100) * proporción + "px";
 	comprobar_límites_h();
@@ -61,6 +65,7 @@ document.body.addEventListener("mousemove", (ratón) => {
 		const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
 		barra_h.style.left = movimiento_x + "px";
 		comprobar_límites_h();
+		console.log(posición_actual());
 	}
 	if (agarrando_v) {
 		const diferencia_ratón_y = -(ratón.pageY - posición_inicial_ratón_y);
@@ -81,8 +86,13 @@ document.body.addEventListener("mouseup", () => {
 	}
 });
 
-export function longitud_desplazamiento() {
-	return desplazador_h.clientWidth;
+export function posición_actual() {
+	const longitud_absoluta = desplazador_h.clientWidth;
+	const longitud_relativa = longitud_absoluta - desunizar(barra_h.style.width);
+	const posición_relativa = desunizar(barra_h.style.left);
+	const posición_absoluta = longitud_absoluta / longitud_relativa * posición_relativa;
+	const posición_abosulta_sobre_100 = 100 / longitud_absoluta * posición_absoluta;
+	return posición_abosulta_sobre_100;
 }
 
 export function desunizar(variable) {
