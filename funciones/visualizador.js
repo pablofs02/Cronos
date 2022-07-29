@@ -7,8 +7,7 @@ const mostrador_eventos = document.getElementById("eventos");
 const propiedades = {
 	proporción: 100,
 	máximo: null,
-	mínimo: null,
-	posición: 0
+	mínimo: null
 };
 
 const aumentar = document.getElementById("aumentar");
@@ -18,7 +17,8 @@ aumentar.addEventListener("click", () => {
 	if (propiedades.proporción > 10) {
 		propiedades.proporción -= 10;
 		actualizar_barra_h(propiedades.proporción);
-		actualizar_longitud_periodos();
+		actualizar_longitud();
+		actualizar_posición();
 	}
 });
 
@@ -26,7 +26,7 @@ disminuir.addEventListener("click", () => {
 	if (propiedades.proporción < 100) {
 		propiedades.proporción += 10;
 		actualizar_barra_h(propiedades.proporción);
-		actualizar_longitud_periodos();
+		actualizar_longitud();
 		actualizar_posición();
 	}
 });
@@ -42,24 +42,36 @@ export function cargar_visualizador(línea_temporal) {
 
 export function actualizar_visualizador() {
 	actualizar_barra_h(propiedades.proporción);
+	definir_posición();
 	actualizar_posición();
 	definir_longitud();
-	actualizar_longitud_periodos();
+	actualizar_longitud();
 }
 
 function actualizar_posición() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
-		const desplazador = posición_actual();
-		const dif_max_min = propiedades.máximo - propiedades.mínimo;
-		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
-		const distancia = desplazador / dif_max_min * dif_min_per;
-		periodo.setAttribute("pos_x", distancia);
+		const posición_relativa = periodo.getAttribute("posición");
+		const posición_absoluta = longitud_visualizador() / 100 * posición_relativa;
+		console.log(posición_absoluta);
+		const distancia = posición_absoluta * (100 / propiedades.proporción);
+		periodo.style.left = distancia + "px";
 	}
 }
 
-function actualizar_longitud_periodos() {
+function definir_posición() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const dif_max_min = propiedades.máximo - propiedades.mínimo;
+		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
+		const distancia = 100 / dif_max_min * dif_min_per;;
+		periodo.setAttribute("posición", distancia);
+	}
+}
+
+function actualizar_longitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
