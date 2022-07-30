@@ -3,7 +3,7 @@ export function guardar_dato(base, tabla, dato) {
 }
 
 export function tomar_dato(base, tabla, dato) {
-	acceder_almacén("tomar", { base, tabla, dato });
+	return acceder_almacén("tomar", { base, tabla, dato });
 }
 
 export function listar_datos(base, tabla) {
@@ -30,10 +30,12 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 			if (operación === "guardar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
+
 				almacén.add(dato);
 			} else if (operación === "cambiar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
+
 				almacén.put(dato);
 			} else if (operación === "tomar") {
 				const transacción = base_de_datos.transaction([tabla], "readonly");
@@ -43,7 +45,7 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 				petición_tomar.onsuccess = () => {
 					const objeto = petición_tomar.result;
 					if (objeto)
-						console.log(objeto);
+						return objeto;
 					else
 						console.error("No existe un objeto asociada a esa clave.");
 				};
@@ -65,6 +67,7 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 			} else if (operación === "borrar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
+
 				almacén.delete(dato.nombre);
 			} else {
 				console.error("Operación desconocida.");

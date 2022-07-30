@@ -37,7 +37,7 @@ function colocar_lista() {
 
 		nodo.addEventListener("click", () => {
 			localStorage.setItem("tempo", línea.nombre);
-			location.href = "editor.html";
+			location.replace("visualizar.html");
 		});
 
 		fragmento.appendChild(nodo);

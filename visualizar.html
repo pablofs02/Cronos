@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="archivos/imágenes/logo.png">
+	<link rel="stylesheet" href="estilos/principal.css">
+	<link rel="stylesheet" href="estilos/oscuro.css" id="tema">
+	<title> Cronos - Líneas Temporales </title>
+</head>
+
+<body>
+	<header class="cabecera">
+		<div class="cabecera">
+			<img id="logo" src="archivos/imágenes/logo.png" alt="Logo-Waifu Temporal">
+			<h1> Cronos </h1>
+		</div>
+		<div>
+			<button id="b_colección" class="botón"> Mis Líneas </button>
+			<button id="b_editor" class="botón"> Nueva Línea </button>
+		</div>
+		<div id="opciones">
+			<img id="botón_idioma" src="archivos/imágenes/banderas/es.png" alt="Idioma">
+			<ul id="lista_idioma" class="oculto"></ul>
+			<input id="botón_tema" type="image" src="archivos/vectores/modo_claro.svg" alt="Cambiar a modo claro">
+		</div>
+	</header>
+
+	<main>
+		<div style="height: 20px;"></div>
+		<div class="panel">
+			<div id="visualizador">
+				<div id="mostrador">
+					<div id="periodos"></div>
+					<div id="eventos"></div>
+				</div>
+				<div id="regla"></div>
+				<div id="desplazador">
+					<div id="desplazador_horizontal">
+						<div id="barra_horizontal" style="left: 0px;"></div>
+						<div id="barra_horizontal_protector"></div>
+					</div>
+					<div id="desplazador_vertical" class="oculto">
+						<div id="barra_vertical" style="bottom: 0px;"></div>
+						<div id="barra_vertical_protector"></div>
+					</div>
+				</div>
+				<div id="proporcionador">
+					<div id="aumentar" class="proporción"> <span class="más"> + </span> </div>
+					<div id="disminuir" class="proporción"> <span class="menos"> - </span> </div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<div>
+		<script src="funciones/configuración/tema.js"></script>
+		<script src="funciones/configuración/idioma.js"></script>
+		<script src="funciones/utilidad/menú.js"></script>
+		<script src="funciones/panel/visualizador.js" type="module"></script>
+		<script src="funciones/modo/visualizar.js" type="module"></script>
+		<script src="funciones/utilidad/desplazamiento.js" type="module"></script>
+	</div>
+</body>
+
+</html>
