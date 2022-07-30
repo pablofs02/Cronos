@@ -7,7 +7,7 @@ export function tomar_dato(base, tabla, dato) {
 }
 
 export function listar_datos(base, tabla) {
-	acceder_almacén("listar", { base, tabla });
+	return acceder_almacén("listar", { base, tabla });
 }
 
 export function cambiar_dato(base, tabla, dato) {
@@ -51,13 +51,17 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 				const transacción = base_de_datos.transaction([tabla], "readonly");
 				const almacén = transacción.objectStore(tabla);
 				const petición_listar = almacén.openCursor();
+				const lista = [];
 
 				petición_listar.onsuccess = (objeto) => {
 					const cursor = objeto.target.result;
 					if (cursor) {
+						lista.push(cursor.value);
 						cursor.continue();
 					}
 				};
+
+				return lista;
 			} else if (operación === "borrar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);
