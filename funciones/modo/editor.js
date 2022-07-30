@@ -13,16 +13,16 @@ const nuevo_evento = document.getElementById("nuevo_evento");
 
 const base = "Cronos";
 const tabla = "líneas_temporales";
-let línea = null;
+let tempo = {};
 
-mirar_reserva();
+comprobar_reserva();
 
-function mirar_reserva() {
+function comprobar_reserva() {
 	if (localStorage.getItem("línea")) {
-		línea = localStorage.getItem("línea");
-		cargar_visualizador(JSON.parse(línea));
+		tempo = JSON.parse(localStorage.getItem("línea"));
+		cargar_visualizador(tempo);
 	} else {
-		línea = {
+		tempo = {
 			nombre: "actual",
 			comentario: "esta es una línea de prueba",
 			contenido: {
@@ -44,8 +44,8 @@ function mirar_reserva() {
 				eventos: []
 			}
 		};
-		localStorage.setItem("línea", JSON.stringify(línea));
-		cargar_visualizador(línea);
+		localStorage.setItem("línea", JSON.stringify(tempo));
+		cargar_visualizador(tempo);
 	};
 }
 
@@ -65,7 +65,8 @@ formulario_periodo.addEventListener("submit", (e) => {
 	if (e.target["fin-AC"].checked) {
 		periodo.fin = -periodo.fin;
 	}
-	guardar_dato(periodo);
+	tempo.contenido.periodos.push(periodo);
+	cargar_visualizador(tempo);
 	formulario_periodo.reset();
 });
 periodo_nuevo.addEventListener("click", () => {
@@ -90,7 +91,8 @@ formulario_evento.addEventListener("submit", (e) => {
 	if (e.target["fecha-AC"].checked) {
 		evento.fecha = -evento.fecha;
 	}
-	guardar_dato(base, tabla, evento);
+	tempo.contenido.evento.push(evento);
+	cargar_visualizador(tempo);
 	formulario_evento.reset();
 });
 evento_nuevo.addEventListener("click", () => {
@@ -112,10 +114,8 @@ const botón_guardar_tempo = document.getElementById("guardar_tempo");
 
 formulario_guardado.addEventListener("submit", (e) => {
 	e.preventDefault();
-	const tempo = {
-		nombre: e.target.nombre.value,
-		comentario: e.target.comentario.value
-	};
+	tempo.nombre = e.target.nombre.value;
+	tempo.comentario = e.target.comentario.value;
 	guardar_dato(base, tabla, tempo);
 	formulario_guardado.reset();
 	nuevo_tempo.classList.add("oculto");
