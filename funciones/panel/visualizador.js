@@ -190,30 +190,3 @@ function limpiar_mostrador() {
 		mostrador_eventos.firstChild.remove();
 	}
 }
-
-// Para pruebas.
-// cargar_visualizador(
-// 	{
-// 		contenido: {
-// 			periodos: [{
-// 				nombre: "Nombre del Periodo 1",
-// 				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-// 				fecha: {
-// 					inicio: 10,
-// 					fin: 30
-// 				}
-// 			}, {
-// 				nombre: "¡Periodo 2!",
-// 				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-// 				fecha: {
-// 					inicio: 32,
-// 					fin: 58
-// 				}
-// 			}],
-// 			eventos: [{
-// 				nombre: "Nombre del Evento",
-// 				comentario: "Comentario del evento que voy a hacer largo para que se vea claramente si funciona.",
-// 				fecha: 20
-// 			}]
-// 		}
-// 	});
