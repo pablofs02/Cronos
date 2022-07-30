@@ -19,6 +19,7 @@ aumentar.addEventListener("click", () => {
 		actualizar_barra_h(propiedades.proporción);
 		actualizar_longitud();
 		actualizar_posición();
+		desplazar_elementos();
 	}
 });
 
@@ -28,6 +29,7 @@ disminuir.addEventListener("click", () => {
 		actualizar_barra_h(propiedades.proporción);
 		actualizar_longitud();
 		actualizar_posición();
+		desplazar_elementos();
 	}
 });
 
