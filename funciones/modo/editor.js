@@ -1,13 +1,14 @@
 import { cargar_visualizador } from "../panel/visualizador.js";
+import { guardar_dato } from "../utilidad/almacenamiento.js";
 
-const formulario_periodo = document.getElementById("insertar-periodo");
-const periodo_nuevo = document.getElementById("añadir-periodo");
-const cerrar_periodo = document.getElementById("cerrar-periodo-nuevo");
+const formulario_periodo = document.getElementById("insertar_periodo");
+const periodo_nuevo = document.getElementById("añadir_periodo");
+const cerrar_periodo = document.getElementById("cerrar_periodo_nuevo");
 const nuevo_periodo = document.getElementById("nuevo_periodo");
 
-const formulario_evento = document.getElementById("insertar-evento");
-const evento_nuevo = document.getElementById("añadir-evento");
-const cerrar_evento = document.getElementById("cerrar-evento-nuevo");
+const formulario_evento = document.getElementById("insertar_evento");
+const evento_nuevo = document.getElementById("añadir_evento");
+const cerrar_evento = document.getElementById("cerrar_evento_nuevo");
 const nuevo_evento = document.getElementById("nuevo_evento");
 
 const base = "Cronos";
@@ -46,12 +47,6 @@ function mirar_reserva() {
 		localStorage.setItem("línea", JSON.stringify(línea));
 		cargar_visualizador(línea);
 	};
-}
-
-function guardar_dato(dato) {
-	const nuevo = JSON.parse(línea);
-	nuevo.contenido.periodos.push(dato);
-	cargar_visualizador(nuevo);
 }
 
 formulario_periodo.addEventListener("submit", (e) => {
@@ -108,4 +103,27 @@ evento_nuevo.addEventListener("click", () => {
 cerrar_evento.addEventListener("click", () => {
 	nuevo_evento.classList.add("oculto");
 	formulario_evento.reset();
+});
+
+const formulario_guardado = document.getElementById("formulario_guardado");
+const cerrar_guardado = document.getElementById("cerrar_guardado");
+const nuevo_tempo = document.getElementById("nuevo_tempo");
+const botón_guardar_tempo = document.getElementById("guardar_tempo");
+
+formulario_guardado.addEventListener("submit", (e) => {
+	e.preventDefault();
+	const tempo = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value
+	};
+	guardar_dato(base, tabla, tempo);
+	formulario_guardado.reset();
+	nuevo_tempo.classList.add("oculto");
+});
+botón_guardar_tempo.addEventListener("click", () => {
+	nuevo_tempo.classList.toggle("oculto");
+});
+cerrar_guardado.addEventListener("click", () => {
+	nuevo_tempo.classList.add("oculto");
+	formulario_guardado.reset();
 });

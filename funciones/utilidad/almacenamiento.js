@@ -2,20 +2,42 @@ export function guardar_dato(base, tabla, dato) {
 	acceder_almacén("guardar", { base, tabla, dato });
 }
 
-export function tomar_dato(base, tabla, dato) {
-	return acceder_almacén("tomar", { base, tabla, dato });
-}
-
-export function listar_datos(base, tabla) {
-	return acceder_almacén("listar", { base, tabla });
-}
-
 export function cambiar_dato(base, tabla, dato) {
 	acceder_almacén("cambiar", { base, tabla, dato });
 }
 
 export function borrar_dato(base, tabla, dato) {
 	acceder_almacén("borrar", { base, tabla, dato });
+}
+
+export async function tomar_tempo(base, tabla, dato) {
+	var base_de_datos = await new Promise((resolver) => {
+		var almacén = indexedDB.open(base);
+		almacén.onsuccess = () => resolver(almacén.result);
+	});
+
+	var tempo = await new Promise((resolver) => {
+		var transacción = base_de_datos.transaction([tabla], "readonly");
+		var petición = transacción.objectStore(tabla).get(dato);
+		petición.onsuccess = () => resolver(petición.result);
+	});
+
+	return tempo;
+}
+
+export async function listar_tempos(base, tabla) {
+	var base_de_datos = await new Promise((resolver) => {
+		var almacén = indexedDB.open(base);
+		almacén.onsuccess = () => resolver(almacén.result);
+	});
+
+	var tempos = await new Promise((resolver) => {
+		var transacción = base_de_datos.transaction([tabla], "readonly");
+		var petición = transacción.objectStore(tabla).getAll();
+		petición.onsuccess = () => resolver(petición.result);
+	});
+
+	return tempos;
 }
 
 function acceder_almacén(operación, { base, tabla, dato }) {
@@ -37,33 +59,6 @@ function acceder_almacén(operación, { base, tabla, dato }) {
 				const almacén = transacción.objectStore(tabla);
 
 				almacén.put(dato);
-			} else if (operación === "tomar") {
-				const transacción = base_de_datos.transaction([tabla], "readonly");
-				const almacén = transacción.objectStore(tabla);
-				const petición_tomar = almacén.get(dato);
-
-				petición_tomar.onsuccess = () => {
-					const objeto = petición_tomar.result;
-					if (objeto)
-						return objeto;
-					else
-						console.error("No existe un objeto asociada a esa clave.");
-				};
-			} else if (operación === "listar") {
-				const transacción = base_de_datos.transaction([tabla], "readonly");
-				const almacén = transacción.objectStore(tabla);
-				const petición_listar = almacén.openCursor();
-				const lista = [];
-
-				petición_listar.onsuccess = (objeto) => {
-					const cursor = objeto.target.result;
-					if (cursor) {
-						lista.push(cursor.value);
-						cursor.continue();
-					}
-				};
-
-				return lista;
 			} else if (operación === "borrar") {
 				const transacción = base_de_datos.transaction([tabla], "readwrite");
 				const almacén = transacción.objectStore(tabla);

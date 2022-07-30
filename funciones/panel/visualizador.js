@@ -35,8 +35,12 @@ disminuir.addEventListener("click", () => {
 export function cargar_visualizador(línea_temporal) {
 	limpiar_mostrador();
 
-	añadir_periodos(línea_temporal.contenido.periodos);
-	añadir_eventos(línea_temporal.contenido.eventos);
+	if (línea_temporal.contenido) {
+		if (línea_temporal.contenido.periodos)
+			añadir_periodos(línea_temporal.contenido.periodos);
+		if (línea_temporal.contenido.eventos)
+			añadir_eventos(línea_temporal.contenido.eventos);
+	}
 
 	actualizar_visualizador();
 }
