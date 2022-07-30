@@ -1,4 +1,4 @@
-import { actualizar_barra_h, desunizar, longitud_visualizador, posición_actual } from "./desplazamiento.js";
+import { actualizar_barra_h, desunizar, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
 
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
