@@ -1,6 +1,5 @@
 import { actualizar_barra_h, desunizar, longitud_visualizador, posición_actual } from "./desplazamiento.js";
 
-// ¿Añadir división por campos en una misma línea temporal?
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
 
@@ -193,28 +192,28 @@ function limpiar_mostrador() {
 }
 
 // Para pruebas.
-cargar_visualizador(
-	{
-		contenido: {
-			periodos: [{
-				nombre: "Nombre del Periodo 1",
-				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-				fecha: {
-					inicio: 10,
-					fin: 30
-				}
-			}, {
-				nombre: "¡Periodo 2!",
-				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-				fecha: {
-					inicio: 32,
-					fin: 58
-				}
-			}],
-			eventos: [{
-				nombre: "Nombre del Evento",
-				comentario: "Comentario del evento que voy a hacer largo para que se vea claramente si funciona.",
-				fecha: 20
-			}]
-		}
-	});
+// cargar_visualizador(
+// 	{
+// 		contenido: {
+// 			periodos: [{
+// 				nombre: "Nombre del Periodo 1",
+// 				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
+// 				fecha: {
+// 					inicio: 10,
+// 					fin: 30
+// 				}
+// 			}, {
+// 				nombre: "¡Periodo 2!",
+// 				comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
+// 				fecha: {
+// 					inicio: 32,
+// 					fin: 58
+// 				}
+// 			}],
+// 			eventos: [{
+// 				nombre: "Nombre del Evento",
+// 				comentario: "Comentario del evento que voy a hacer largo para que se vea claramente si funciona.",
+// 				fecha: 20
+// 			}]
+// 		}
+// 	});

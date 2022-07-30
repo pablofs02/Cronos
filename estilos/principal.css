@@ -215,7 +215,7 @@ header {
 }
 
 #barra_horizontal {
-	width: 200px;
+	width: 100%;
 	height: 25px;
 	position: absolute;
 	border-radius: 16px;
@@ -230,7 +230,7 @@ header {
 
 #desplazador_vertical {
 	width: 25px;
-	height: 300px;
+	height: 50%;
 	position: absolute;
 	right: 0;
 	margin: 20px;
@@ -245,7 +245,7 @@ header {
 
 #barra_vertical {
 	width: 25px;
-	height: 200px;
+	height: 100%;
 	position: absolute;
 	border-radius: 16px;
 	background-color: var(--naranja);
