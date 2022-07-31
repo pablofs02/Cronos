@@ -88,21 +88,35 @@ function colocar_lista(lista) {
 
 			const opciones = document.createElement("div");
 			opciones.setAttribute("class", "opciones_tempo");
+			const editar = document.createElement("div");
+			editar.setAttribute("class", "editar");
+			editar.innerHTML = "<i class=\"fa-solid fa-pen-to-square\"></i>";
+			opciones.appendChild(editar);
 			const borrar = document.createElement("div");
 			borrar.setAttribute("class", "eliminar");
 			borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
 			opciones.appendChild(borrar);
+			const ver = document.createElement("div");
+			ver.setAttribute("class", "ver");
+			ver.innerHTML = "<i class=\"fa-solid fa-eye\"></i>";
+			opciones.appendChild(ver);
 			const descargar = document.createElement("div");
 			descargar.setAttribute("class", "descargar");
 			descargar.innerHTML = "<i class=\"fa-solid fa-download\"></i>";
 			opciones.appendChild(descargar);
 			nodo.appendChild(opciones);
 
+			editar.addEventListener("click", () => {
+				editar_tempo(tempo);
+			});
 			borrar.addEventListener("click", () => {
 				if (confirm("¿Estás seguro de que deseas borrarlo?")) {
 					borrar_tempo(base, tabla, tempo);
 					location.reload();
 				}
+			});
+			ver.addEventListener("click", () => {
+				ver_tempo(tempo);
 			});
 			descargar.addEventListener("click", () => {
 				descargar_objeto(JSON.stringify(tempo), tempo.nombre);
@@ -114,9 +128,14 @@ function colocar_lista(lista) {
 	}
 }
 
+function editar_tempo(tempo) {
+	localStorage.setItem("tempo", tempo.nombre);
+	location.assign("editor.html");
+}
+
 function ver_tempo(tempo) {
 	localStorage.setItem("tempo", tempo.nombre);
-	location.replace("visualizar.html");
+	location.assign("visualizar.html");
 }
 
 function descargar_objeto(objeto, nombre = "tempo") {

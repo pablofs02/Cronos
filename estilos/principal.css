@@ -171,37 +171,39 @@ header {
 
 .opciones_tempo {
 	float: right;
-	width: 100px;
+	display: grid;
+	grid-template-columns: auto auto;
+	width: 200px;
+}
+
+.opciones_tempo > div {
+	height: 70%;
+	margin: 12%;
+	border-radius: 8%;
+	padding: 12% 0;
+	font-size: larger;
+	text-align: center;
+}
+
+.opciones_tempo > div:hover {
+	opacity: 80%;
+	cursor: pointer;
+}
+
+.editar {
+	background-color: var(--azul);
+}
+
+.ver {
+	background-color: var(--amarillo);
 }
 
 .eliminar {
-	height: calc(50% - 12%);
-	margin: 12%;
-	border-radius: 8%;
-	padding: 12% 0;
 	background-color: var(--rojo);
-	font-size: larger;
-	text-align: center;
-}
-
-.eliminar:hover {
-	opacity: 80%;
-	cursor: pointer;
 }
 
 .descargar {
-	height: calc(50% - 12%);
-	margin: 12%;
-	border-radius: 8%;
-	padding: 12% 0;
 	background-color: var(--verde);
-	font-size: larger;
-	text-align: center;
-}
-
-.descargar:hover {
-	opacity: 80%;
-	cursor: pointer;
 }
 
 /**********************/
