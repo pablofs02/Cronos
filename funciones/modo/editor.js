@@ -19,8 +19,10 @@ comprobar_reserva();
 
 function comprobar_reserva() {
 	if (localStorage.getItem("tempo")) {
-		tempo = tomar_tempo(base, tabla, localStorage.getItem("tempo"));
-		cargar_visualizador(tempo);
+		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then((tempo_almacenado) => {
+			cargar_visualizador(tempo_almacenado);
+			tempo = tempo_almacenado;
+		});
 	} else {
 		tempo = {
 			nombre: "Predeterminado",
