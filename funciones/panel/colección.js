@@ -12,6 +12,35 @@ cargar_tempo_real.addEventListener("change", (archivos) => {
 	location.reload();
 });
 
+const botón_descargar_todo = document.getElementById("descargar_todo");
+
+botón_descargar_todo.addEventListener("click", () => {
+	listar_tempos(base, tabla).then((lista) => {
+		for (let i = 0; i < lista.length; i++) {
+			const tempo = lista[i];
+			descargar_objeto(JSON.stringify(tempo), tempo.nombre);
+		}
+	});
+});
+
+const botón_borrar_todo = document.getElementById("borrar_todo");
+
+botón_borrar_todo.addEventListener("click", () => {
+	listar_tempos(base, tabla).then((lista) => {
+		const res = confirm("¿Estás seguro de que deseas borrar todos los tempos?");
+		if (res) {
+			const res = confirm("¿De verdad que estás seguro de que deseas borrar TODOS los tempos?");
+			if (res) {
+				for (let i = 0; i < lista.length; i++) {
+					const tempo = lista[i];
+					borrar_tempo(base, tabla, tempo);
+				}
+				location.reload();
+			}
+		}
+	});
+});
+
 const base = "Cronos";
 const tabla = "Tempos";
 
@@ -61,7 +90,7 @@ function colocar_lista(lista) {
 			opciones.setAttribute("class", "opciones_tempo");
 			const borrar = document.createElement("div");
 			borrar.setAttribute("class", "eliminar");
-			borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>"
+			borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
 			opciones.appendChild(borrar);
 			const descargar = document.createElement("div");
 			descargar.setAttribute("class", "descargar");
