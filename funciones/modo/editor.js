@@ -1,5 +1,5 @@
 import { cargar_visualizador } from "../panel/visualizador.js";
-import { guardar_dato } from "../utilidad/almacenamiento.js";
+import { guardar_tempo, tomar_tempo } from "../utilidad/almacenamiento.js";
 
 const formulario_periodo = document.getElementById("insertar_periodo");
 const periodo_nuevo = document.getElementById("añadir_periodo");
@@ -12,39 +12,24 @@ const cerrar_evento = document.getElementById("cerrar_evento_nuevo");
 const nuevo_evento = document.getElementById("nuevo_evento");
 
 const base = "Cronos";
-const tabla = "líneas_temporales";
+const tabla = "Tempos";
 let tempo = {};
 
 comprobar_reserva();
 
 function comprobar_reserva() {
-	if (localStorage.getItem("línea")) {
-		tempo = JSON.parse(localStorage.getItem("línea"));
+	if (localStorage.getItem("tempo")) {
+		tempo = tomar_tempo(localStorage.getItem("tempo"));
 		cargar_visualizador(tempo);
 	} else {
 		tempo = {
-			nombre: "actual",
-			comentario: "esta es una línea de prueba",
+			nombre: "Predeterminado",
+			comentario: "Tempo por defecto",
 			contenido: {
-				periodos: [{
-					nombre: "Nombre del Periodo 1",
-					comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-					fecha: {
-						inicio: 10,
-						fin: 30
-					}
-				}, {
-					nombre: "¡Periodo 2!",
-					comentario: "Comentario del periodo que voy a hacer largo para que se vea claramente si funciona.",
-					fecha: {
-						inicio: 32,
-						fin: 58
-					}
-				}],
+				periodos: [],
 				eventos: []
 			}
 		};
-		localStorage.setItem("línea", JSON.stringify(tempo));
 		cargar_visualizador(tempo);
 	};
 }
@@ -114,9 +99,11 @@ const botón_guardar_tempo = document.getElementById("guardar_tempo");
 
 formulario_guardado.addEventListener("submit", (e) => {
 	e.preventDefault();
-	tempo.nombre = e.target.nombre.value;
-	tempo.comentario = e.target.comentario.value;
-	guardar_dato(base, tabla, tempo);
+	if (e.target.nombre.value)
+		tempo.nombre = e.target.nombre.value;
+	if (e.target.comentario.value)
+		tempo.comentario = e.target.comentario.value;
+	guardar_tempo(base, tabla, tempo);
 	formulario_guardado.reset();
 	nuevo_tempo.classList.add("oculto");
 });

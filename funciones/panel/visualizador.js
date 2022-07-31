@@ -32,14 +32,14 @@ disminuir.addEventListener("click", () => {
 	}
 });
 
-export function cargar_visualizador(línea_temporal) {
+export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
 
-	if (línea_temporal.contenido) {
-		if (línea_temporal.contenido.periodos)
-			añadir_periodos(línea_temporal.contenido.periodos);
-		if (línea_temporal.contenido.eventos)
-			añadir_eventos(línea_temporal.contenido.eventos);
+	if (tempo.contenido) {
+		if (tempo.contenido.periodos)
+			añadir_periodos(tempo.contenido.periodos);
+		if (tempo.contenido.eventos)
+			añadir_eventos(tempo.contenido.eventos);
 	}
 
 	actualizar_visualizador();

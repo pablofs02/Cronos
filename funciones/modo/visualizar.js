@@ -2,7 +2,7 @@ import { cargar_visualizador } from "../panel/visualizador.js";
 import { tomar_tempo } from "../utilidad/almacenamiento.js";
 
 const base = "Cronos";
-const tabla = "líneas_temporales";
+const tabla = "Tempos";
 
 const nombre_tempo = localStorage.getItem("tempo");
 
