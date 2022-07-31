@@ -12,7 +12,7 @@ export function borrar_tempo(base, tabla, tempo) {
 	acceder_almacén("borrar", { base, tabla, tempo });
 }
 
-export async function tomar_tempo(base, tabla, dato) {
+export async function tomar_tempo(base, tabla, id) {
 	const base_de_datos = await new Promise((resolver) => {
 		const petición = indexedDB.open(base);
 		petición.onsuccess = () => resolver(petición.result);
@@ -25,7 +25,7 @@ export async function tomar_tempo(base, tabla, dato) {
 
 	const tempo = await new Promise((resolver) => {
 		const transacción = base_de_datos.transaction([tabla], "readonly");
-		const petición = transacción.objectStore(tabla).get(dato);
+		const petición = transacción.objectStore(tabla).get(id);
 		petición.onsuccess = () => resolver(petición.result);
 	});
 

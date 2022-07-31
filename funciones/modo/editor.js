@@ -19,7 +19,7 @@ comprobar_reserva();
 
 function comprobar_reserva() {
 	if (localStorage.getItem("tempo")) {
-		tempo = tomar_tempo(localStorage.getItem("tempo"));
+		tempo = tomar_tempo(base, tabla, localStorage.getItem("tempo"));
 		cargar_visualizador(tempo);
 	} else {
 		tempo = {

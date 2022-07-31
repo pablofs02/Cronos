@@ -93,7 +93,7 @@ function actualizar_longitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
-		const ancho_relativo = desunizar(periodo.getAttribute("ancho"));
+		const ancho_relativo = periodo.getAttribute("ancho");
 		const ancho_escalado = ancho_relativo / propiedades.proporción * 100;
 		const ancho_pantalla = longitud_visualizador();
 		const ancho_absoluto = ancho_escalado / 100 * ancho_pantalla;
