@@ -154,7 +154,8 @@ header {
 	border-radius: 8px 0 0 8px;
 }
 
-.elemento_colección > div {
+.texto_tempo {
+	width: 100%;
 	overflow: auto;
 }
 
@@ -166,6 +167,41 @@ header {
 .elemento_colección > div > p {
 	margin: 10px;
 	font-size: medium;
+}
+
+.opciones_tempo {
+	float: right;
+	width: 100px;
+}
+
+.eliminar {
+	height: calc(50% - 12%);
+	margin: 12%;
+	border-radius: 8%;
+	padding: 12% 0;
+	background-color: var(--rojo);
+	font-size: larger;
+	text-align: center;
+}
+
+.eliminar:hover {
+	opacity: 80%;
+	cursor: pointer;
+}
+
+.descargar {
+	height: calc(50% - 12%);
+	margin: 12%;
+	border-radius: 8%;
+	padding: 12% 0;
+	background-color: var(--verde);
+	font-size: larger;
+	text-align: center;
+}
+
+.descargar:hover {
+	opacity: 80%;
+	cursor: pointer;
 }
 
 /**********************/
