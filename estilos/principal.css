@@ -23,7 +23,6 @@ body {
 	width: 100vw;
 	height: 100vh;
 	position: absolute;
-	/* top: 0; */
 	background-color: #000;
 	opacity: 50%;
 	z-index: 8;
@@ -243,7 +242,7 @@ header {
 	padding-left: 20px;
 }
 
-.texto_info > h2 {
+.texto_info > h3 {
 	font-size: xx-large;
 }
 
