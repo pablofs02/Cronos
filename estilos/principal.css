@@ -19,6 +19,16 @@ body {
 	display: none;
 }
 
+.pantalla_ocultar {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	/* top: 0; */
+	background-color: #000;
+	opacity: 50%;
+	z-index: 8;
+}
+
 /******************/
 /**** CABECERA ****/
 /******************/
@@ -134,7 +144,7 @@ header {
 	height: 100%;
 	position: absolute;
 	margin-top: 20px;
-	border-radius: 16px;
+	border-radius: 8px;
 	background-color: var(--fondo_colección);
 	overflow: auto;
 }
@@ -206,6 +216,65 @@ header {
 	background-color: var(--verde);
 }
 
+.ventana_info {
+	width: 90%;
+	min-height: 200px;
+	position: absolute;
+	top: -50px;
+	right: 0;
+	left: 0;
+	margin: auto;
+	border-radius: 8px;
+	padding: 20px;
+	background-color: var(--naranja);
+	z-index: 10;
+}
+
+.sinopsis {
+	display: flex;
+}
+
+.sinopsis > img {
+	width: 34%;
+}
+
+.texto_info {
+	width: 66%;
+	padding-left: 20px;
+}
+
+.texto_info > h2 {
+	font-size: xx-large;
+}
+
+.texto_info > p {
+	margin-top: 10px;
+	font-size: large;
+}
+
+.opciones_info {
+	width: 8%;
+}
+
+.opciones_info > div {
+	height: 20%;
+	margin-bottom: 27%;
+	border-radius: 8px;
+	padding: 22% 0;
+	font-size: larger;
+	text-align: center;
+}
+
+.opciones_info > div:hover {
+	opacity: 80%;
+	cursor: pointer;
+}
+
+.no_sé {
+	width: 100%;
+	height: 340px;
+}
+
 /**********************/
 /**** VISUALIZADOR ****/
 /**********************/
@@ -215,7 +284,7 @@ header {
 	height: 100%;
 	position: absolute;
 	margin-top: 20px;
-	border-radius: 16px;
+	border-radius: 8px;
 	background-color: var(--fondo_visualizador);
 }
 

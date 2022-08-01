@@ -60,7 +60,10 @@ function almacenar_archivos(archivos) {
 function colocar_lista(lista) {
 	if (lista) {
 		const colección = document.getElementById("colección");
+		const info = document.getElementById("info");
+		const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 		const fragmento = document.createDocumentFragment();
+		const fragmento_info = document.createDocumentFragment();
 		for (let i = 0; i < lista.length; i++) {
 			const tempo = lista[i];
 			const nodo = document.createElement("div");
@@ -79,53 +82,110 @@ function colocar_lista(lista) {
 			texto.appendChild(comentario);
 			nodo.appendChild(texto);
 
+			const ventana_info = crear_ventana_info(tempo);
+			ventana_info.classList.add("oculto");
+			pantalla_ocultar.addEventListener("click", () => {
+				ocultar_info(ventana_info);
+			});
+			fragmento_info.appendChild(ventana_info);
+
 			imágen.addEventListener("click", () => {
-				ver_tempo(tempo);
+				mostrar_info(ventana_info);
 			});
 			texto.addEventListener("click", () => {
-				ver_tempo(tempo);
+				mostrar_info(ventana_info);
+
 			});
 
-			const opciones = document.createElement("div");
+			const opciones = crear_botones(tempo);
 			opciones.setAttribute("class", "opciones_tempo");
-			const editar = document.createElement("div");
-			editar.setAttribute("class", "editar");
-			editar.innerHTML = "<i class=\"fa-solid fa-pen-to-square\"></i>";
-			opciones.appendChild(editar);
-			const borrar = document.createElement("div");
-			borrar.setAttribute("class", "eliminar");
-			borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
-			opciones.appendChild(borrar);
-			const ver = document.createElement("div");
-			ver.setAttribute("class", "ver");
-			ver.innerHTML = "<i class=\"fa-solid fa-eye\"></i>";
-			opciones.appendChild(ver);
-			const descargar = document.createElement("div");
-			descargar.setAttribute("class", "descargar");
-			descargar.innerHTML = "<i class=\"fa-solid fa-download\"></i>";
-			opciones.appendChild(descargar);
 			nodo.appendChild(opciones);
-
-			editar.addEventListener("click", () => {
-				editar_tempo(tempo);
-			});
-			borrar.addEventListener("click", () => {
-				if (confirm("¿Estás seguro de que deseas borrarlo?")) {
-					borrar_tempo(base, tabla, tempo);
-					location.reload();
-				}
-			});
-			ver.addEventListener("click", () => {
-				ver_tempo(tempo);
-			});
-			descargar.addEventListener("click", () => {
-				descargar_objeto(JSON.stringify(tempo), tempo.nombre);
-			});
 
 			fragmento.appendChild(nodo);
 		}
 		colección.appendChild(fragmento);
+		info.appendChild(fragmento_info);
 	}
+}
+
+function crear_botones(tempo) {
+	const opciones = document.createElement("div");
+	const editar = document.createElement("div");
+	editar.setAttribute("class", "editar");
+	editar.innerHTML = "<i class=\"fa-solid fa-pen-to-square\"></i>";
+	opciones.appendChild(editar);
+	const borrar = document.createElement("div");
+	borrar.setAttribute("class", "eliminar");
+	borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
+	opciones.appendChild(borrar);
+	const ver = document.createElement("div");
+	ver.setAttribute("class", "ver");
+	ver.innerHTML = "<i class=\"fa-solid fa-eye\"></i>";
+	opciones.appendChild(ver);
+	const descargar = document.createElement("div");
+	descargar.setAttribute("class", "descargar");
+	descargar.innerHTML = "<i class=\"fa-solid fa-download\"></i>";
+	opciones.appendChild(descargar);
+
+	editar.addEventListener("click", () => {
+		editar_tempo(tempo);
+	});
+
+	borrar.addEventListener("click", () => {
+		if (confirm("¿Estás seguro de que deseas borrarlo?")) {
+			borrar_tempo(base, tabla, tempo);
+			location.reload();
+		}
+	});
+
+	ver.addEventListener("click", () => {
+		ver_tempo(tempo);
+	});
+
+	descargar.addEventListener("click", () => {
+		descargar_objeto(JSON.stringify(tempo), tempo.nombre);
+	});
+
+	return opciones;
+}
+
+function crear_ventana_info(tempo) {
+	const ventana = document.createElement("div");
+	ventana.setAttribute("class", "ventana_info");
+	const sinopsis = document.createElement("div");
+	sinopsis.setAttribute("class", "sinopsis");
+	const imágen = document.createElement("img");
+	imágen.src = "archivos/imágenes/logo.png";
+	sinopsis.appendChild(imágen);
+	const texto = document.createElement("div");
+	texto.setAttribute("class", "texto_info");
+	const título = document.createElement("h2");
+	título.textContent = tempo.nombre;
+	texto.appendChild(título);
+	const comentario = document.createElement("p");
+	comentario.textContent = tempo.comentario;
+	texto.appendChild(comentario);
+	sinopsis.appendChild(texto);
+	const opciones = crear_botones(tempo);
+	opciones.setAttribute("class", "opciones_info");
+	sinopsis.appendChild(opciones);
+	ventana.appendChild(sinopsis);
+
+	const no_sé = document.createElement("div");
+	no_sé.setAttribute("class", "no_sé");
+	ventana.appendChild(no_sé);
+
+	return ventana;
+}
+
+function ocultar_info(info) {
+	pantalla_ocultar.classList.add("oculto");
+	info.classList.add("oculto");
+}
+
+function mostrar_info(ventana) {
+	ventana.classList.remove("oculto");
+	pantalla_ocultar.classList.remove("oculto");
 }
 
 function editar_tempo(tempo) {
