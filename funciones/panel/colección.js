@@ -79,7 +79,10 @@ function crear_elemento(tempo) {
 
 function crear_imagen(tempo) {
 	const imagen = document.createElement("img");
-	imagen.setAttribute("src", "archivos/imágenes/logo.png");
+	if (tempo.imagen)
+		imagen.setAttribute("src", tempo.imagen);
+	else
+		imagen.setAttribute("src", "archivos/imágenes/logo.png");
 	imagen.setAttribute("alt", "Imagen del tempo " + tempo.nombre);
 	return imagen;
 }

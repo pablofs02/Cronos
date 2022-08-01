@@ -26,7 +26,8 @@ function comprobar_reserva() {
 	} else {
 		tempo = {
 			nombre: "Predeterminado",
-			comentario: "Tempo por defecto",
+			comentario: "Tempo por defecto.",
+			imagen: "archivos/imágenes/logo.png",
 			contenido: {
 				periodos: [],
 				eventos: []
@@ -105,9 +106,22 @@ formulario_guardado.addEventListener("submit", (e) => {
 		tempo.nombre = e.target.nombre.value;
 	if (e.target.comentario.value)
 		tempo.comentario = e.target.comentario.value;
-	guardar_tempo(base, tabla, tempo);
-	formulario_guardado.reset();
-	nuevo_tempo.classList.add("oculto");
+	if (e.target.imagen.value) {
+		var file = e.target.imagen.files[0];
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			console.log(e.target.result);
+			tempo.imagen = e.target.result;
+			guardar_tempo(base, tabla, tempo);
+			formulario_guardado.reset();
+			nuevo_tempo.classList.add("oculto");
+		};
+		reader.readAsDataURL(file);
+	} else {
+		guardar_tempo(base, tabla, tempo);
+		formulario_guardado.reset();
+		nuevo_tempo.classList.add("oculto");
+	}
 });
 botón_guardar_tempo.addEventListener("click", () => {
 	nuevo_tempo.classList.toggle("oculto");
