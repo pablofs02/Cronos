@@ -1,4 +1,8 @@
-import { actualizar_barra_h, desunizar, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+import { actualizar_barra_h, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+
+const inicio = document.getElementById("inicio");
+inicio.addEventListener("click", () =>
+	location.assign("index.html"));
 
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
