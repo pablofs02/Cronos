@@ -19,22 +19,19 @@ const disminuir = document.getElementById("disminuir");
 aumentar.addEventListener("click", () => {
 	if (propiedades.proporción > 10) {
 		propiedades.proporción -= 10;
-		actualizar_barra_h(propiedades.proporción);
-		actualizar_longitud();
-		actualizar_posición();
-		desplazar_elementos();
+		ajustar_todo();
 	}
 });
 
 disminuir.addEventListener("click", () => {
 	if (propiedades.proporción < 100) {
 		propiedades.proporción += 10;
-		actualizar_barra_h(propiedades.proporción);
-		actualizar_longitud();
-		actualizar_posición();
-		desplazar_elementos();
+		ajustar_todo();
 	}
 });
+
+window.addEventListener("resize", () =>
+	ajustar_todo());
 
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
@@ -68,6 +65,13 @@ export function desplazar_elementos() {
 		const posición_desplazada = posición_base - desplazamiento + exceso;
 		periodo.style.left = posición_desplazada + "px";
 	}
+}
+
+function ajustar_todo() {
+	actualizar_barra_h(propiedades.proporción);
+	actualizar_longitud();
+	actualizar_posición();
+	desplazar_elementos();
 }
 
 function actualizar_posición() {
