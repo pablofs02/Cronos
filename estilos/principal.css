@@ -256,6 +256,7 @@ header {
 .ventana_info {
 	max-width: 100vw;
 	width: 90%;
+	max-height: calc(100vh - 50px);
 	min-height: 200px;
 	position: absolute;
 	top: -50px;
@@ -270,16 +271,18 @@ header {
 
 .sinopsis {
 	display: flex;
+	max-height: 40vh;
 }
 
 .sinopsis > img {
 	width: 34%;
-	height: 34%;
+	max-height: 40vh;
 }
 
 .texto_info {
 	width: 66%;
 	padding-left: 20px;
+	overflow: hidden;
 }
 
 .texto_info > h3 {
