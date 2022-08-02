@@ -8,11 +8,11 @@ const barra_v = document.getElementById("barra_vertical");
 
 let agarrando_h = false;
 let posición_inicial_barra_h = 0;
-let posición_inicial_ratón_x = 0;
+let posición_inicial_x = 0;
 
 let agarrando_v = false;
 let posición_inicial_barra_v = 0;
-let posición_inicial_ratón_y = 0;
+let posición_inicial_y = 0;
 
 export function longitud_visualizador() {
 	return desplazador_h.clientWidth;
@@ -47,7 +47,6 @@ desplazador_v.addEventListener("mousedown", (ratón) => {
 		barra_v.style.bottom = (desplazador_v.clientHeight - ratón.offsetY) - (barra_v.clientHeight / 2) + "px";
 		comprobar_límites_v();
 	}
-
 	posición_inicial_barra_v = desunizar(barra_v.style.bottom);
 	agarrando_v = true;
 	document.body.style.cursor = "grabbing";
@@ -55,23 +54,23 @@ desplazador_v.addEventListener("mousedown", (ratón) => {
 
 document.body.addEventListener("mousedown", (ratón) => {
 	if (agarrando_h) {
-		posición_inicial_ratón_x = ratón.pageX;
+		posición_inicial_x = ratón.pageX;
 	}
 	if (agarrando_v) {
-		posición_inicial_ratón_y = ratón.pageY;
+		posición_inicial_y = ratón.pageY;
 	}
 });
 
 document.body.addEventListener("mousemove", (ratón) => {
 	if (agarrando_h) {
-		const diferencia_ratón_x = ratón.pageX - posición_inicial_ratón_x;
+		const diferencia_ratón_x = ratón.pageX - posición_inicial_x;
 		const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
 		barra_h.style.left = movimiento_x + "px";
 		comprobar_límites_h();
 		desplazar_elementos();
 	}
 	if (agarrando_v) {
-		const diferencia_ratón_y = -(ratón.pageY - posición_inicial_ratón_y);
+		const diferencia_ratón_y = -(ratón.pageY - posición_inicial_y);
 		const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_ratón_y);
 		barra_v.style.bottom = movimiento_y + "px";
 		comprobar_límites_v();
@@ -86,6 +85,54 @@ document.body.addEventListener("mouseup", () => {
 	if (agarrando_v) {
 		agarrando_v = false;
 		document.body.style.cursor = "";
+	}
+});
+
+desplazador_h.addEventListener("touchstart", (dedo) => {
+	if (!sobre_barra_h_dedo(dedo)) {
+		const compensación = dedo.touches[0].pageX - barra_h.getBoundingClientRect().left;
+		barra_h.style.left = compensación - (barra_h.clientWidth / 2) + "px";
+		console.log(barra_h.style.left);
+		comprobar_límites_h();
+		desplazar_elementos();
+	}
+	posición_inicial_barra_h = desunizar(barra_h.style.left);
+	agarrando_h = true;
+});
+
+desplazador_v.addEventListener("mousedown", (ratón) => {
+	if (!sobre_barra_v(ratón)) {
+		barra_v.style.bottom = (desplazador_v.clientHeight - ratón.offsetY) - (barra_v.clientHeight / 2) + "px";
+		comprobar_límites_v();
+	}
+	posición_inicial_barra_v = desunizar(barra_v.style.bottom);
+	agarrando_v = true;
+	document.body.style.cursor = "grabbing";
+});
+
+document.body.addEventListener("touchstart", (dedo) => {
+	if (agarrando_h) {
+		posición_inicial_x = dedo.touches[0].pageX;
+	}
+	if (agarrando_v) {
+		posición_inicial_y = dedo.pageY;
+	}
+});
+
+document.body.addEventListener("touchmove", (dedo) => {
+	if (agarrando_h) {
+		console.log(posición_inicial_x);
+		const diferencia_x = dedo.touches[0].pageX - posición_inicial_x;
+		const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_x);
+		barra_h.style.left = movimiento_x + "px";
+		comprobar_límites_h();
+		desplazar_elementos();
+	}
+	if (agarrando_v) {
+		const diferencia_y = -(dedo.pageY - posición_inicial_y);
+		const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_y);
+		barra_v.style.bottom = movimiento_y + "px";
+		comprobar_límites_v();
 	}
 });
 
@@ -147,9 +194,24 @@ function sobre_barra_h(ratón) {
 	return pos_ratón > izquierda && pos_ratón < derecha;
 }
 
+function sobre_barra_h_dedo(dedo) {
+	const izquierda = desunizar(barra_h.style.left);
+	const derecha = Number(izquierda) + Number(barra_h.clientWidth);
+	const pos_dedo = dedo.touches[0].pageX - barra_h.getBoundingClientRect().left;
+	return pos_dedo > izquierda && pos_dedo < derecha;
+}
+
 function sobre_barra_v(ratón) {
 	const inferior = desunizar(barra_v.style.bottom);
 	const superior = Number(inferior) + Number(barra_v.clientHeight);
 	const pos_ratón = desplazador_v.clientHeight - ratón.offsetY;
 	return pos_ratón > inferior && pos_ratón < superior;
+}
+
+function sobre_barra_v_dedo(dedo) {
+	const inferior = desunizar(barra_v.style.bottom);
+	const superior = Number(inferior) + Number(barra_v.clientHeight);
+	const compensación = dedo.touches[0].pageX - barra_h.getBoundingClientRect().top;
+	const pos_dado = desplazador_v.clientHeight - compensación;
+	return pos_dado > inferior && pos_dado < superior;
 }
