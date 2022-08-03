@@ -66,6 +66,8 @@ function colocar_lista(lista) {
 		}
 		colección.appendChild(fragmento);
 		info.appendChild(fragmento_info);
+
+		ajustar_imágenes();
 	}
 }
 
@@ -198,6 +200,16 @@ function ocultar_info(info) {
 function mostrar_info(ventana) {
 	ventana.classList.remove("oculto");
 	pantalla_ocultar.classList.remove("oculto");
+}
+
+function ajustar_imágenes() {
+	const elemento = document.querySelectorAll(".elemento_colección");
+	for (let i = 0; i < elemento.length; i++) {
+		const imagen = elemento[i].firstChild;
+		const altura = imagen.clientHeight;
+		console.log(imagen.clientHeight);
+		imagen.style.width = altura + "px";
+	}
 }
 
 function editar_tempo(tempo) {
