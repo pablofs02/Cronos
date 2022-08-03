@@ -172,7 +172,6 @@ function crear_sinopsis(tempo) {
 	sinopsis.classList.add("sinopsis");
 	sinopsis.appendChild(crear_imagen(tempo));
 	sinopsis.appendChild(crear_texto_info(tempo));
-	sinopsis.appendChild(crear_opciones_info(tempo));
 	return sinopsis;
 }
 
@@ -184,12 +183,6 @@ function crear_texto_info(tempo) {
 	comentario.textContent = tempo.comentario;
 	texto.appendChild(comentario);
 	return texto;
-}
-
-function crear_opciones_info(tempo) {
-	const opciones = crear_botones(tempo);
-	opciones.classList.add("opciones_info");
-	return opciones;
 }
 
 function ocultar_info(info) {
