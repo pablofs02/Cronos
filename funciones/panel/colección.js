@@ -10,6 +10,27 @@ definir_botones_panel();
 listar_tempos(base, tabla).then(lista =>
 	colocar_lista(lista));
 
+window.addEventListener("resize", () => {
+	ajustar_imágenes();
+	pantalla_ocultar.classList.add("oculto");
+	if (window.innerHeight > 600)
+		hacer_rejilla();
+	else
+		deshacer_rejilla();
+});
+
+function deshacer_rejilla() {
+	const lista = document.querySelectorAll(".elemento_colección");
+	for (let i = 0; i < lista.length; i++)
+		lista[i].lastChild.style.display = "none";
+}
+
+function hacer_rejilla() {
+	const lista = document.querySelectorAll(".elemento_colección");
+	for (let i = 0; i < lista.length; i++)
+		lista[i].lastChild.style.display = "grid";
+}
+
 function definir_botones_panel() {
 	definir_cargar_archivo();
 	definir_descargar_todo();
@@ -50,8 +71,7 @@ function colocar_lista(lista) {
 			const tempo = lista[i];
 			const nodo = crear_elemento(tempo);
 
-			const opciones = crear_botones(tempo);
-			opciones.classList.add("opciones_tempo");
+			const opciones = crear_opciones(tempo);
 			nodo.appendChild(opciones);
 
 			const ventana_info = crear_ventana_info(tempo);
@@ -69,6 +89,34 @@ function colocar_lista(lista) {
 
 		ajustar_imágenes();
 	}
+}
+
+function crear_opciones(tempo) {
+	const fragmento = document.createDocumentFragment();
+	const botones = crear_botones(tempo);
+	fragmento.appendChild(crear_desplegable(botones));
+	fragmento.appendChild(botones);
+	return fragmento;
+}
+
+function crear_desplegable(botones) {
+	const contenedor = document.createElement("div");
+	contenedor.classList.add("contenedor_desplegable_tempo");
+	const desplegable = document.createElement("div");
+	desplegable.innerHTML = "<i class=\"fa-solid fa-ellipsis-vertical\"></i>";
+	desplegable.classList.add("desplegable_tempo");
+	contenedor.addEventListener("click", () => {
+		pantalla_ocultar.classList.remove("oculto");
+		botones.style.display = "flex";
+	});
+	pantalla_ocultar.addEventListener("click", () => {
+		if (window.innerHeight < 600) {
+			botones.style.display = "none";
+			pantalla_ocultar.classList.add("oculto");
+		}
+	});
+	contenedor.appendChild(desplegable);
+	return contenedor;
 }
 
 function crear_elemento(tempo) {
@@ -111,6 +159,7 @@ function crear_comentario(tempo) {
 
 function crear_botones(tempo) {
 	const opciones = document.createElement("div");
+	opciones.classList.add("opciones_tempo");
 	opciones.appendChild(crear_editar(tempo));
 	opciones.appendChild(crear_borrar(tempo));
 	opciones.appendChild(crear_ver(tempo));
@@ -185,13 +234,13 @@ function crear_texto_info(tempo) {
 	return texto;
 }
 
-function ocultar_info(info) {
+function ocultar_info(nodo) {
+	nodo.classList.add("oculto");
 	pantalla_ocultar.classList.add("oculto");
-	info.classList.add("oculto");
 }
 
-function mostrar_info(ventana) {
-	ventana.classList.remove("oculto");
+function mostrar_info(nodo) {
+	nodo.classList.remove("oculto");
 	pantalla_ocultar.classList.remove("oculto");
 }
 
@@ -200,7 +249,6 @@ function ajustar_imágenes() {
 	for (let i = 0; i < elemento.length; i++) {
 		const imagen = elemento[i].firstChild;
 		const altura = imagen.clientHeight;
-		console.log(imagen.clientHeight);
 		imagen.style.width = altura + "px";
 	}
 }

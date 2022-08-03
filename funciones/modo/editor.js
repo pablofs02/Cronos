@@ -110,7 +110,6 @@ formulario_guardado.addEventListener("submit", (e) => {
 		var file = e.target.imagen.files[0];
 		var reader = new FileReader();
 		reader.onload = function (e) {
-			console.log(e.target.result);
 			tempo.imagen = e.target.result;
 			guardar_tempo(base, tabla, tempo);
 			formulario_guardado.reset();

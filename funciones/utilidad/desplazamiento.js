@@ -92,7 +92,6 @@ desplazador_h.addEventListener("touchstart", (dedo) => {
 	if (!sobre_barra_h_dedo(dedo)) {
 		const compensación = dedo.touches[0].pageX - barra_h.getBoundingClientRect().left;
 		barra_h.style.left = compensación - (barra_h.clientWidth / 2) + "px";
-		console.log(barra_h.style.left);
 		comprobar_límites_h();
 		desplazar_elementos();
 	}
@@ -121,7 +120,6 @@ document.body.addEventListener("touchstart", (dedo) => {
 
 document.body.addEventListener("touchmove", (dedo) => {
 	if (agarrando_h) {
-		console.log(posición_inicial_x);
 		const diferencia_x = dedo.touches[0].pageX - posición_inicial_x;
 		const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_x);
 		barra_h.style.left = movimiento_x + "px";
