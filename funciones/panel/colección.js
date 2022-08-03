@@ -1,14 +1,21 @@
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../utilidad/almacenamiento.js";
 
 const pantalla_ocultar = document.getElementById("pantalla_ocultar");
+const colección = document.getElementById("colección");
 
 const base = "Cronos";
 const tabla = "Tempos";
 
 definir_botones_panel();
 
-listar_tempos(base, tabla).then(lista =>
-	colocar_lista(lista));
+listar_tempos(base, tabla).then(lista => {
+	if (lista.length)
+		colocar_lista(lista);
+	else {
+		colocar_vacío();
+		colección.classList.add("colección_vacía");
+	}
+});
 
 window.addEventListener("resize", () => {
 	ajustar_imágenes();
@@ -18,6 +25,19 @@ window.addEventListener("resize", () => {
 	else
 		deshacer_rejilla();
 });
+
+function colocar_vacío() {
+	const colección = document.getElementById("colección");
+	const contenedor = document.createElement("div");
+	contenedor.classList.add("sin_tempos");
+	const icono = document.createElement("div");
+	icono.innerHTML = "<i class=\"fa-solid fa-circle-xmark\"></i>";
+	contenedor.appendChild(icono);
+	const texto = document.createElement("div");
+	texto.textContent = "No tienes ningún tempo almacenado.";
+	contenedor.appendChild(texto);
+	colección.appendChild(contenedor);
+}
 
 function deshacer_rejilla() {
 	const lista = document.querySelectorAll(".elemento_colección");

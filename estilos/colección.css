@@ -217,3 +217,22 @@
 		display: none;
 	}
 }
+
+.colección_vacía {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sin_tempos {
+	text-align: center;
+}
+
+.sin_tempos > div > i {
+	font-size: 200%;
+	margin-bottom: 20px;
+}
+
+.sin_tempos > div {
+	font-size: xx-large;
+}
