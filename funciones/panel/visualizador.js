@@ -125,8 +125,8 @@ function crear_periodo(periodo) {
 	nodo.textContent = periodo.nombre;
 	nodo.title = periodo.comentario;
 	nodo.setAttribute("class", "periodo");
-	nodo.setAttribute("inicio", periodo.fecha.inicio);
-	nodo.setAttribute("fin", periodo.fecha.fin);
+	nodo.setAttribute("inicio", periodo.inicio);
+	nodo.setAttribute("fin", periodo.fin);
 	nodo.style.bottom = 0;
 	return nodo;
 }
@@ -160,43 +160,37 @@ function añadir_eventos(eventos) {
 }
 
 function actualizar_límites(objeto) {
-	actualizar_mínimos(objeto.fecha);
-	actualizar_máximos(objeto.fecha);
+	actualizar_mínimos(objeto);
+	actualizar_máximos(objeto);
 }
 
-function actualizar_mínimos(fecha) {
+function actualizar_mínimos(objeto) {
 	let valor;
-	if (fecha.inicio) {
-		valor = fecha.inicio;
-	} else {
-		valor = fecha;
-	}
-	if (!propiedades.mínimo) {
+	if (objeto.inicio)
+		valor = objeto.inicio;
+	else
+		valor = objeto.fecha;
+	if (!propiedades.mínimo)
 		propiedades.mínimo = valor;
-	} else if (propiedades.mínimo > valor) {
+	else if (propiedades.mínimo > valor)
 		propiedades.mínimo = valor;
-	}
 }
 
-function actualizar_máximos(fecha) {
+function actualizar_máximos(objeto) {
 	let valor;
-	if (fecha.fin) {
-		valor = fecha.fin;
-	} else {
-		valor = fecha;
-	}
-	if (!propiedades.máximo) {
+	if (objeto.fin)
+		valor = objeto.fin;
+	else
+		valor = objeto.fecha;
+	if (!propiedades.máximo)
 		propiedades.máximo = valor;
-	} else if (propiedades.máximo < valor) {
+	else if (propiedades.máximo < valor)
 		propiedades.máximo = valor;
-	}
 }
 
 function limpiar_mostrador() {
-	while (mostrador_periodos.firstChild) {
+	while (mostrador_periodos.firstChild)
 		mostrador_periodos.firstChild.remove();
-	}
-	while (mostrador_eventos.firstChild) {
+	while (mostrador_eventos.firstChild)
 		mostrador_eventos.firstChild.remove();
-	}
 }

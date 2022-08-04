@@ -19,25 +19,24 @@ entrada_creador.addEventListener("submit", (e) => {
 		periodos: [],
 		eventos: []
 	};
-	if (e.target.nombre.value) {
+	if (e.target.nombre.value)
 		tempo.nombre = e.target.nombre.value;
-		tomar_tempo(base, tabla, tempo.nombre).then(existe => {
-			if (!existe) {
-				if (e.target.comentario.value)
-					tempo.comentario = e.target.comentario.value;
-				if (e.target.imagen.value) {
-					const archivo = e.target.imagen.files[0];
-					const lector = new FileReader();
-					lector.onload = function (e) {
-						tempo.imagen = e.target.result;
-						almacenar(tempo);
-					};
-					lector.readAsDataURL(archivo);
-				} else
+	tomar_tempo(base, tabla, tempo.nombre).then(existe => {
+		if (!existe) {
+			if (e.target.comentario.value)
+				tempo.comentario = e.target.comentario.value;
+			if (e.target.imagen.value) {
+				const archivo = e.target.imagen.files[0];
+				const lector = new FileReader();
+				lector.onload = function (e) {
+					tempo.imagen = e.target.result;
 					almacenar(tempo);
-			}
-		});
-	}
+				};
+				lector.readAsDataURL(archivo);
+			} else
+				almacenar(tempo);
+		}
+	});
 });
 
 creador.addEventListener("click", () =>
