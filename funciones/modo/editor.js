@@ -17,16 +17,6 @@ let tempo = {};
 
 cargar_tempo();
 
-function cargar_tempo() {
-	if (localStorage.getItem("tempo")) {
-		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo_almacenado => {
-			tempo = tempo_almacenado;
-			cargar_visualizador(tempo);
-		});
-	} else
-		console.error("No hay ningún tempo seleccionado para editar.");
-}
-
 formulario_periodo.addEventListener("submit", (e) => {
 	e.preventDefault();
 	const periodo = {
@@ -85,4 +75,14 @@ function cerrar_ventanas() {
 	formulario_evento.reset();
 	nuevo_periodo.classList.add("oculto");
 	formulario_periodo.reset();
+}
+
+function cargar_tempo() {
+	if (sessionStorage.getItem("tempo")) {
+		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo_almacenado => {
+			tempo = tempo_almacenado;
+			cargar_visualizador(tempo);
+		});
+	} else
+		console.error("No hay ningún tempo seleccionado para editar.");
 }

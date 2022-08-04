@@ -2,7 +2,7 @@ import { actualizar_barra_h, longitud_visualizador, posición_actual } from "../
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
-	location.assign("/"));
+	location.assign("index.html"));
 
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
