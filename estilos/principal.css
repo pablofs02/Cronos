@@ -50,7 +50,7 @@ header {
 }
 
 @media (max-width: 559px) {
-	#b_editor {
+	#creador {
 		display: none;
 	}
 }

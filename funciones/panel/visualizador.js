@@ -1,4 +1,5 @@
 import { actualizar_barra_h, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+import { crear_ventana } from "../utilidad/formulario.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -143,6 +144,8 @@ function añadir_periodos(periodos) {
 	const fragmento = document.createDocumentFragment();
 	periodos.forEach(periodo => {
 		const nodo_periodo = crear_periodo(periodo);
+		nodo_periodo.addEventListener("click", () =>
+			editar_periodo(periodo));
 		fragmento.appendChild(nodo_periodo);
 		actualizar_límites(periodo);
 	});
@@ -157,6 +160,18 @@ function añadir_eventos(eventos) {
 		actualizar_límites(evento);
 	});
 	mostrador_eventos.appendChild(fragmento);
+}
+
+function editar_periodo(periodo) {
+	const ventana = {
+		título: periodo.nombre,
+		nombre: "periodo",
+		info: ["nombre", "comentario", "inicio", "fin"]
+	};
+	const ventana_periodo = crear_ventana(ventana);
+	ventana_periodo.id = ventana.nombre;
+	ventana_periodo.classList.add("oculto");
+	document.body.appendChild(ventana_periodo);
 }
 
 function actualizar_límites(objeto) {

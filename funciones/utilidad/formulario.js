@@ -1,77 +1,109 @@
-export function crear_ventana(ventana) {
-	const nodo = crear_base();
-	nodo.appendChild(crear_título(ventana.título));
-	nodo.appendChild(crear_cierre(ventana.nombre));
-	nodo.appendChild(crear_formulario(ventana));
-	return nodo;
+export function crear_ventana({ título, id, info }) {
+	const ventana = crear_base();
+	ventana.appendChild(crear_título(título));
+	ventana.appendChild(crear_cierre(id));
+	ventana.appendChild(crear_formulario(id, info));
+	return ventana;
 }
 
 function crear_base() {
 	const nodo = document.createElement("div");
 	nodo.classList.add("ventana_formulario");
-	nodo.classList.add("oculto");
 	return nodo;
 }
 
-function crear_título(título) {
-	const nodo = document.createElement("h2");
-	nodo.classList.add("título_formulario");
-	nodo.textContent = título;
-	return nodo;
+function crear_título(texto) {
+	const título = document.createElement("h2");
+	título.classList.add("título_formulario");
+	título.textContent = texto;
+	return título;
 }
 
-function crear_cierre(nombre) {
-	const nodo = document.createElement("button");
-	nodo.id = "cerrar_" + nombre;
-	nodo.classList.add("cerrar");
-	nodo.textContent = "X";
-	return nodo;
+function crear_cierre(id) {
+	const cierre = document.createElement("button");
+	cierre.id = "cerrar_" + id;
+	cierre.classList.add("cerrar");
+	cierre.textContent = "X";
+	return cierre;
 }
 
-function crear_formulario(ventana) {
-	const nodo = document.createElement("form");
-	nodo.id = "formulario_" + ventana.nombre;
-	nodo.classList.add("entrada");
-	const variables = ventana.info;
-	for (let i = 0; i < variables.length; i++) {
-		const elemento = variables[i];
-		if (elemento === "nombre")
-			nodo.appendChild(crear_sección("Nombre", "text"));
-		else if (elemento === "comentario")
-			nodo.appendChild(crear_sección("Comentario", "text"));
-		else if (elemento === "imagen")
-			nodo.appendChild(crear_sección("Imagen", "file"));
-		else
-			console.error("casilla no implementada");
-	}
-	nodo.appendChild(crear_subida());
-	return nodo;
+function crear_formulario(id, info) {
+	const formulario = document.createElement("form");
+	formulario.id = "formulario_" + id;
+	formulario.classList.add("entrada");
+	const variables = info;
+	for (let i = 0; i < variables.length; i++)
+		formulario.appendChild(crear_sección(variables[i]));
+	return formulario;
 }
 
-function crear_sección(texto, tipo) {
+function crear_sección(tipo) {
 	const fragmento = document.createDocumentFragment();
-	fragmento.appendChild(crear_etiqueta(texto));
-	fragmento.appendChild(crear_entrada(texto, tipo));
+	const entrada = {
+		nombre: "texto", comentario: "texto",
+		inicio: "fecha", fin: "fecha", fecha: "fecha",
+		imagen: "imagen",
+		listo: "listo"
+	};
+	if (entrada[tipo] === "texto")
+		fragmento.appendChild(crear_entrada_simple(tipo));
+	else if (entrada[tipo] === "fecha")
+		fragmento.appendChild(crear_entrada_fecha(tipo));
+	else if (entrada[tipo] === "imagen")
+		fragmento.appendChild(crear_entrada_imagen(tipo));
+	else if (entrada[tipo] === "listo")
+		fragmento.appendChild(crear_confirmación());
+	else
+		console.error("No se puede agregar la sección desconocida.");
 	return fragmento;
 }
 
 function crear_etiqueta(texto) {
 	const nodo = document.createElement("label");
-	nodo.setAttribute("for", texto.toLowerCase());
-	nodo.textContent = texto;
+	nodo.setAttribute("for", texto);
+	nodo.textContent = dignar(texto);
 	return nodo;
 }
 
-function crear_entrada(texto, tipo) {
+function crear_entrada(texto, tipo, forzar = false) {
 	const nodo = document.createElement("input");
 	nodo.setAttribute("type", tipo);
-	nodo.setAttribute("name", texto.toLowerCase());
-	nodo.style.gridColumn = "2/5";
+	nodo.setAttribute("name", texto);
+	if (forzar) nodo.required;
 	return nodo;
 }
 
-function crear_subida() {
+function crear_entrada_simple(texto) {
+	const fragmento = document.createDocumentFragment();
+	fragmento.appendChild(crear_etiqueta(texto));
+	fragmento.appendChild(crear_entrada(texto, "text"));
+	fragmento.lastChild.style.gridColumn = "2/5";
+	return fragmento;
+}
+
+function crear_entrada_fecha(texto) {
+	const fragmento = document.createDocumentFragment();
+	fragmento.appendChild(crear_etiqueta(dignar(texto)));
+	fragmento.appendChild(crear_entrada(texto, "number", true));
+	fragmento.appendChild(crear_entrada(texto, "checkbox"));
+	fragmento.appendChild(crear_etiqueta("AC"));
+	return fragmento;
+}
+
+function crear_entrada_imagen(texto) {
+	const fragmento = document.createDocumentFragment();
+	fragmento.appendChild(crear_etiqueta(dignar(texto)));
+	fragmento.appendChild(crear_entrada(texto, "file"));
+	fragmento.lastChild.style.gridColumn = "2/5";
+	return fragmento;
+}
+
+function crear_confirmación() {
 	const nodo = document.createElement("button");
 	nodo.textContent = "Listo";
 	return nodo;
+}
+
+function dignar(palabra) {
+	return palabra.replace(palabra.charAt(0), palabra.charAt(0).toUpperCase());
 }

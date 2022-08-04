@@ -3,11 +3,12 @@ import { crear_ventana } from "./formulario.js";
 
 const ventana = {
 	título: "Nuevo Tempo",
-	nombre: "creador",
-	info: ["nombre", "comentario", "imagen"]
+	id: "creador",
+	info: ["nombre", "comentario", "imagen", "listo"]
 };
 const creador = crear_ventana(ventana);
 creador.id = "nuevo_tempo";
+creador.classList.add("oculto");
 document.body.appendChild(creador);
 
 const botón_creador = document.getElementById("creador");

@@ -4,7 +4,7 @@ import { tomar_tempo } from "../utilidad/almacenamiento.js";
 const base = "Cronos";
 const tabla = "Tempos";
 
-const nombre_tempo = localStorage.getItem("tempo");
+const nombre_tempo = sessionStorage.getItem("tempo");
 
 tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
 	cargar_visualizador(tempo);
