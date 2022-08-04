@@ -5,6 +5,7 @@ import { crear_ventana, modificar_ventana } from "../utilidad/formulario.js";
 const base = "Cronos";
 const tabla = "Tempos";
 let tempo = {};
+let elemento;
 
 crear_ventanas();
 cargar_tempo();
@@ -46,7 +47,12 @@ formulario_periodo.addEventListener("submit", (e) => {
 	if (periodo.inicio < periodo.fin) {
 		tempo.periodos.push(periodo);
 		cargar_visualizador(tempo);
+		if (editando_periodo())
+			borrar_periodo_anterior();
 		cambiar_tempo(base, tabla, tempo);
+		setTimeout(() => {
+			location.reload();
+		}, 200);
 		restablecer_periodo();
 	} else
 		alert("¡El fin del periodo no puede se anterior al inicio!");
@@ -74,7 +80,12 @@ formulario_evento.addEventListener("submit", (e) => {
 		evento.fecha = -evento.fecha;
 	tempo.evento.push(evento);
 	cargar_visualizador(tempo);
+	if (editando_evento())
+		borrar_evento_anterior();
 	cambiar_tempo(base, tabla, tempo);
+	setTimeout(() => {
+		location.reload();
+	}, 200);
 	restablecer_evento();
 });
 
@@ -114,10 +125,12 @@ function ocultar_ventanas() {
 
 function ocultar_ventana_periodo() {
 	ventana_periodo.classList.add("oculto");
+	document.getElementById("periodo").classList.remove("editando");
 }
 
 function ocultar_ventana_evento() {
 	ventana_evento.classList.add("oculto");
+	document.getElementById("evento").classList.remove("editando");
 }
 
 function restablecer_periodo() {
@@ -186,9 +199,33 @@ function escuchar_evento(nodo, evento) {
 function editar_periodo(periodo) {
 	modificar_ventana("periodo", { título: "Editando Periodo", info: periodo });
 	mostrar_ventana_periodo();
+	elemento = periodo;
+	document.getElementById("periodo").classList.add("editando");
 }
 
 function editar_evento(evento) {
 	modificar_ventana("evento", { título: "Editando Evento", info: evento });
 	mostrar_ventana_evento();
+	elemento = evento;
+	document.getElementById("evento").classList.add("editando");
+}
+
+function editando_periodo() {
+	return document.getElementById("periodo").classList.contains("editando");
+}
+
+function editando_evento() {
+	return document.getElementById("evento").classList.contains("editando");
+}
+
+function borrar_periodo_anterior() {
+	const periodos = tempo.periodos;
+	const posición = periodos.indexOf(elemento);
+	tempo.periodos = periodos.splice(0, posición).concat(periodos.splice(posición + 1));
+}
+
+function borrar_evento_anterior() {
+	const eventos = tempo.eventos;
+	const posición = eventos.indexOf(elemento);
+	tempo.periodos = eventos.splice(0, posición).concat(eventos.splice(posición + 1));
 }
