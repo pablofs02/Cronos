@@ -36,51 +36,6 @@
 				<button id="añadir_evento" class="botón"> Crear Evento </button>
 			</div>
 
-			<div id="nuevo_periodo" class="ventana_formulario oculto">
-				<h2 class="título_formulario"> Periodo Nuevo </h2>
-				<button id="cerrar_periodo_nuevo" class="cerrar"> X </button>
-
-				<form id="insertar_periodo" class="entrada">
-					<label for="nombre"> Nombre </label>
-					<input type="text" name="nombre" style="grid-column: 2/5;" required>
-
-					<label for="comentario"> Comentario </label>
-					<input type="text" name="comentario" style="grid-column: 2/5;">
-
-					<label for="inicio"> Inicio </label>
-					<input type="text" name="inicio" required>
-					<input type="checkbox" name="inicio-AC">
-					<label for="inicio-AC"> AC </label>
-
-					<label for="fin"> Fin </label>
-					<input type="text" name="fin" required>
-					<input type="checkbox" name="fin-AC">
-					<label for="fin-AC"> AC </label>
-
-					<button> Listo </button>
-				</form>
-			</div>
-
-			<div id="nuevo_evento" class="ventana_formulario oculto">
-				<h2 class="título_formulario"> Evento Nuevo </h2>
-				<button id="cerrar_evento_nuevo" class="cerrar"> X </button>
-
-				<form id="insertar_evento" class="entrada">
-					<label for="nombre"> Nombre </label>
-					<input type="text" name="nombre" style="grid-column: 2/5;" required>
-
-					<label for="comentario"> Comentario </label>
-					<input type="text" name="comentario" style="grid-column: 2/5;">
-
-					<label for="inicio"> Fecha </label>
-					<input type="text" name="fecha" required>
-					<input type="checkbox" name="fecha-AC">
-					<label for="inicio-AC"> AC </label>
-
-					<button> Listo </button>
-				</form>
-			</div>
-
 			<div id="visualizador">
 				<div id="mostrador">
 					<div id="periodos"></div>
@@ -108,11 +63,10 @@
 	<div>
 		<script src="funciones/configuración/tema.js"></script>
 		<script src="funciones/configuración/idioma.js"></script>
-		<script src="funciones/utilidad/menú.js"></script>
+		<script src="funciones/utilidad/menú.js" type="module"></script>
 		<script src="funciones/panel/visualizador.js" type="module"></script>
 		<script src="funciones/modo/editor.js" type="module"></script>
 		<script src="funciones/utilidad/desplazamiento.js" type="module"></script>
-		<script src="funciones/utilidad/creador.js" type="module"></script>
 	</div>
 </body>
 
