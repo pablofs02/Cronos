@@ -28,10 +28,8 @@ function comprobar_reserva() {
 			nombre: "Predeterminado",
 			comentario: "Tempo por defecto.",
 			imagen: "archivos/imágenes/logo.png",
-			contenido: {
-				periodos: [],
-				eventos: []
-			}
+			periodos: [],
+			eventos: []
 		};
 		cargar_visualizador(tempo);
 	};
@@ -53,7 +51,7 @@ formulario_periodo.addEventListener("submit", (e) => {
 	if (e.target["fin-AC"].checked) {
 		periodo.fin = -periodo.fin;
 	}
-	tempo.contenido.periodos.push(periodo);
+	tempo.periodos.push(periodo);
 	cargar_visualizador(tempo);
 	formulario_periodo.reset();
 });
@@ -79,7 +77,7 @@ formulario_evento.addEventListener("submit", (e) => {
 	if (e.target["fecha-AC"].checked) {
 		evento.fecha = -evento.fecha;
 	}
-	tempo.contenido.evento.push(evento);
+	tempo.evento.push(evento);
 	cargar_visualizador(tempo);
 	formulario_evento.reset();
 });
@@ -93,39 +91,4 @@ evento_nuevo.addEventListener("click", () => {
 cerrar_evento.addEventListener("click", () => {
 	nuevo_evento.classList.add("oculto");
 	formulario_evento.reset();
-});
-
-const formulario_guardado = document.getElementById("formulario_guardado");
-const cerrar_guardado = document.getElementById("cerrar_guardado");
-const nuevo_tempo = document.getElementById("nuevo_tempo");
-const botón_guardar_tempo = document.getElementById("guardar_tempo");
-
-formulario_guardado.addEventListener("submit", (e) => {
-	e.preventDefault();
-	if (e.target.nombre.value)
-		tempo.nombre = e.target.nombre.value;
-	if (e.target.comentario.value)
-		tempo.comentario = e.target.comentario.value;
-	if (e.target.imagen.value) {
-		var file = e.target.imagen.files[0];
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			tempo.imagen = e.target.result;
-			guardar_tempo(base, tabla, tempo);
-			formulario_guardado.reset();
-			nuevo_tempo.classList.add("oculto");
-		};
-		reader.readAsDataURL(file);
-	} else {
-		guardar_tempo(base, tabla, tempo);
-		formulario_guardado.reset();
-		nuevo_tempo.classList.add("oculto");
-	}
-});
-botón_guardar_tempo.addEventListener("click", () => {
-	nuevo_tempo.classList.toggle("oculto");
-});
-cerrar_guardado.addEventListener("click", () => {
-	nuevo_tempo.classList.add("oculto");
-	formulario_guardado.reset();
 });

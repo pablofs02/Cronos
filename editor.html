@@ -19,7 +19,7 @@
 		</div>
 		<div>
 			<button id="b_colección" class="botón"> Mis Tempos </button>
-			<button id="b_editor" class="botón"> Nuevo Tempo </button>
+			<button id="creador" class="botón"> Nuevo Tempo </button>
 		</div>
 		<div id="opciones">
 			<img id="botón_idioma" src="archivos/imágenes/banderas/es.png" alt="Idioma">
@@ -34,7 +34,6 @@
 			<div class="botones">
 				<button id="añadir_periodo" class="botón"> Crear Periodo </button>
 				<button id="añadir_evento" class="botón"> Crear Evento </button>
-				<button id="guardar_tempo" class="botón"> Guardar </button>
 			</div>
 
 			<div id="nuevo_periodo" class="ventana_formulario oculto">
@@ -82,24 +81,6 @@
 				</form>
 			</div>
 
-			<div id="nuevo_tempo" class="ventana_formulario oculto">
-				<h2 class="título_formulario"> Tempo Nuevo </h2>
-				<button id="cerrar_guardado" class="cerrar"> X </button>
-
-				<form id="formulario_guardado" class="entrada">
-					<label for="nombre"> Nombre </label>
-					<input type="text" name="nombre" style="grid-column: 2/5;">
-
-					<label for="comentario"> Comentario </label>
-					<input type="text" name="comentario" style="grid-column: 2/5;">
-
-					<label for="imagen"> Imagen </label>
-					<input type="file" name="imagen" style="grid-column: 2/5;">
-
-					<button> Listo </button>
-				</form>
-			</div>
-
 			<div id="visualizador">
 				<div id="mostrador">
 					<div id="periodos"></div>
@@ -131,6 +112,7 @@
 		<script src="funciones/panel/visualizador.js" type="module"></script>
 		<script src="funciones/modo/editor.js" type="module"></script>
 		<script src="funciones/utilidad/desplazamiento.js" type="module"></script>
+		<script src="funciones/utilidad/creador.js" type="module"></script>
 	</div>
 </body>
 

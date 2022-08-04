@@ -28,6 +28,10 @@ body {
 
 /**** CABECERA ****/
 
+#inicio:hover {
+	cursor: pointer;
+}
+
 header {
 	height: 50px;
 	background-color: var(--fondo_cabecera);

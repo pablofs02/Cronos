@@ -2,7 +2,7 @@ import { actualizar_barra_h, longitud_visualizador, posición_actual } from "../
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
-	location.assign("index.html"));
+	location.assign("/"));
 
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
@@ -36,12 +36,10 @@ window.addEventListener("resize", () =>
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
 
-	if (tempo.contenido) {
-		if (tempo.contenido.periodos)
-			añadir_periodos(tempo.contenido.periodos);
-		if (tempo.contenido.eventos)
-			añadir_eventos(tempo.contenido.eventos);
-	}
+	if (tempo.periodos)
+		añadir_periodos(tempo.periodos);
+	if (tempo.eventos)
+		añadir_eventos(tempo.eventos);
 
 	actualizar_visualizador();
 }
