@@ -12,6 +12,15 @@ setTimeout(() => {
 	escuchar_elementos();
 }, 200);
 
+const botón_editar_tempo = document.getElementById("editar_tempo");
+const ventana_tempo = document.getElementById("tempo");
+botón_editar_tempo.addEventListener("click", () => {
+	tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
+		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
+		ventana_tempo.classList.remove("oculto");
+	});
+});
+
 const botón_nuevo_periodo = document.getElementById("añadir_periodo");
 const ventana_periodo = document.getElementById("periodo");
 const cerrar_periodo = document.getElementById("cerrar_periodo");
