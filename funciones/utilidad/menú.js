@@ -1,4 +1,4 @@
-import { guardar_tempo, tomar_tempo } from "./almacenamiento.js";
+import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "./formulario.js";
 
 const colección = document.getElementById("b_colección");
@@ -9,6 +9,7 @@ colección.addEventListener("click", () => {
 
 const base = "Cronos";
 const tabla = "Tempos";
+let tempo_act;
 
 const ventana = {
 	id: "tempo",
@@ -37,16 +38,36 @@ formulario_tempo.addEventListener("submit", (e) => {
 		if (!existe) {
 			if (e.target.comentario.value)
 				tempo.comentario = e.target.comentario.value;
-			if (e.target.imagen.value) {
-				const archivo = e.target.imagen.files[0];
-				const lector = new FileReader();
-				lector.onload = function (e) {
-					tempo.imagen = e.target.result;
+			if (document.getElementById("tempo").classList.contains("editando"))
+				tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(act => {
+					tempo.periodos = act.periodos;
+					tempo.eventos = act.eventos;
+					if (e.target.imagen.value) {
+						const archivo = e.target.imagen.files[0];
+						const lector = new FileReader();
+						lector.onload = function (e) {
+							tempo.imagen = e.target.result;
+							borrar_tempo(base, tabla, act);
+							almacenar(tempo);
+						};
+						lector.readAsDataURL(archivo);
+					} else {
+						borrar_tempo(base, tabla, act);
+						almacenar(tempo);
+					}
+				});
+			else {
+				if (e.target.imagen.value) {
+					const archivo = e.target.imagen.files[0];
+					const lector = new FileReader();
+					lector.onload = function (e) {
+						tempo.imagen = e.target.result;
+						almacenar(tempo);
+					};
+					lector.readAsDataURL(archivo);
+				} else
 					almacenar(tempo);
-				};
-				lector.readAsDataURL(archivo);
-			} else
-				almacenar(tempo);
+			}
 		} else
 			alert("Ese nombre ya está en uso.");
 	});
@@ -73,4 +94,5 @@ function mostrar_ventana_tempo() {
 function ocultar_ventana_tempo() {
 	ventana_tempo.classList.add("oculto");
 	formulario_tempo.reset();
+	document.getElementById("tempo").classList.remove("editando");
 }

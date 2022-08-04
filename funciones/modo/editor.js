@@ -18,6 +18,7 @@ const ventana_tempo = document.getElementById("tempo");
 botón_editar_tempo.addEventListener("click", () => {
 	tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
 		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
+		document.getElementById("tempo").classList.add("editando");
 		ventana_tempo.classList.remove("oculto");
 	});
 });
