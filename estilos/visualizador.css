@@ -39,6 +39,7 @@
 	padding-left: 8px;
 	background-color: var(--periodo);
 	overflow: hidden;
+	cursor: pointer;
 	z-index: 5;
 }
 

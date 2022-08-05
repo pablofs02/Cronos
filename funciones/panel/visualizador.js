@@ -167,11 +167,11 @@ function chocan(periodo, periodo_v) {
 }
 
 function pertenece_inicio(periodo, periodo_v) {
-	return periodo.getAttribute("inicio") < periodo_v.getAttribute("inicio") && periodo.getAttribute("inicio") > periodo_v.getAttribute("fin");
+	return Number(periodo.getAttribute("inicio")) > Number(periodo_v.getAttribute("inicio")) && Number(periodo.getAttribute("inicio")) < Number(periodo_v.getAttribute("fin"));
 }
 
 function pertenece_final(periodo, periodo_v) {
-	return periodo.getAttribute("fin") > periodo_v.getAttribute("fin") && periodo.getAttribute("fin") < periodo_v.getAttribute("inicio");
+	return Number(periodo.getAttribute("fin")) < Number(periodo_v.getAttribute("fin")) && Number(periodo.getAttribute("fin")) > Number(periodo_v.getAttribute("inicio"));
 }
 
 function actualizar_altitud() {
