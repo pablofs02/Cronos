@@ -123,6 +123,12 @@ function definir_longitud() {
 	}
 }
 
+let periodos_chocados = [];
+
+function vaciar_bufer() {
+	periodos_chocados = periodos_chocados.slice(-1, -1);
+}
+
 function definir_altitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
@@ -130,34 +136,41 @@ function definir_altitud() {
 		const altitud = calcular_altitud(periodo);
 		periodos_visitados.push(periodo);
 		periodo.setAttribute("altura", altitud);
+		vaciar_bufer();
 	}
 	actualizar_altitud();
 }
 
 function calcular_altitud(periodo) {
-	const choques = cantidad_de_choque(periodo);
-	return choques;
+	listar_choques(periodo);
+	return primer_espacio(0);
 }
 
-function cantidad_de_choque(periodo) {
-	let contador = 0;
+function primer_espacio(menor) {
+	for (let i = 0; i < periodos_chocados.length; i++)
+		if (periodos_chocados[i].getAttribute("altura") == menor)
+			return primer_espacio(menor + 1);
+	return menor;
+}
+
+function listar_choques(periodo) {
 	for (let i = 0; i < periodos_visitados.length; i++) {
 		const periodo_v = periodos_visitados[i];
-		if (chocan(periodo, periodo_v))
-			contador++;
+		if (chocan(periodo, periodo_v)) {
+			periodos_chocados.push(periodo_v);
+		}
 	}
-	return contador;
 }
 
 function chocan(periodo, periodo_v) {
-	return inicio_pertenece(periodo, periodo_v) || final_pertenece(periodo, periodo_v);
+	return pertenece_inicio(periodo, periodo_v) || pertenece_final(periodo, periodo_v);
 }
 
-function inicio_pertenece(periodo, periodo_v) {
+function pertenece_inicio(periodo, periodo_v) {
 	return periodo.getAttribute("inicio") < periodo_v.getAttribute("inicio") && periodo.getAttribute("inicio") > periodo_v.getAttribute("fin");
 }
 
-function final_pertenece(periodo, periodo_v) {
+function pertenece_final(periodo, periodo_v) {
 	return periodo.getAttribute("fin") > periodo_v.getAttribute("fin") && periodo.getAttribute("fin") < periodo_v.getAttribute("inicio");
 }
 
