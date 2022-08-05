@@ -1,10 +1,14 @@
+import { ordenar_elementos } from "./orden.js";
+
 const dependencia = "nombre";
 
 export function guardar_tempo(base, tabla, tempo) {
+	tempo = ordenar_elementos(tempo);
 	acceder_almacén("guardar", { base, tabla, tempo });
 }
 
 export function cambiar_tempo(base, tabla, tempo) {
+	tempo = ordenar_elementos(tempo);
 	acceder_almacén("cambiar", { base, tabla, tempo });
 }
 
