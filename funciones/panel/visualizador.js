@@ -13,6 +13,8 @@ const propiedades = {
 	mínimo: null
 };
 
+const periodos_visitados = [];
+
 const aumentar = document.getElementById("aumentar");
 const disminuir = document.getElementById("disminuir");
 
@@ -50,6 +52,7 @@ export function actualizar_visualizador() {
 	actualizar_posición();
 	definir_longitud();
 	actualizar_longitud();
+	definir_altitud();
 }
 
 export function desplazar_elementos() {
@@ -90,7 +93,7 @@ function definir_posición() {
 		const periodo = periodos[i];
 		const dif_max_min = propiedades.máximo - propiedades.mínimo;
 		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
-		const distancia = 100 / dif_max_min * dif_min_per;;
+		const distancia = 100 / dif_max_min * dif_min_per;
 		periodo.setAttribute("posición", distancia);
 	}
 }
@@ -117,6 +120,53 @@ function definir_longitud() {
 		const dif_fecha_total = propiedades.máximo - propiedades.mínimo;
 		const ancho = 100 / dif_fecha_total * dif_fecha_periodo;
 		periodo.setAttribute("ancho", ancho);
+	}
+}
+
+function definir_altitud() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const altitud = calcular_altitud(periodo);
+		periodos_visitados.push(periodo);
+		periodo.setAttribute("altura", altitud);
+	}
+	actualizar_altitud();
+}
+
+function calcular_altitud(periodo) {
+	const choques = cantidad_de_choque(periodo);
+	return choques;
+}
+
+function cantidad_de_choque(periodo) {
+	let contador = 0;
+	for (let i = 0; i < periodos_visitados.length; i++) {
+		const periodo_v = periodos_visitados[i];
+		if (chocan(periodo, periodo_v))
+			contador++;
+	}
+	return contador;
+}
+
+function chocan(periodo, periodo_v) {
+	return inicio_pertenece(periodo, periodo_v) || final_pertenece(periodo, periodo_v);
+}
+
+function inicio_pertenece(periodo, periodo_v) {
+	return periodo.getAttribute("inicio") < periodo_v.getAttribute("inicio") && periodo.getAttribute("inicio") > periodo_v.getAttribute("fin");
+}
+
+function final_pertenece(periodo, periodo_v) {
+	return periodo.getAttribute("fin") > periodo_v.getAttribute("fin") && periodo.getAttribute("fin") < periodo_v.getAttribute("inicio");
+}
+
+function actualizar_altitud() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const altitud = periodo.getAttribute("altura");
+		periodo.style.bottom = altitud * 22 + "px";
 	}
 }
 
