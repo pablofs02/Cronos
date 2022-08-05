@@ -222,11 +222,11 @@ function editando_evento() {
 function borrar_periodo_anterior() {
 	const periodos = tempo.periodos;
 	const posición = periodos.indexOf(elemento);
-	tempo.periodos = periodos.splice(0, posición).concat(periodos.splice(posición + 1));
+	tempo.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
 }
 
 function borrar_evento_anterior() {
 	const eventos = tempo.eventos;
 	const posición = eventos.indexOf(elemento);
-	tempo.periodos = eventos.splice(0, posición).concat(eventos.splice(posición + 1));
+	tempo.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));
 }

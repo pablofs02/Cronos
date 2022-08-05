@@ -52,6 +52,7 @@ formulario_tempo.addEventListener("submit", (e) => {
 						};
 						lector.readAsDataURL(archivo);
 					} else {
+						tempo.imagen = act.imagen;
 						borrar_tempo(base, tabla, act);
 						almacenar(tempo);
 					}
