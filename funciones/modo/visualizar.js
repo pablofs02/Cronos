@@ -9,3 +9,7 @@ const nombre_tempo = sessionStorage.getItem("tempo");
 tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
 	cargar_visualizador(tempo);
 });
+
+const editar = document.getElementById("editar_tempo");
+editar.addEventListener("click", () =>
+	location.assign("editor.html"));
