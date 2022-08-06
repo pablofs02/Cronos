@@ -1,4 +1,4 @@
-import { activar_barra_lateral, actualizar_barra_h, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -66,6 +66,17 @@ export function desplazar_elementos() {
 		const exceso = posición_actual() / 100 * longitud_visualizador();
 		const posición_desplazada = posición_base - desplazamiento + exceso;
 		periodo.style.left = posición_desplazada + "px";
+	}
+}
+
+export function elevar_elementos() {
+	const periodos = mostrador_periodos.childNodes;
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const posición_base = periodo.getAttribute("altura") * 22;
+		const desplazamiento = altura_actual();
+		const posición_desplazada = posición_base - desplazamiento;
+		periodo.style.bottom = posición_desplazada + "px";
 	}
 }
 
@@ -185,13 +196,25 @@ function actualizar_altitud() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const altitud = periodo.getAttribute("altura");
-		periodo.style.bottom = altitud * 22 - 20 + "px";
+		periodo.style.bottom = altitud * 22 + "px";
 	}
 }
 
 function comprobar_altura() {
-	if (altura_máxima() * 22 > límite_altura())
+	if ((Number(altura_máxima()) + 1) * 22 - 2 > límite_altura()) {
 		activar_barra_lateral();
+		actualizar_barra_lateral();
+	} else
+		desactivar_barra_lateral();
+	bajar_barra();
+	elevar_elementos();
+}
+
+function actualizar_barra_lateral() {
+	const barra = document.getElementById("barra_vertical");
+	const longitud = document.getElementById("desplazador_vertical").clientHeight;
+	const altura_visible = (Number(altura_máxima()) + 1) * 22 - 2;
+	barra.style.height = longitud * límite_altura() / altura_visible + "px";
 }
 
 function límite_altura() {
@@ -203,7 +226,7 @@ function altura_máxima() {
 	let máximo = 0;
 	for (let i = 0; i < periodos.length; i++) {
 		const altura = periodos[i].getAttribute("altura");
-		if (altura > máximo)
+		if (Number(altura) > máximo)
 			máximo = altura;
 	}
 	return máximo;

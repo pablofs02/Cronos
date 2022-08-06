@@ -103,13 +103,15 @@
 
 #desplazador_vertical {
 	width: 25px;
-	height: 50%;
+	height: 60%;
+	max-height: calc(100% - 150px);
 	position: absolute;
 	right: 0;
 	margin: 20px;
 	border-radius: 16px;
 	background-color: var(--verde);
 	cursor: grab;
+	z-index: 8;
 }
 
 #desplazador_vertical:active {
