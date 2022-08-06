@@ -39,7 +39,8 @@ formulario_periodo.addEventListener("submit", (e) => {
 		nombre: e.target.nombre.value,
 		comentario: e.target.comentario.value,
 		inicio: e.target.inicio.value,
-		fin: e.target.fin.value
+		fin: e.target.fin.value,
+		grupo: e.target.grupo.value
 	};
 	if (e.target["inicio-AC"].checked)
 		periodo.inicio = -periodo.inicio;
@@ -156,7 +157,7 @@ function crear_ventanas() {
 	const ventana_periodo = {
 		id: "periodo",
 		título: "Nuevo Periodo",
-		info: ["nombre", "comentario", "inicio", "fin"]
+		info: ["nombre", "comentario", "inicio", "fin", "grupo"]
 	};
 	document.body.appendChild(crear_ventana(ventana_periodo));
 

@@ -1,5 +1,5 @@
 const tipo = {
-	nombre: "texto", comentario: "texto",
+	nombre: "texto", comentario: "texto", grupo: "texto",
 	inicio: "fecha", fin: "fecha", fecha: "fecha",
 	imagen: "imagen"
 };
