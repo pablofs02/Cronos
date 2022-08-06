@@ -47,6 +47,7 @@ export function cargar_visualizador(tempo) {
 }
 
 export function actualizar_visualizador() {
+	añadir_margen();
 	actualizar_barra_h(propiedades.proporción);
 	definir_posición();
 	actualizar_posición();
@@ -301,6 +302,12 @@ function actualizar_máximos(objeto) {
 		propiedades.máximo = valor;
 	else if (propiedades.máximo < valor)
 		propiedades.máximo = valor;
+}
+
+function añadir_margen() {
+	const rango = (propiedades.máximo - propiedades.mínimo);
+	propiedades.máximo += 0.05 * rango;
+	propiedades.mínimo -= 0.14 * rango;
 }
 
 function limpiar_mostrador() {
