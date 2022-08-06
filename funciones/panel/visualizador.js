@@ -1,4 +1,4 @@
-import { actualizar_barra_h, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+import { activar_barra_lateral, actualizar_barra_h, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -53,6 +53,7 @@ export function actualizar_visualizador() {
 	definir_longitud();
 	actualizar_longitud();
 	definir_altitud();
+	comprobar_altura();
 }
 
 export function desplazar_elementos() {
@@ -73,6 +74,7 @@ function ajustar_todo() {
 	actualizar_longitud();
 	actualizar_posición();
 	desplazar_elementos();
+	comprobar_altura();
 }
 
 function actualizar_posición() {
@@ -163,7 +165,11 @@ function listar_choques(periodo) {
 }
 
 function chocan(periodo, periodo_v) {
-	return pertenece_inicio(periodo, periodo_v) || pertenece_final(periodo, periodo_v);
+	return pertenece_inicio(periodo, periodo_v) || pertenece_final(periodo, periodo_v) || choque_total(periodo, periodo_v);
+}
+
+function choque_total(periodo, periodo_v) {
+	return Number(periodo.getAttribute("inicio")) == Number(periodo_v.getAttribute("inicio")) && Number(periodo.getAttribute("fin")) == Number(periodo_v.getAttribute("fin"));
 }
 
 function pertenece_inicio(periodo, periodo_v) {
@@ -179,14 +185,37 @@ function actualizar_altitud() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const altitud = periodo.getAttribute("altura");
-		periodo.style.bottom = altitud * 22 + "px";
+		periodo.style.bottom = altitud * 22 - 20 + "px";
 	}
+}
+
+function comprobar_altura() {
+	if (altura_máxima() * 22 > límite_altura())
+		activar_barra_lateral();
+}
+
+function límite_altura() {
+	return document.getElementById("mostrador").clientHeight;
+}
+
+function altura_máxima() {
+	const periodos = document.getElementById("periodos").childNodes;
+	let máximo = 0;
+	for (let i = 0; i < periodos.length; i++) {
+		const altura = periodos[i].getAttribute("altura");
+		if (altura > máximo)
+			máximo = altura;
+	}
+	return máximo;
 }
 
 function crear_periodo(periodo) {
 	const nodo = document.createElement("div");
 	nodo.textContent = periodo.nombre;
-	nodo.title = periodo.nombre + "\n" + periodo.comentario;
+	if (periodo.comentario)
+		nodo.title = periodo.nombre + "\n" + periodo.comentario;
+	else
+		nodo.title = periodo.nombre;
 	nodo.setAttribute("class", "periodo");
 	nodo.setAttribute("inicio", periodo.inicio);
 	nodo.setAttribute("fin", periodo.fin);
