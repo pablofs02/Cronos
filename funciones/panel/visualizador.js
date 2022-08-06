@@ -291,7 +291,7 @@ function actualizar_mínimos(objeto) {
 		valor = objeto.fecha;
 	if (!propiedades.mínimo)
 		propiedades.mínimo = valor;
-	else if (propiedades.mínimo > valor)
+	else if (Number(propiedades.mínimo) > valor)
 		propiedades.mínimo = valor;
 }
 
@@ -303,14 +303,14 @@ function actualizar_máximos(objeto) {
 		valor = objeto.fecha;
 	if (!propiedades.máximo)
 		propiedades.máximo = valor;
-	else if (propiedades.máximo < valor)
+	else if (Number(propiedades.máximo) < valor)
 		propiedades.máximo = valor;
 }
 
 function añadir_margen() {
 	const rango = (propiedades.máximo - propiedades.mínimo);
-	propiedades.máximo += 0.05 * rango;
-	propiedades.mínimo -= 0.14 * rango;
+	propiedades.máximo = Number(propiedades.máximo) + 0.05 * rango;
+	propiedades.mínimo -= 0.05 * rango;
 }
 
 function limpiar_mostrador() {
