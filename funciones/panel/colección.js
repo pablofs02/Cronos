@@ -7,7 +7,7 @@ const base = "Cronos";
 const tabla = "Tempos";
 
 definir_botones_panel();
-
+crear_ventana_info();
 listar_tempos(base, tabla).then(lista => {
 	if (lista.length)
 		colocar_lista(lista);
@@ -20,6 +20,7 @@ listar_tempos(base, tabla).then(lista => {
 window.addEventListener("resize", () => {
 	ajustar_imágenes();
 	pantalla_ocultar.classList.add("oculto");
+	document.getElementById("info").classList.add("oculto");
 	if (window.innerHeight > 600)
 		hacer_rejilla();
 	else
@@ -84,9 +85,7 @@ function definir_botón_borrar_todo() {
 function colocar_lista(lista) {
 	if (lista) {
 		const colección = document.getElementById("colección");
-		const info = document.getElementById("info");
 		const fragmento = document.createDocumentFragment();
-		const fragmento_info = document.createDocumentFragment();
 		for (let i = 0; i < lista.length; i++) {
 			const tempo = lista[i];
 			const nodo = crear_elemento(tempo);
@@ -94,18 +93,14 @@ function colocar_lista(lista) {
 			const opciones = crear_opciones(tempo);
 			nodo.appendChild(opciones);
 
-			const ventana_info = crear_ventana_info(tempo);
-			fragmento_info.appendChild(ventana_info);
-
 			nodo.children[0].addEventListener("click", () =>
-				mostrar_info(ventana_info));
+				mostrar_info(tempo));
 			nodo.children[1].addEventListener("click", () =>
-				mostrar_info(ventana_info));
+				mostrar_info(tempo));
 
 			fragmento.appendChild(nodo);
 		}
 		colección.appendChild(fragmento);
-		info.appendChild(fragmento_info);
 
 		ajustar_imágenes();
 	}
@@ -220,10 +215,10 @@ function crear_descargar(tempo) {
 	return descargar;
 }
 
-function crear_ventana_info(tempo) {
+function crear_ventana_info() {
 	const ventana = document.createElement("div");
-	ventana.classList.add("ventana_info");
-	ventana.appendChild(crear_sinopsis(tempo));
+	ventana.id = "info";
+	ventana.appendChild(crear_sinopsis());
 
 	const espacio_vacío = document.createElement("div");
 	espacio_vacío.classList.add("no_sé");
@@ -233,35 +228,56 @@ function crear_ventana_info(tempo) {
 	pantalla_ocultar.addEventListener("click", () =>
 		ocultar_info(ventana));
 
-	return ventana;
+	document.body.appendChild(ventana);
 }
 
-function crear_sinopsis(tempo) {
+function crear_sinopsis() {
 	const sinopsis = document.createElement("div");
 	sinopsis.classList.add("sinopsis");
-	sinopsis.appendChild(crear_imagen(tempo));
-	sinopsis.appendChild(crear_texto_info(tempo));
+	sinopsis.appendChild(crear_imagen_info());
+	sinopsis.appendChild(crear_texto_info());
 	return sinopsis;
 }
 
-function crear_texto_info(tempo) {
+function crear_imagen_info() {
+	const imagen = document.createElement("img");
+	imagen.id = "imagen_info";
+	return imagen;
+}
+
+function crear_texto_info() {
 	const texto = document.createElement("div");
 	texto.classList.add("texto_info");
-	texto.appendChild(crear_título(tempo));
+	const título = document.createElement("h3");
+	título.id = "título_info";
+	texto.appendChild(título);
 	const comentario = document.createElement("p");
-	comentario.textContent = tempo.comentario;
+	comentario.id = "comentario_info";
 	texto.appendChild(comentario);
 	return texto;
 }
 
-function ocultar_info(nodo) {
-	nodo.classList.add("oculto");
+function ocultar_info() {
+	document.getElementById("info").classList.add("oculto");
 	pantalla_ocultar.classList.add("oculto");
 }
 
-function mostrar_info(nodo) {
-	nodo.classList.remove("oculto");
+function mostrar_info(tempo) {
+	document.getElementById("info").classList.remove("oculto");
 	pantalla_ocultar.classList.remove("oculto");
+	modificar_info(tempo);
+}
+
+function modificar_info(tempo) {
+	const título = document.getElementById("título_info");
+	título.textContent = tempo.nombre;
+	const comentario = document.getElementById("comentario_info");
+	comentario.textContent = tempo.comentario;
+	const imagen = document.getElementById("imagen_info");
+	if (tempo.imagen)
+		imagen.setAttribute("src", tempo.imagen);
+	else
+		imagen.setAttribute("src", "archivos/imágenes/logo.png");
 }
 
 function ajustar_imágenes() {

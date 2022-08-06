@@ -97,13 +97,13 @@
 
 /**** INFORMACIÓN ****/
 
-.ventana_info {
+#info {
 	max-width: 100vw;
 	width: 90%;
 	max-height: calc(100vh - 50px);
 	min-height: 200px;
 	position: absolute;
-	top: -50px;
+	top: 0px;
 	right: 0;
 	left: 0;
 	margin: auto;
