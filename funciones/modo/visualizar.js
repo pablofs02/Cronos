@@ -5,7 +5,7 @@ const base = "Cronos";
 const tabla = "Tempos";
 
 export default function configurar_visualización() {
-	const nombre_tempo = sessionStorage.getItem("tempo");
+	const nombre_tempo = localStorage.getItem("tempo");
 	tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
 		cargar_visualizador(tempo);
 	});

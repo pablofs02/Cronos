@@ -14,10 +14,15 @@ export default function configurar_editor() {
 		escuchar_elementos();
 	}, 200);
 	escuchar_formularios();
-	escuchar_editar_tempo();
+	escuchar_formulario_tempo();
 }
 
 function escuchar_formularios() {
+	escuchar_formulario_periodo();
+	escuchar_formulario_evento();
+}
+
+function escuchar_formulario_periodo() {
 	const botón_nuevo_periodo = document.getElementById("añadir_periodo");
 	const formulario_periodo = document.getElementById("formulario_periodo");
 	const cerrar_periodo = document.getElementById("cerrar_periodo");
@@ -27,8 +32,8 @@ function escuchar_formularios() {
 		const periodo = {
 			nombre: e.target.nombre.value,
 			comentario: e.target.comentario.value,
-			inicio: e.target.inicio.value,
-			fin: e.target.fin.value,
+			inicio: Number(e.target.inicio.value),
+			fin: Number(e.target.fin.value),
 			grupo: e.target.grupo.value
 		};
 		if (e.target["inicio-AC"].checked)
@@ -75,7 +80,7 @@ function escuchar_formulario_evento() {
 		};
 		if (e.target["fecha-AC"].checked)
 			evento.fecha = -evento.fecha;
-		tempo.evento.push(evento);
+		tempo.eventos.push(evento);
 		cargar_visualizador(tempo);
 		if (editando_evento())
 			borrar_evento_anterior();
@@ -98,10 +103,10 @@ function escuchar_formulario_evento() {
 	});
 }
 
-function escuchar_editar_tempo() {
+function escuchar_formulario_tempo() {
 	const botón_editar_tempo = document.getElementById("editar_tempo");
 	botón_editar_tempo.addEventListener("click", () => {
-		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
+		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo => {
 			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
 			const ventana_tempo = document.getElementById("tempo");
 			ventana_tempo.classList.add("editando");
@@ -158,8 +163,8 @@ function restablecer_evento() {
 }
 
 function cargar_tempo() {
-	if (sessionStorage.getItem("tempo")) {
-		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo_almacenado => {
+	if (localStorage.getItem("tempo")) {
+		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo_almacenado => {
 			tempo = tempo_almacenado;
 			cargar_visualizador(tempo);
 		});

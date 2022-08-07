@@ -13,12 +13,25 @@ const propiedades = {
 	mínimo: null
 };
 
-const periodos_visitados = [];
-
 export default function configurar_visualizador() {
 	escuchar_escalador();
 	escuchar_vestana();
 }
+
+function hay_grupos() {
+	const periodos = document.getElementById("periodos").childNodes;
+	for (let i = 0; i < periodos.length; i++)
+		if (periodos[i].getAttribute("grupo") != "_")
+			return true;
+	return false;
+}
+
+let periodos_visitados = [];
+let periodos_chocados = [];
+
+const grupos = {};
+
+let altura_grupo_anterior = 0;
 
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
@@ -148,33 +161,41 @@ function definir_longitud() {
 	}
 }
 
-let periodos_chocados = [];
-
-function vaciar_bufer() {
+function vaciar_chocados() {
 	periodos_chocados = periodos_chocados.slice(-1, -1);
+}
+
+function vaciar_visitados() {
+	periodos_visitados = periodos_visitados.slice(-1, -1);
 }
 
 function definir_altitud() {
 	const periodos = mostrador_periodos.childNodes;
-	for (let i = 0; i < periodos.length; i++) {
-		const periodo = periodos[i];
-		const altitud = calcular_altitud(periodo);
-		periodos_visitados.push(periodo);
-		periodo.setAttribute("altura", altitud);
-		vaciar_bufer();
+	const nombres = Object.keys(grupos);
+	for (let i = 0; i < nombres.length; i++) {
+		const listado = grupos[nombres[i]];
+		for (let j = 0; j < listado.length; j++) {
+			const periodo = periodos[listado[j]];
+			const altitud = calcular_altitud(periodo);
+			vaciar_chocados();
+			periodos_visitados.push(periodo);
+			periodo.setAttribute("altura", altitud);
+		}
+		altura_grupo_anterior = Number(altura_máxima()) + 1;
+		vaciar_visitados();
 	}
 	actualizar_altitud();
 }
 
 function calcular_altitud(periodo) {
 	listar_choques(periodo);
-	return primer_espacio(0);
+	return primer_espacio(altura_grupo_anterior);
 }
 
 function primer_espacio(menor) {
 	for (let i = 0; i < periodos_chocados.length; i++)
 		if (periodos_chocados[i].getAttribute("altura") == menor)
-			return primer_espacio(menor + 1);
+			return primer_espacio(Number(menor) + 1);
 	return menor;
 }
 
@@ -244,7 +265,7 @@ function altura_máxima() {
 	return máximo;
 }
 
-function crear_periodo(periodo) {
+function crear_periodo(periodo, id) {
 	const nodo = document.createElement("div");
 	nodo.textContent = periodo.nombre;
 	if (periodo.comentario)
@@ -254,8 +275,23 @@ function crear_periodo(periodo) {
 	nodo.setAttribute("class", "periodo");
 	nodo.setAttribute("inicio", periodo.inicio);
 	nodo.setAttribute("fin", periodo.fin);
+	if (periodo.grupo) {
+		nodo.setAttribute("grupo", periodo.grupo);
+		agregar_a_grupo(periodo.grupo, id);
+	} else {
+		nodo.setAttribute("grupo", "_");
+		agregar_a_grupo("_", id);
+	}
 	nodo.style.bottom = 0;
 	return nodo;
+}
+
+function agregar_a_grupo(grupo, id) {
+	if (grupos[grupo]) {
+		grupos[grupo].push(id);
+	} else {
+		grupos[grupo] = [id];
+	}
 }
 
 function crear_evento(evento) {
@@ -268,11 +304,12 @@ function crear_evento(evento) {
 
 function añadir_periodos(periodos) {
 	const fragmento = document.createDocumentFragment();
-	periodos.forEach(periodo => {
-		const nodo_periodo = crear_periodo(periodo);
+	for (let i = 0; i < periodos.length; i++) {
+		const periodo = periodos[i];
+		const nodo_periodo = crear_periodo(periodo, i);
 		fragmento.appendChild(nodo_periodo);
 		actualizar_límites(periodo);
-	});
+	};
 	mostrador_periodos.appendChild(fragmento);
 }
 
@@ -318,7 +355,10 @@ function actualizar_máximos(objeto) {
 function añadir_margen() {
 	const rango = (propiedades.máximo - propiedades.mínimo);
 	propiedades.máximo = Number(propiedades.máximo) + 0.05 * rango;
-	propiedades.mínimo -= 0.05 * rango;
+	if (hay_grupos())
+		propiedades.mínimo -= 0.14 * rango;
+	else
+		propiedades.mínimo -= 0.05 * rango;
 }
 
 function limpiar_mostrador() {

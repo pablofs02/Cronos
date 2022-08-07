@@ -295,7 +295,7 @@ function ajustar_imágenes() {
 }
 
 function editar_tempo(tempo) {
-	sessionStorage.setItem("tempo", tempo.nombre);
+	localStorage.setItem("tempo", tempo.nombre);
 	location.assign("editor.html");
 }
 
@@ -315,7 +315,7 @@ function confirmar_todo(lista) {
 }
 
 function ver_tempo(tempo) {
-	sessionStorage.setItem("tempo", tempo.nombre);
+	localStorage.setItem("tempo", tempo.nombre);
 	location.assign("visualizador.html");
 }
 

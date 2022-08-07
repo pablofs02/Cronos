@@ -1,6 +1,9 @@
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "./formulario.js";
 
+const base = "Cronos";
+const tabla = "Tempos";
+
 export default function configurar_cabecera() {
 	escuchar_botón_colección();
 	crear_formulario_tempo();
@@ -28,9 +31,6 @@ function escuchar_formulario_tempo() {
 	const formulario_tempo = document.getElementById("formulario_tempo");
 	const cerrar_tempo = document.getElementById("cerrar_tempo");
 
-	const base = "Cronos";
-	const tabla = "Tempos";
-
 	formulario_tempo.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const tempo = {
@@ -43,11 +43,11 @@ function escuchar_formulario_tempo() {
 		if (e.target.nombre.value)
 			tempo.nombre = e.target.nombre.value;
 		tomar_tempo(base, tabla, tempo.nombre).then(existe => {
-			if (!existe) {
+			if (!existe || tempo.nombre == localStorage.getItem("tempo")) {
 				if (e.target.comentario.value)
 					tempo.comentario = e.target.comentario.value;
 				if (document.getElementById("tempo").classList.contains("editando"))
-					tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(act => {
+					tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(act => {
 						tempo.periodos = act.periodos;
 						tempo.eventos = act.eventos;
 						if (e.target.imagen.value) {
@@ -94,7 +94,7 @@ function escuchar_formulario_tempo() {
 
 function almacenar(tempo) {
 	guardar_tempo(base, tabla, tempo);
-	sessionStorage.setItem("tempo", tempo.nombre);
+	localStorage.setItem("tempo", tempo.nombre);
 	setTimeout(() => location.assign("editor.html"), 200);
 }
 
