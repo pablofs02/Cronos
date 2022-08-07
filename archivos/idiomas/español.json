@@ -1,0 +1,34 @@
+{
+	"título": "Cronos - Líneas Temporales",
+	"cabecera": {
+		"inicio": {
+			"imagen_alt": "Logotipo de la aplicación",
+			"título": "Cronos"
+		},
+		"botones": {
+			"colección": "Mis Tempos",
+			"creador": "Nuevo Tempo"
+		},
+		"opciones": {
+			"idiomas_alt": "Cambiar idioma",
+			"temas": {
+				"oscuro_alt": "Cambiar a modo oscuro",
+				"claro_alt": "Cambiar a modo claro"
+			}
+		}
+	},
+	"colección": {
+		"botones": {
+			"cargar": "",
+			"descargar": "",
+			"borrar": ""
+		},
+		"opciones": {}
+	},
+	"editor": {
+		"botones": ""
+	},
+	"visualizador": {
+		"botones": ""
+	}
+}
