@@ -7,99 +7,102 @@ const tabla = "Tempos";
 let tempo = {};
 let elemento;
 
-crear_ventanas();
-cargar_tempo();
-setTimeout(() => {
-	escuchar_elementos();
-}, 200);
+export default function configurar_editor() {
+	cargar_tempo();
+	crear_ventanas();
+	setTimeout(() => {
+		escuchar_elementos();
+	}, 200);
+	escuchar_formularios();
+}
 
-const botón_editar_tempo = document.getElementById("editar_tempo");
-const ventana_tempo = document.getElementById("tempo");
-botón_editar_tempo.addEventListener("click", () => {
-	tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
-		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
-		document.getElementById("tempo").classList.add("editando");
-		ventana_tempo.classList.remove("oculto");
+function escuchar_formularios() {
+	const botón_nuevo_periodo = document.getElementById("añadir_periodo");
+	const formulario_periodo = document.getElementById("formulario_periodo");
+	const cerrar_periodo = document.getElementById("cerrar_periodo");
+
+	const botón_nuevo_evento = document.getElementById("añadir_evento");
+	const formulario_evento = document.getElementById("formulario_evento");
+	const cerrar_evento = document.getElementById("cerrar_evento");
+
+	formulario_periodo.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const periodo = {
+			nombre: e.target.nombre.value,
+			comentario: e.target.comentario.value,
+			inicio: e.target.inicio.value,
+			fin: e.target.fin.value,
+			grupo: e.target.grupo.value
+		};
+		if (e.target["inicio-AC"].checked)
+			periodo.inicio = -periodo.inicio;
+		if (e.target["fin-AC"].checked)
+			periodo.fin = -periodo.fin;
+		if (periodo.inicio < periodo.fin) {
+			tempo.periodos.push(periodo);
+			cargar_visualizador(tempo);
+			if (editando_periodo())
+				borrar_periodo_anterior();
+			cambiar_tempo(base, tabla, tempo);
+			setTimeout(() => {
+				location.reload();
+			}, 200);
+			restablecer_periodo();
+		} else
+			alert("¡El fin del periodo no puede se anterior al inicio!");
 	});
-});
 
-const botón_nuevo_periodo = document.getElementById("añadir_periodo");
-const ventana_periodo = document.getElementById("periodo");
-const cerrar_periodo = document.getElementById("cerrar_periodo");
-const formulario_periodo = document.getElementById("formulario_periodo");
+	botón_nuevo_periodo.addEventListener("click", () => {
+		cerrar_ventanas();
+		modificar_ventana("periodo", { título: "Nuevo Periodo" });
+		mostrar_ventana_periodo();
+	});
 
-const botón_nuevo_evento = document.getElementById("añadir_evento");
-const ventana_evento = document.getElementById("evento");
-const cerrar_evento = document.getElementById("cerrar_evento");
-const formulario_evento = document.getElementById("formulario_evento");
+	cerrar_periodo.addEventListener("click", () => {
+		ocultar_ventana_periodo();
+		restablecer_periodo();
+	});
 
-formulario_periodo.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const periodo = {
-		nombre: e.target.nombre.value,
-		comentario: e.target.comentario.value,
-		inicio: e.target.inicio.value,
-		fin: e.target.fin.value,
-		grupo: e.target.grupo.value
-	};
-	if (e.target["inicio-AC"].checked)
-		periodo.inicio = -periodo.inicio;
-	if (e.target["fin-AC"].checked)
-		periodo.fin = -periodo.fin;
-	if (periodo.inicio < periodo.fin) {
-		tempo.periodos.push(periodo);
+	formulario_evento.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const evento = {
+			nombre: e.target.nombre.value,
+			comentario: e.target.comentario.value,
+			fecha: e.target.fecha.value,
+		};
+		if (e.target["fecha-AC"].checked)
+			evento.fecha = -evento.fecha;
+		tempo.evento.push(evento);
 		cargar_visualizador(tempo);
-		if (editando_periodo())
-			borrar_periodo_anterior();
+		if (editando_evento())
+			borrar_evento_anterior();
 		cambiar_tempo(base, tabla, tempo);
 		setTimeout(() => {
 			location.reload();
 		}, 200);
-		restablecer_periodo();
-	} else
-		alert("¡El fin del periodo no puede se anterior al inicio!");
-});
+		restablecer_evento();
+	});
 
-botón_nuevo_periodo.addEventListener("click", () => {
-	cerrar_ventanas();
-	modificar_ventana("periodo", { título: "Nuevo Periodo" });
-	mostrar_ventana_periodo();
-});
+	botón_nuevo_evento.addEventListener("click", () => {
+		cerrar_ventanas();
+		modificar_ventana("evento", { título: "Nuevo Evento" });
+		mostrar_ventana_evento();
+	});
 
-cerrar_periodo.addEventListener("click", () => {
-	ocultar_ventana_periodo();
-	restablecer_periodo();
-});
+	cerrar_evento.addEventListener("click", () => {
+		ocultar_ventana_evento();
+		restablecer_evento();
+	});
+}
 
-formulario_evento.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const evento = {
-		nombre: e.target.nombre.value,
-		comentario: e.target.comentario.value,
-		fecha: e.target.fecha.value,
-	};
-	if (e.target["fecha-AC"].checked)
-		evento.fecha = -evento.fecha;
-	tempo.evento.push(evento);
-	cargar_visualizador(tempo);
-	if (editando_evento())
-		borrar_evento_anterior();
-	cambiar_tempo(base, tabla, tempo);
-	setTimeout(() => {
-		location.reload();
-	}, 200);
-	restablecer_evento();
-});
-
-botón_nuevo_evento.addEventListener("click", () => {
-	cerrar_ventanas();
-	modificar_ventana("evento", { título: "Nuevo Evento" });
-	mostrar_ventana_evento();
-});
-
-cerrar_evento.addEventListener("click", () => {
-	ocultar_ventana_evento();
-	restablecer_evento();
+const botón_editar_tempo = document.getElementById("editar_tempo");
+botón_editar_tempo.addEventListener("click", () => {
+	tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
+		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
+		const ventana_tempo = document.getElementById("tempo");
+		ventana_tempo.classList.add("editando");
+		ventana_tempo.classList.remove("oculto");
+	});
 });
 
 function cerrar_ventanas() {
@@ -113,10 +116,12 @@ function restablecer() {
 }
 
 function mostrar_ventana_periodo() {
+	const ventana_periodo = document.getElementById("periodo");
 	ventana_periodo.classList.remove("oculto");
 }
 
 function mostrar_ventana_evento() {
+	const ventana_evento = document.getElementById("evento");
 	ventana_evento.classList.remove("oculto");
 }
 
@@ -126,20 +131,24 @@ function ocultar_ventanas() {
 }
 
 function ocultar_ventana_periodo() {
+	const ventana_periodo = document.getElementById("periodo");
 	ventana_periodo.classList.add("oculto");
-	document.getElementById("periodo").classList.remove("editando");
+	ventana_periodo.classList.remove("editando");
 }
 
 function ocultar_ventana_evento() {
+	const ventana_evento = document.getElementById("evento");
 	ventana_evento.classList.add("oculto");
-	document.getElementById("evento").classList.remove("editando");
+	ventana_evento.classList.remove("editando");
 }
 
 function restablecer_periodo() {
+	const formulario_periodo = document.getElementById("formulario_periodo");
 	formulario_periodo.reset();
 }
 
 function restablecer_evento() {
+	const formulario_evento = document.getElementById("formulario_evento");
 	formulario_evento.reset();
 }
 
