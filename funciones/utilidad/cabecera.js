@@ -50,7 +50,7 @@ function escuchar_formulario_tempo() {
 					tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(act => {
 						tempo.periodos = act.periodos;
 						tempo.eventos = act.eventos;
-						if (e.target.imagen.value) {
+						if (e.target.imagen.files[0]) {
 							const archivo = e.target.imagen.files[0];
 							const lector = new FileReader();
 							lector.onload = function (e) {
@@ -77,9 +77,8 @@ function escuchar_formulario_tempo() {
 					} else
 						almacenar(tempo);
 				}
-				formulario_tempo.reset();
 			} else
-				alert("Ese nombre ya está en uso.");
+			alert("Ese nombre ya está en uso.");
 		});
 	});
 
@@ -89,12 +88,13 @@ function escuchar_formulario_tempo() {
 	});
 
 	cerrar_tempo.addEventListener("click", () =>
-		ocultar_ventana_tempo());
+	ocultar_ventana_tempo());
 }
 
 function almacenar(tempo) {
 	guardar_tempo(base, tabla, tempo);
 	localStorage.setItem("tempo", tempo.nombre);
+	formulario_tempo.reset();
 	setTimeout(() => location.assign("editor.html"), 200);
 }
 
