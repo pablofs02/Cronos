@@ -15,25 +15,10 @@ const propiedades = {
 
 const periodos_visitados = [];
 
-const aumentar = document.getElementById("aumentar");
-const disminuir = document.getElementById("disminuir");
-
-aumentar.addEventListener("click", () => {
-	if (propiedades.proporción > 10) {
-		propiedades.proporción -= 10;
-		ajustar_todo();
-	}
-});
-
-disminuir.addEventListener("click", () => {
-	if (propiedades.proporción < 100) {
-		propiedades.proporción += 10;
-		ajustar_todo();
-	}
-});
-
-window.addEventListener("resize", () =>
-	ajustar_todo());
+export default function configurar_visualizador() {
+	escuchar_escalador();
+	escuchar_vestana();
+}
 
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
@@ -82,6 +67,29 @@ export function elevar_elementos() {
 		const posición_desplazada = posición_base - desplazamiento;
 		periodo.style.bottom = posición_desplazada + "px";
 	}
+}
+
+function escuchar_escalador() {
+	const aumentar = document.getElementById("aumentar");
+	aumentar.addEventListener("click", () => {
+		if (propiedades.proporción > 10) {
+			propiedades.proporción -= 10;
+			ajustar_todo();
+		}
+	});
+
+	const disminuir = document.getElementById("disminuir");
+	disminuir.addEventListener("click", () => {
+		if (propiedades.proporción < 100) {
+			propiedades.proporción += 10;
+			ajustar_todo();
+		}
+	});
+}
+
+function escuchar_vestana() {
+	window.addEventListener("resize", () =>
+		ajustar_todo());
 }
 
 function ajustar_todo() {

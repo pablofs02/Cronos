@@ -2,17 +2,21 @@ import configurar_editor from "./modo/editor.js";
 import configurar_idioma from "./opciones/idioma.js";
 import configurar_tema from "./opciones/tema.js";
 import configurar_colección from "./panel/colección.js";
+import configurar_visualizador from "./panel/visualizador.js";
 import configurar_cabecera from "./utilidad/cabecera.js";
+import escuchar_desplacadores from "./utilidad/desplazamiento.js";
 
 configurar_idioma();
 configurar_tema();
 configurar_cabecera();
 
 if (en_colección())
-configurar_colección();
+	configurar_colección();
 else if (en_editor() || en_visualizador()) {
 	if (en_editor())
 		configurar_editor();
+	configurar_visualizador();
+	escuchar_desplacadores();
 } else
 	console.error("Sitio web desconocido.");
 
