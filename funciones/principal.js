@@ -1,4 +1,5 @@
 import configurar_editor from "./modo/editor.js";
+import configurar_visualización from "./modo/visualizar.js";
 import configurar_idioma from "./opciones/idioma.js";
 import configurar_tema from "./opciones/tema.js";
 import configurar_colección from "./panel/colección.js";
@@ -15,6 +16,8 @@ if (en_colección())
 else if (en_editor() || en_visualizador()) {
 	if (en_editor())
 		configurar_editor();
+	if (en_visualizador())
+		configurar_visualización();
 	configurar_visualizador();
 	escuchar_desplacadores();
 } else
