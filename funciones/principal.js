@@ -7,21 +7,40 @@ import configurar_visualizador from "./panel/visualizador.js";
 import configurar_cabecera from "./utilidad/cabecera.js";
 import escuchar_desplacadores from "./utilidad/desplazamiento.js";
 
-configurar_idioma();
-configurar_tema();
-configurar_cabecera();
-
-if (en_colección())
-	configurar_colección();
-else if (en_editor() || en_visualizador()) {
-	if (en_editor())
-		configurar_editor();
-	if (en_visualizador())
-		configurar_visualización();
-	configurar_visualizador();
-	escuchar_desplacadores();
-} else
-	console.error("Sitio web desconocido.");
+try {
+	configurar_idioma();
+	configurar_tema();
+	configurar_cabecera();
+} catch (error) {
+	console.error("Fallo en la configuración.\n", error);
+}
+try {
+	if (en_colección())
+		try {
+			configurar_colección();
+		} catch (error) {
+			console.error("Fallo en la colección.\n", error);
+		}
+	else if (en_editor() || en_visualizador()) {
+		try {
+			if (en_editor())
+				configurar_editor();
+			if (en_visualizador())
+				configurar_visualización();
+		} catch (error) {
+			console.error("Fallo en la carga del modo.\n", error);
+		}
+		try {
+			configurar_visualizador();
+			escuchar_desplacadores();
+		} catch (error) {
+			console.error("Fallo en la visualización.\n", error);
+		}
+	} else
+		throw new Error("Sitio web desconocido.");
+} catch (error) {
+	console.error("Fallo en el panel.\n", error);
+}
 
 function en_colección() {
 	return dirección_actual() === "index.html" || !dirección_actual();
@@ -36,5 +55,7 @@ function en_visualizador() {
 }
 
 function dirección_actual() {
+	if (location.href.split("/")[3] != "Cronos")
+		return location.href.split("/")[4];
 	return location.href.split("/")[3];
 }

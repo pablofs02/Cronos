@@ -76,7 +76,7 @@ function crear_sección(id, variable) {
 	else if (tipo[variable] === "imagen")
 		fragmento.appendChild(crear_entrada_imagen(id, variable));
 	else
-		console.error("No se puede crear sección desconocida.");
+		throw new Error("No se puede crear sección desconocida.");
 	return fragmento;
 }
 

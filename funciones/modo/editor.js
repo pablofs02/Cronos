@@ -159,7 +159,7 @@ function cargar_tempo() {
 			cargar_visualizador(tempo);
 		});
 	} else
-		console.error("No hay ningún tempo seleccionado para editar.");
+		throw new Error("No hay ningún tempo seleccionado para editar.")
 }
 
 function crear_ventanas() {

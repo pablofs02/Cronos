@@ -31,7 +31,7 @@ function cambiar_tema() {
 	else if (tema_actual() === tema_claro)
 		poner_tema_oscuro();
 	else
-		console.error("Estilo de tema desconocido.");
+		throw new Error("Estilo de tema desconocido.");
 }
 
 function tema_actual() {
@@ -48,7 +48,7 @@ function poner_tema(tema) {
 	else if (tema === tema_claro)
 		poner_tema_claro();
 	else
-		console.error("No se puede poner tema desconocido.");
+		throw new Error("No se puede poner tema desconocido.");
 }
 
 function poner_tema_oscuro() {

@@ -76,7 +76,7 @@ function acceder_almacén(operación, { base, tabla, tempo }) {
 			else if (operación === "borrar")
 				almacén.delete(tempo.nombre);
 			else
-				console.error("Operación desconocida.");
+				throw new Error("Operación desconocida.");
 		};
 
 		petición_abrir.onupgradeneeded = () => {
