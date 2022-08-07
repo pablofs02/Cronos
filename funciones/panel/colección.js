@@ -1,7 +1,6 @@
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../utilidad/almacenamiento.js";
 
 const pantalla_ocultar = document.getElementById("pantalla_ocultar");
-const colección = document.getElementById("colección");
 
 const base = "Cronos";
 const tabla = "Tempos";
@@ -11,9 +10,10 @@ export default function configurar_colección() {
 	crear_ventana_info();
 	listar_tempos(base, tabla).then(lista => {
 		if (lista.length)
-			colocar_lista(lista);
+		colocar_lista(lista);
 		else {
 			colocar_vacío();
+			const colección = document.getElementById("colección");
 			colección.classList.add("colección_vacía");
 		}
 	});

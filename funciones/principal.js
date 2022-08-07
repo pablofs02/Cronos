@@ -23,7 +23,6 @@ try {
 		}
 	else if (en_editor() || en_visualizador()) {
 		try {
-			console.log(en_editor());
 			if (en_editor())
 				configurar_editor();
 			if (en_visualizador())
