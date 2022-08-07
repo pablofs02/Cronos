@@ -7,14 +7,23 @@ const tema_claro = "claro";
 const ruta_tema = "estilos/";
 const terminación = ".css";
 
-if (!localStorage.getItem("tema"))
-	localStorage.setItem("tema", tema_actual());
-else
-	poner_tema(localStorage.getItem("tema"));
+export default function configurar_tema() {
+	definir_tema_actual();
+	escuchar_botón_tema();
+}
 
-botón_tema.addEventListener("click", () => {
-	cambiar_tema();
-});
+function definir_tema_actual() {
+	if (localStorage.getItem("tema") != undefined)
+		poner_tema(localStorage.getItem("tema"));
+	else
+		localStorage.setItem("tema", tema_actual());
+}
+
+function escuchar_botón_tema() {
+	botón_tema.addEventListener("click", () =>
+		cambiar_tema());
+}
+
 
 function cambiar_tema() {
 	if (tema_actual() === tema_oscuro)
