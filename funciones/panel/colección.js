@@ -6,26 +6,31 @@ const colección = document.getElementById("colección");
 const base = "Cronos";
 const tabla = "Tempos";
 
-definir_botones_panel();
-crear_ventana_info();
-listar_tempos(base, tabla).then(lista => {
-	if (lista.length)
-		colocar_lista(lista);
-	else {
-		colocar_vacío();
-		colección.classList.add("colección_vacía");
-	}
-});
+export default function configurar_colección() {
+	definir_botones_panel();
+	crear_ventana_info();
+	listar_tempos(base, tabla).then(lista => {
+		if (lista.length)
+			colocar_lista(lista);
+		else {
+			colocar_vacío();
+			colección.classList.add("colección_vacía");
+		}
+	});
+	escuchar_ventana()
+}
 
-window.addEventListener("resize", () => {
-	ajustar_imágenes();
-	pantalla_ocultar.classList.add("oculto");
-	document.getElementById("info").classList.add("oculto");
-	if (window.innerHeight > 600)
-		hacer_rejilla();
-	else
-		deshacer_rejilla();
-});
+function escuchar_ventana() {
+	window.addEventListener("resize", () => {
+		ajustar_imágenes();
+		pantalla_ocultar.classList.add("oculto");
+		document.getElementById("info").classList.add("oculto");
+		if (window.innerHeight > 600)
+			hacer_rejilla();
+		else
+			deshacer_rejilla();
+	});
+}
 
 function colocar_vacío() {
 	const colección = document.getElementById("colección");
@@ -311,7 +316,7 @@ function confirmar_todo(lista) {
 
 function ver_tempo(tempo) {
 	sessionStorage.setItem("tempo", tempo.nombre);
-	location.assign("visualizar.html");
+	location.assign("visualizador.html");
 }
 
 function almacenar_archivos(archivos) {
