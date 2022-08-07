@@ -23,6 +23,7 @@ try {
 		}
 	else if (en_editor() || en_visualizador()) {
 		try {
+			console.log(en_editor());
 			if (en_editor())
 				configurar_editor();
 			if (en_visualizador())
@@ -55,7 +56,6 @@ function en_visualizador() {
 }
 
 function dirección_actual() {
-	if (location.href.split("/")[3] != "Cronos")
-		return location.href.split("/")[4];
-	return location.href.split("/")[3];
+	const dirección = location.href.split("/");
+	return dirección[dirección.length - 1];
 }

@@ -28,7 +28,7 @@ function cambiar_idioma(idioma) {
 	localStorage.setItem("idioma", idioma);
 	const ruta = ruta_idioma + idioma + extensión_idioma;
 	carga_json(ruta).then(traductor => {
-		console.log(traductor);
+
 	});
 }
 

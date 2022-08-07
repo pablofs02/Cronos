@@ -14,16 +14,13 @@ export default function configurar_editor() {
 		escuchar_elementos();
 	}, 200);
 	escuchar_formularios();
+	escuchar_editar_tempo();
 }
 
 function escuchar_formularios() {
 	const botón_nuevo_periodo = document.getElementById("añadir_periodo");
 	const formulario_periodo = document.getElementById("formulario_periodo");
 	const cerrar_periodo = document.getElementById("cerrar_periodo");
-
-	const botón_nuevo_evento = document.getElementById("añadir_evento");
-	const formulario_evento = document.getElementById("formulario_evento");
-	const cerrar_evento = document.getElementById("cerrar_evento");
 
 	formulario_periodo.addEventListener("submit", (e) => {
 		e.preventDefault();
@@ -62,6 +59,12 @@ function escuchar_formularios() {
 		ocultar_ventana_periodo();
 		restablecer_periodo();
 	});
+}
+
+function escuchar_formulario_evento() {
+	const botón_nuevo_evento = document.getElementById("añadir_evento");
+	const formulario_evento = document.getElementById("formulario_evento");
+	const cerrar_evento = document.getElementById("cerrar_evento");
 
 	formulario_evento.addEventListener("submit", (e) => {
 		e.preventDefault();
@@ -95,15 +98,17 @@ function escuchar_formularios() {
 	});
 }
 
-const botón_editar_tempo = document.getElementById("editar_tempo");
-botón_editar_tempo.addEventListener("click", () => {
-	tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
-		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
-		const ventana_tempo = document.getElementById("tempo");
-		ventana_tempo.classList.add("editando");
-		ventana_tempo.classList.remove("oculto");
+function escuchar_editar_tempo() {
+	const botón_editar_tempo = document.getElementById("editar_tempo");
+	botón_editar_tempo.addEventListener("click", () => {
+		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
+			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
+			const ventana_tempo = document.getElementById("tempo");
+			ventana_tempo.classList.add("editando");
+			ventana_tempo.classList.remove("oculto");
+		});
 	});
-});
+}
 
 function cerrar_ventanas() {
 	ocultar_ventanas();
@@ -159,7 +164,7 @@ function cargar_tempo() {
 			cargar_visualizador(tempo);
 		});
 	} else
-		throw new Error("No hay ningún tempo seleccionado para editar.")
+		throw new Error("No hay ningún tempo seleccionado para editar.");
 }
 
 function crear_ventanas() {
