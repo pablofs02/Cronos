@@ -17,6 +17,15 @@ export default function configurar_editor() {
 	escuchar_formulario_tempo();
 }
 
+export function en_años(fecha) {
+	let tiempo = fecha.año;
+	if (fecha.mes)
+		tiempo += Number(fecha.mes / 12);
+	if (fecha.día)
+		tiempo += Number(fecha.día / 365);
+	return tiempo;
+}
+
 function escuchar_formularios() {
 	escuchar_formulario_periodo();
 	escuchar_formulario_evento();
@@ -264,13 +273,4 @@ function borrar_evento_anterior() {
 	const eventos = tempo.eventos;
 	const posición = eventos.indexOf(elemento);
 	tempo.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));
-}
-
-function en_años(fecha) {
-	let tiempo = fecha.año;
-	if (fecha.mes)
-		tiempo += Number(fecha.mes / 12);
-	if (fecha.día)
-		tiempo += Number(fecha.día / 30);
-	return tiempo;
 }

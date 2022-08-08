@@ -1,3 +1,4 @@
+import { en_años } from "../modo/editor.js";
 import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
@@ -129,8 +130,9 @@ function definir_posición() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
+		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
 		const dif_max_min = propiedades.máximo - propiedades.mínimo;
-		const dif_min_per = periodo.getAttribute("inicio") - propiedades.mínimo;
+		const dif_min_per = inicio - propiedades.mínimo;
 		const distancia = 100 / dif_max_min * dif_min_per;
 		periodo.setAttribute("posición", distancia);
 	}
@@ -152,11 +154,12 @@ function definir_longitud() {
 	const periodos = mostrador_periodos.childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
-		const inicio = periodo.getAttribute("inicio");
-		const fin = periodo.getAttribute("fin");
+		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
+		const fin = en_años(JSON.parse(periodo.getAttribute("fin")));
 		const dif_fecha_periodo = fin - inicio;
 		const dif_fecha_total = propiedades.máximo - propiedades.mínimo;
 		const ancho = 100 / dif_fecha_total * dif_fecha_periodo;
+		console.log(dif_fecha_periodo);
 		periodo.setAttribute("ancho", ancho);
 	}
 }
@@ -208,20 +211,30 @@ function listar_choques(periodo) {
 	}
 }
 
-function chocan(periodo, periodo_v) {
-	return pertenece_inicio(periodo, periodo_v) || pertenece_final(periodo, periodo_v) || choque_total(periodo, periodo_v);
+function chocan(periodo_1, periodo_2) {
+	return choque_frontal(periodo_1, periodo_2) || choque_trasero(periodo_1, periodo_2) || choque_total(periodo_1, periodo_2);
 }
 
-function choque_total(periodo, periodo_v) {
-	return Number(periodo.getAttribute("inicio")) == Number(periodo_v.getAttribute("inicio")) && Number(periodo.getAttribute("fin")) == Number(periodo_v.getAttribute("fin"));
+function choque_total(periodo_1, periodo_2) {
+	const inicio_1 = Number(en_años(JSON.parse(periodo_1.getAttribute("inicio"))));
+	const inicio_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("inicio"))));
+	const fin_1 = Number(en_años(JSON.parse(periodo_1.getAttribute("fin"))));
+	const fin_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("fin"))));
+	return inicio_1 == inicio_2 && fin_1 == fin_2;
 }
 
-function pertenece_inicio(periodo, periodo_v) {
-	return Number(periodo.getAttribute("inicio")) > Number(periodo_v.getAttribute("inicio")) && Number(periodo.getAttribute("inicio")) < Number(periodo_v.getAttribute("fin"));
+function choque_frontal(periodo_1, periodo_2) {
+	const inicio_1 = Number(en_años(JSON.parse(periodo_1.getAttribute("inicio"))));
+	const inicio_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("inicio"))));
+	const fin_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("fin"))));
+	return inicio_1 > inicio_2 && inicio_1 < fin_2;
 }
 
-function pertenece_final(periodo, periodo_v) {
-	return Number(periodo.getAttribute("fin")) < Number(periodo_v.getAttribute("fin")) && Number(periodo.getAttribute("fin")) > Number(periodo_v.getAttribute("inicio"));
+function choque_trasero(periodo_1, periodo_2) {
+	const inicio_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("inicio"))));
+	const fin_1 = Number(en_años(JSON.parse(periodo_1.getAttribute("fin"))));
+	const fin_2 = Number(en_años(JSON.parse(periodo_2.getAttribute("fin"))));
+	return fin_1 < fin_2 && fin_1 > inicio_2;
 }
 
 function actualizar_altitud() {
@@ -273,8 +286,8 @@ function crear_periodo(periodo, id) {
 	else
 		nodo.title = periodo.nombre;
 	nodo.setAttribute("class", "periodo");
-	nodo.setAttribute("inicio", periodo.inicio);
-	nodo.setAttribute("fin", periodo.fin);
+	nodo.setAttribute("inicio", JSON.stringify(periodo.inicio));
+	nodo.setAttribute("fin", JSON.stringify(periodo.fin));
 	if (periodo.grupo) {
 		nodo.setAttribute("grupo", periodo.grupo);
 		agregar_a_grupo(periodo.grupo, id);
@@ -331,9 +344,9 @@ function actualizar_límites(objeto) {
 function actualizar_mínimos(objeto) {
 	let valor;
 	if (objeto.inicio)
-		valor = objeto.inicio;
+		valor = en_años(objeto.inicio);
 	else
-		valor = objeto.fecha;
+		valor = en_años(objeto.fecha);
 	if (!propiedades.mínimo)
 		propiedades.mínimo = valor;
 	else if (Number(propiedades.mínimo) > valor)
@@ -343,9 +356,9 @@ function actualizar_mínimos(objeto) {
 function actualizar_máximos(objeto) {
 	let valor;
 	if (objeto.fin)
-		valor = objeto.fin;
+		valor = en_años(objeto.fin);
 	else
-		valor = objeto.fecha;
+		valor = en_años(objeto.fecha);
 	if (!propiedades.máximo)
 		propiedades.máximo = valor;
 	else if (Number(propiedades.máximo) < valor)
@@ -358,7 +371,7 @@ function añadir_margen() {
 	if (hay_grupos())
 		propiedades.mínimo -= 0.14 * rango;
 	// else
-		// propiedades.mínimo -= 0.05 * rango;
+	// propiedades.mínimo -= 0.05 * rango;
 }
 
 function limpiar_mostrador() {
