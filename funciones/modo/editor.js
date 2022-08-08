@@ -17,6 +17,15 @@ export default function configurar_editor() {
 	escuchar_formulario_tempo();
 }
 
+export function en_años(fecha) {
+	let tiempo = fecha.año;
+	if (fecha.mes)
+		tiempo += Number(fecha.mes / 12);
+	if (fecha.día)
+		tiempo += Number(fecha.día / 365);
+	return tiempo;
+}
+
 function escuchar_formularios() {
 	escuchar_formulario_periodo();
 	escuchar_formulario_evento();
@@ -29,18 +38,8 @@ function escuchar_formulario_periodo() {
 
 	formulario_periodo.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const periodo = {
-			nombre: e.target.nombre.value,
-			comentario: e.target.comentario.value,
-			inicio: Number(e.target.inicio.value),
-			fin: Number(e.target.fin.value),
-			grupo: e.target.grupo.value
-		};
-		if (e.target["inicio-AC"].checked)
-			periodo.inicio = -periodo.inicio;
-		if (e.target["fin-AC"].checked)
-			periodo.fin = -periodo.fin;
-		if (periodo.inicio < periodo.fin) {
+		const periodo = crear_periodo(e);
+		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
 			tempo.periodos.push(periodo);
 			cargar_visualizador(tempo);
 			if (editando_periodo())
@@ -66,6 +65,31 @@ function escuchar_formulario_periodo() {
 	});
 }
 
+function crear_periodo(e) {
+	const periodo = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		inicio: { año: Number(e.target.inicio_año.value) },
+		fin: { año: Number(e.target.fin_año.value) },
+		grupo: e.target.grupo.value
+	};
+	if (e.target.inicio_mes.value) {
+		periodo.inicio.mes = Number(e.target.inicio_mes.value);
+		if (e.target.inicio_día.value)
+			periodo.inicio.día = Number(e.target.inicio_día.value);
+	}
+	if (e.target.fin_mes.value) {
+		periodo.fin.mes = Number(e.target.fin_mes.value);
+		if (e.target.fin_día.value)
+			periodo.fin.día = Number(e.target.fin_día.value);
+	}
+	if (e.target["inicio-AC"].checked)
+		periodo.inicio.año = -periodo.inicio.año;
+	if (e.target["fin-AC"].checked)
+		periodo.fin.año = -periodo.fin.año;
+	return periodo;
+}
+
 function escuchar_formulario_evento() {
 	const botón_nuevo_evento = document.getElementById("añadir_evento");
 	const formulario_evento = document.getElementById("formulario_evento");
@@ -73,13 +97,7 @@ function escuchar_formulario_evento() {
 
 	formulario_evento.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const evento = {
-			nombre: e.target.nombre.value,
-			comentario: e.target.comentario.value,
-			fecha: e.target.fecha.value,
-		};
-		if (e.target["fecha-AC"].checked)
-			evento.fecha = -evento.fecha;
+		const evento = crear_evento(e);
 		tempo.eventos.push(evento);
 		cargar_visualizador(tempo);
 		if (editando_evento())
@@ -101,6 +119,22 @@ function escuchar_formulario_evento() {
 		ocultar_ventana_evento();
 		restablecer_evento();
 	});
+}
+
+function crear_evento(e) {
+	const evento = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		fecha: { año: Number(e.target.fecha.value) },
+	};
+	if (e.target.fecha_mes.value) {
+		periodo.fecha.mes = Number(e.target.fecha_mes.value);
+		if (e.target.fecha_día.value)
+			periodo.fecha.día = Number(e.target.fecha_día.value);
+	}
+	if (e.target["fecha-AC"].checked)
+		evento.fecha = -evento.fecha;
+	return evento;
 }
 
 function escuchar_formulario_tempo() {
@@ -173,13 +207,20 @@ function cargar_tempo() {
 }
 
 function crear_ventanas() {
+	crear_ventana_periodo();
+	crear_ventana_evento();
+}
+
+function crear_ventana_periodo() {
 	const ventana_periodo = {
 		id: "periodo",
 		título: "Nuevo Periodo",
-		info: ["nombre", "comentario", "inicio", "fin", "grupo"]
+		info: ["nombre", "comentario", "grupo", "inicio", "fin"]
 	};
 	document.body.appendChild(crear_ventana(ventana_periodo));
+}
 
+function crear_ventana_evento() {
 	const ventana_evento = {
 		id: "evento",
 		título: "Nuevo Evento",
