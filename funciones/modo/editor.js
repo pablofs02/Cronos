@@ -38,25 +38,7 @@ function escuchar_formulario_periodo() {
 
 	formulario_periodo.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const periodo = {
-			nombre: e.target.nombre.value,
-			comentario: e.target.comentario.value,
-			inicio: {
-				día: Number(e.target.inicio_día.value),
-				mes: Number(e.target.inicio_mes.value),
-				año: Number(e.target.inicio_año.value)
-			},
-			fin: {
-				día: Number(e.target.fin_día.value),
-				mes: Number(e.target.fin_mes.value),
-				año: Number(e.target.fin_año.value)
-			},
-			grupo: e.target.grupo.value
-		};
-		if (e.target["inicio-AC"].checked)
-			periodo.inicio.año = -periodo.inicio.año;
-		if (e.target["fin-AC"].checked)
-			periodo.fin.año = -periodo.fin.año;
+		const periodo = crear_periodo(e);
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
 			tempo.periodos.push(periodo);
 			cargar_visualizador(tempo);
@@ -83,6 +65,31 @@ function escuchar_formulario_periodo() {
 	});
 }
 
+function crear_periodo(e) {
+	const periodo = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		inicio: { año: Number(e.target.inicio_año.value) },
+		fin: { año: Number(e.target.fin_año.value) },
+		grupo: e.target.grupo.value
+	};
+	if (e.target.inicio_mes.value) {
+		periodo.inicio.mes = Number(e.target.inicio_mes.value);
+		if (e.target.inicio_día.value)
+			periodo.inicio.día = Number(e.target.inicio_día.value);
+	}
+	if (e.target.fin_mes.value) {
+		periodo.fin.mes = Number(e.target.fin_mes.value);
+		if (e.target.fin_día.value)
+			periodo.fin.día = Number(e.target.fin_día.value);
+	}
+	if (e.target["inicio-AC"].checked)
+		periodo.inicio.año = -periodo.inicio.año;
+	if (e.target["fin-AC"].checked)
+		periodo.fin.año = -periodo.fin.año;
+	return periodo;
+}
+
 function escuchar_formulario_evento() {
 	const botón_nuevo_evento = document.getElementById("añadir_evento");
 	const formulario_evento = document.getElementById("formulario_evento");
@@ -90,13 +97,7 @@ function escuchar_formulario_evento() {
 
 	formulario_evento.addEventListener("submit", (e) => {
 		e.preventDefault();
-		const evento = {
-			nombre: e.target.nombre.value,
-			comentario: e.target.comentario.value,
-			fecha: e.target.fecha.value,
-		};
-		if (e.target["fecha-AC"].checked)
-			evento.fecha = -evento.fecha;
+		const evento = crear_evento(e);
 		tempo.eventos.push(evento);
 		cargar_visualizador(tempo);
 		if (editando_evento())
@@ -118,6 +119,22 @@ function escuchar_formulario_evento() {
 		ocultar_ventana_evento();
 		restablecer_evento();
 	});
+}
+
+function crear_evento(e) {
+	const evento = {
+		nombre: e.target.nombre.value,
+		comentario: e.target.comentario.value,
+		fecha: { año: Number(e.target.fecha.value) },
+	};
+	if (e.target.fecha_mes.value) {
+		periodo.fecha.mes = Number(e.target.fecha_mes.value);
+		if (e.target.fecha_día.value)
+			periodo.fecha.día = Number(e.target.fecha_día.value);
+	}
+	if (e.target["fecha-AC"].checked)
+		evento.fecha = -evento.fecha;
+	return evento;
 }
 
 function escuchar_formulario_tempo() {

@@ -36,9 +36,12 @@ function escuchar_formulario_tempo() {
 		const tempo = {
 			nombre: "Tempo",
 			comentario: "",
-			imagen: "",
+			etiquetas: [],
+			inicio: {},
+			fin: {},
 			periodos: [],
-			eventos: []
+			eventos: [],
+			imagen: ""
 		};
 		if (e.target.nombre.value)
 			tempo.nombre = e.target.nombre.value;
@@ -78,7 +81,7 @@ function escuchar_formulario_tempo() {
 						almacenar(tempo);
 				}
 			} else
-			alert("Ese nombre ya está en uso.");
+				alert("Ese nombre ya está en uso.");
 		});
 	});
 
@@ -88,7 +91,7 @@ function escuchar_formulario_tempo() {
 	});
 
 	cerrar_tempo.addEventListener("click", () =>
-	ocultar_ventana_tempo());
+		ocultar_ventana_tempo());
 }
 
 function almacenar(tempo) {
