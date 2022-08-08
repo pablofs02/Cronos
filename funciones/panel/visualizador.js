@@ -1,4 +1,5 @@
 import { en_años } from "../modo/editor.js";
+import { cambiar_tempo } from "../utilidad/almacenamiento.js";
 import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
@@ -8,11 +9,9 @@ inicio.addEventListener("click", () =>
 const mostrador_periodos = document.getElementById("periodos");
 const mostrador_eventos = document.getElementById("eventos");
 
-const propiedades = {
-	proporción: 100,
-	máximo: null,
-	mínimo: null
-};
+let escala = 100;
+let máximo = null;
+let mínimo = null;
 
 export default function configurar_visualizador() {
 	escuchar_escalador();
@@ -36,6 +35,7 @@ let altura_grupo_anterior = 0;
 
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
+	definir_límites(tempo);
 
 	if (tempo.periodos)
 		añadir_periodos(tempo.periodos);
@@ -45,9 +45,47 @@ export function cargar_visualizador(tempo) {
 	actualizar_visualizador();
 }
 
+function definir_límites(tempo) {
+	if (Object.keys(tempo.inicio).length != 0)
+		mínimo = tempo.inicio;
+	else
+		definir_mínimo(tempo);
+
+	if (Object.keys(tempo.fin).length != 0)
+		máximo = tempo.fin;
+	else
+		definir_máximo(tempo);
+
+	cambiar_tempo("Cronos", "Tempos", tempo);
+}
+
+function definir_mínimo(tempo) {
+	if (tempo.periodos)
+		for (let i = 0; i < tempo.periodos.length; i++)
+			actualizar_mínimo(tempo.periodos[i]);
+
+	if (tempo.eventos)
+		for (let i = 0; i < tempo.eventos.length; i++)
+			actualizar_mínimo(tempo.eventos[i]);
+
+	tempo.inicio = mínimo;
+}
+
+function definir_máximo(tempo) {
+	if (tempo.periodos)
+		for (let i = 0; i < tempo.periodos.length; i++)
+			actualizar_máximo(tempo.periodos[i]);
+
+	if (tempo.eventos)
+		for (let i = 0; i < tempo.eventos.length; i++)
+			actualizar_máximo(tempo.eventos[i]);
+
+	tempo.fin = máximo;
+}
+
 export function actualizar_visualizador() {
 	añadir_margen();
-	actualizar_barra_h(propiedades.proporción);
+	actualizar_barra_h(escala);
 	definir_posición();
 	actualizar_posición();
 	definir_longitud();
@@ -61,7 +99,7 @@ export function desplazar_elementos() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("pos_x");
-		const longitud_total = longitud_visualizador() * 100 / propiedades.proporción;
+		const longitud_total = longitud_visualizador() * 100 / escala;
 		const desplazamiento = posición_actual() / 100 * longitud_total;
 		const exceso = posición_actual() / 100 * longitud_visualizador();
 		const posición_desplazada = posición_base - desplazamiento + exceso;
@@ -86,16 +124,16 @@ export function elevar_elementos() {
 function escuchar_escalador() {
 	const aumentar = document.getElementById("aumentar");
 	aumentar.addEventListener("click", () => {
-		if (propiedades.proporción > 10) {
-			propiedades.proporción -= 10;
+		if (escala > 10) {
+			escala -= 10;
 			ajustar_todo();
 		}
 	});
 
 	const disminuir = document.getElementById("disminuir");
 	disminuir.addEventListener("click", () => {
-		if (propiedades.proporción < 100) {
-			propiedades.proporción += 10;
+		if (escala < 100) {
+			escala += 10;
 			ajustar_todo();
 		}
 	});
@@ -107,7 +145,7 @@ function escuchar_vestana() {
 }
 
 function ajustar_todo() {
-	actualizar_barra_h(propiedades.proporción);
+	actualizar_barra_h(escala);
 	actualizar_longitud();
 	actualizar_posición();
 	desplazar_elementos();
@@ -120,7 +158,7 @@ function actualizar_posición() {
 		const periodo = periodos[i];
 		const posición_relativa = periodo.getAttribute("posición");
 		const posición_absoluta = longitud_visualizador() / 100 * posición_relativa;
-		const distancia = posición_absoluta * (100 / propiedades.proporción);
+		const distancia = posición_absoluta * (100 / escala);
 		periodo.setAttribute("pos_x", distancia);
 		periodo.style.left = distancia + "px";
 	}
@@ -131,8 +169,8 @@ function definir_posición() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
-		const dif_max_min = propiedades.máximo - propiedades.mínimo;
-		const dif_min_per = inicio - propiedades.mínimo;
+		const dif_max_min = en_años(máximo) - en_años(mínimo);
+		const dif_min_per = inicio - en_años(mínimo);
 		const distancia = 100 / dif_max_min * dif_min_per;
 		periodo.setAttribute("posición", distancia);
 	}
@@ -143,7 +181,7 @@ function actualizar_longitud() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const ancho_relativo = periodo.getAttribute("ancho");
-		const ancho_escalado = ancho_relativo / propiedades.proporción * 100;
+		const ancho_escalado = ancho_relativo / escala * 100;
 		const ancho_pantalla = longitud_visualizador();
 		const ancho_absoluto = ancho_escalado / 100 * ancho_pantalla;
 		periodo.style.width = ancho_absoluto + "px";
@@ -157,9 +195,8 @@ function definir_longitud() {
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
 		const fin = en_años(JSON.parse(periodo.getAttribute("fin")));
 		const dif_fecha_periodo = fin - inicio;
-		const dif_fecha_total = propiedades.máximo - propiedades.mínimo;
+		const dif_fecha_total = en_años(máximo) - en_años(mínimo);
 		const ancho = 100 / dif_fecha_total * dif_fecha_periodo;
-		console.log(dif_fecha_periodo);
 		periodo.setAttribute("ancho", ancho);
 	}
 }
@@ -321,7 +358,6 @@ function añadir_periodos(periodos) {
 		const periodo = periodos[i];
 		const nodo_periodo = crear_periodo(periodo, i);
 		fragmento.appendChild(nodo_periodo);
-		actualizar_límites(periodo);
 	};
 	mostrador_periodos.appendChild(fragmento);
 }
@@ -331,47 +367,52 @@ function añadir_eventos(eventos) {
 	eventos.forEach(evento => {
 		const nodo_evento = crear_evento(evento);
 		fragmento.appendChild(nodo_evento);
-		actualizar_límites(evento);
 	});
 	mostrador_eventos.appendChild(fragmento);
 }
 
 function actualizar_límites(objeto) {
-	actualizar_mínimos(objeto);
-	actualizar_máximos(objeto);
+	actualizar_mínimo(objeto);
+	actualizar_máximo(objeto);
 }
 
-function actualizar_mínimos(objeto) {
-	let valor;
+function actualizar_mínimo(objeto) {
 	if (objeto.inicio)
-		valor = en_años(objeto.inicio);
+		comprobar_mínimo(objeto.inicio);
 	else
-		valor = en_años(objeto.fecha);
-	if (!propiedades.mínimo)
-		propiedades.mínimo = valor;
-	else if (Number(propiedades.mínimo) > valor)
-		propiedades.mínimo = valor;
+		comprobar_mínimo(objeto.fecha);
 }
 
-function actualizar_máximos(objeto) {
-	let valor;
+function comprobar_mínimo(fecha) {
+	if (mínimo) {
+		if (en_años(mínimo) > en_años(fecha))
+			mínimo = fecha;
+	} else
+		mínimo = fecha;
+}
+
+function actualizar_máximo(objeto) {
 	if (objeto.fin)
-		valor = en_años(objeto.fin);
+		comprobar_máximo(objeto.fin);
 	else
-		valor = en_años(objeto.fecha);
-	if (!propiedades.máximo)
-		propiedades.máximo = valor;
-	else if (Number(propiedades.máximo) < valor)
-		propiedades.máximo = valor;
+		comprobar_máximo(objeto.fecha);
+}
+
+function comprobar_máximo(fecha) {
+	if (máximo) {
+		if (en_años(máximo) < en_años(fecha))
+			máximo = fecha;
+	} else
+		máximo = fecha;
 }
 
 function añadir_margen() {
-	const rango = (propiedades.máximo - propiedades.mínimo);
-	// propiedades.máximo = Number(propiedades.máximo) + 0.05 * rango;
+	const rango = (en_años(máximo) - en_años(mínimo));
+	// máximo = Number(máximo) + 0.05 * rango;
 	if (hay_grupos())
-		propiedades.mínimo -= 0.14 * rango;
+		mínimo -= 0.14 * rango;
 	// else
-	// propiedades.mínimo -= 0.05 * rango;
+	// mínimo -= 0.05 * rango;
 }
 
 function limpiar_mostrador() {
