@@ -354,11 +354,11 @@ function actualizar_máximos(objeto) {
 
 function añadir_margen() {
 	const rango = (propiedades.máximo - propiedades.mínimo);
-	propiedades.máximo = Number(propiedades.máximo) + 0.05 * rango;
+	// propiedades.máximo = Number(propiedades.máximo) + 0.05 * rango;
 	if (hay_grupos())
 		propiedades.mínimo -= 0.14 * rango;
-	else
-		propiedades.mínimo -= 0.05 * rango;
+	// else
+		// propiedades.mínimo -= 0.05 * rango;
 }
 
 function limpiar_mostrador() {

@@ -3,7 +3,6 @@
 * {
 	margin: 0;
 	box-sizing: border-box;
-	user-select: none;
 }
 
 body {
@@ -11,6 +10,7 @@ body {
 	background-color: var(--fondo_base);
 	color: var(--fuente);
 	font-family: sans-serif;
+	user-select: none;
 }
 
 .oculto {
@@ -153,12 +153,14 @@ header {
 /**** FORMULARIO ****/
 
 .ventana_formulario {
-	width: 360px;
+	width: 600px;
+	max-width: 90vw;
 	position: absolute;
 	top: 200px;
 	right: 0;
 	left: 0;
 	margin: auto;
+	border: 1px solid var(--naranja);
 	background-color: var(--fondo_formulario);
 	z-index: 10;
 }
@@ -182,8 +184,45 @@ header {
 }
 
 .entrada {
-	display: grid;
-	grid-template-columns: auto auto auto auto;
-	gap: 10px;
+	width: 100%;
 	padding: 16px;
+	user-select: auto;
+}
+
+textarea {
+	width: 100%;
+}
+
+.día {
+	width: 40px;
+}
+
+.mes {
+	width: 40px;
+}
+
+.año {
+	width: 80px;
+}
+
+.texto_entrada {
+	width: 18%;
+	display: block;
+}
+
+.entrada_entrada {
+	width: 80%;
+}
+
+.sección_entrada {
+	display: flex;
+	margin-bottom: 15px;
+}
+
+input[type=text] {
+	width: 100%;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
 }
