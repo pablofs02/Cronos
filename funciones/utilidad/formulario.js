@@ -12,15 +12,23 @@ export function modificar_ventana(id, { título, info }) {
 		const variables = Object.keys(info);
 		for (let i = 0; i < variables.length; i++) {
 			const variable = variables[i];
-			if (tipo[variable] === "fecha") {
-				if (info[variable] > 0)
-					tomar(variable + "_" + id).value = info[variable];
-				else {
-					tomar(variable + "_" + id).value = -info[variable];
-					tomar(variable + "-AC_" + id).checked = true;
-				}
-			} else
+			if (tipo[variable] === "fecha")
+				modificar_ventana_fecha(id, info, variable);
+			else
 				tomar(variable + "_" + id).value = info[variable];
+		}
+	}
+}
+
+function modificar_ventana_fecha(id, info, variable) {
+	const tiempos = Object.keys(info[variable]);
+	for (let i = 0; i < tiempos.length; i++) {
+		const tiempo = tiempos[i];
+		if (info[variable] > 0)
+			tomar(variable + "_" + tiempo + "_" + id).value = info[variable][tiempo];
+		else {
+			tomar(variable + "_" + tiempo + "_" + id).value = -info[variable][tiempo];
+			tomar(variable + "-AC_" + id).checked = true;
 		}
 	}
 }
