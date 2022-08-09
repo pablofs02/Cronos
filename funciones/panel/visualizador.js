@@ -410,15 +410,7 @@ function añadir_margen() {
 	const rango = (en_años(máximo) - en_años(mínimo));
 	// máximo = Number(máximo) + 0.05 * rango;
 	if (hay_grupos())
-		mínimo = restar_fechas(mínimo, en_objeto(0.14 * rango));
-}
-
-function restar_fechas(fecha_1, fecha_2) {
-	const resultado = {
-		año: fecha_1.año - fecha_2.año
-	};
-
-	return resultado;
+		mínimo = en_objeto(en_años(mínimo)- 0.14 * rango);
 }
 
 function en_objeto(años) {
