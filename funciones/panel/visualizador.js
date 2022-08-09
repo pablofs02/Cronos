@@ -44,26 +44,29 @@ let altura_grupo_anterior = 0;
 
 export function cargar_visualizador(tempo) {
 	limpiar_mostrador();
-	definir_límites(tempo);
 
-	if (tempo.periodos)
-		añadir_periodos(tempo.periodos);
-	if (tempo.eventos)
-		añadir_eventos(tempo.eventos);
+	if (tempo.periodos.length || tempo.eventos.length) {
+		definir_límites(tempo);
 
-	actualizar_visualizador();
+		if (tempo.periodos)
+			añadir_periodos(tempo.periodos);
+		if (tempo.eventos)
+			añadir_eventos(tempo.eventos);
+
+		actualizar_visualizador();
+	}
 }
 
 function definir_límites(tempo) {
-	if (Object.keys(tempo.inicio).length)
-		mínimo = tempo.inicio;
-	else
-		definir_mínimo(tempo);
+		if (tempo.inicio)
+			mínimo = tempo.inicio;
+		else
+			definir_mínimo(tempo);
 
-	if (Object.keys(tempo.fin).length)
-		máximo = tempo.fin;
-	else
-		definir_máximo(tempo);
+		if (tempo.fin)
+			máximo = tempo.fin;
+		else
+			definir_máximo(tempo);
 
 	cambiar_tempo("Cronos", "Tempos", tempo);
 }
@@ -398,10 +401,11 @@ function añadir_periodos(periodos) {
 
 function añadir_eventos(eventos) {
 	const fragmento = document.createDocumentFragment();
-	eventos.forEach(evento => {
+	for (let i = 0; i < eventos.length; i++) {
+		const evento = eventos[i];
 		const nodo_evento = crear_evento(evento);
 		fragmento.appendChild(nodo_evento);
-	});
+	}
 	mostrador_eventos.appendChild(fragmento);
 }
 

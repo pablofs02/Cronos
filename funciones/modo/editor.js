@@ -138,7 +138,7 @@ function crear_evento(e) {
 	const evento = {
 		nombre: e.target.nombre.value,
 		comentario: e.target.comentario.value,
-		fecha: { año: Number(e.target.fecha.value) },
+		fecha: { año: Number(e.target.fecha_año.value) },
 	};
 	if (e.target.fecha_mes.value) {
 		periodo.fecha.mes = Number(e.target.fecha_mes.value);
