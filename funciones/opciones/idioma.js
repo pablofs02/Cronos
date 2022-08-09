@@ -1,3 +1,8 @@
+import { cambiar_editor } from "../modo/editor.js";
+import { cambiar_colección } from "../panel/colección.js";
+import { cambiar_visualizador } from "../panel/visualizador.js";
+import { en_colección, en_editor, en_visualizador } from "../principal.js";
+import { cambiar_cabecera } from "../utilidad/cabecera.js";
 import carga_json from "../utilidad/json.js";
 
 const botón_idiomas = document.getElementById("botón_idioma");
@@ -28,8 +33,19 @@ function cambiar_idioma(idioma) {
 	localStorage.setItem("idioma", idioma);
 	const ruta = ruta_idioma + idioma + extensión_idioma;
 	carga_json(ruta).then(traductor => {
-
+		cambiar_título(traductor.título);
+		cambiar_cabecera(traductor.cabecera);
+		if (en_colección())
+			cambiar_colección(traductor.colección);
+		else if (en_editor())
+			cambiar_editor(traductor.editor);
+		else if (en_visualizador())
+			cambiar_visualizador(traductor.visualizador);
 	});
+}
+
+function cambiar_título(título) {
+	document.querySelector("title").textContent = título;
 }
 
 function cambiar_bandera(idioma) {

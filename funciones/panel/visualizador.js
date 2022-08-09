@@ -18,6 +18,15 @@ export default function configurar_visualizador() {
 	escuchar_vestana();
 }
 
+export function cambiar_visualizador(visualizador) {
+	cambiar_botones(visualizador.botones);
+}
+
+function cambiar_botones(botones) {
+	const editar_tempo = document.getElementById("editar_tempo");
+	editar_tempo.textContent = botones.editor;
+}
+
 function hay_grupos() {
 	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++)

@@ -8,27 +8,33 @@
 		"botones": {
 			"colección": "Mis Tempos",
 			"creador": "Nuevo Tempo"
-		},
-		"opciones": {
-			"idiomas_alt": "Cambiar idioma",
-			"temas": {
-				"oscuro_alt": "Cambiar a modo oscuro",
-				"claro_alt": "Cambiar a modo claro"
-			}
+		}
+	},
+	"opciones": {
+		"idiomas_alt": "Cambiar idioma",
+		"temas": {
+			"oscuro_alt": "Cambiar a modo oscuro",
+			"claro_alt": "Cambiar a modo claro"
 		}
 	},
 	"colección": {
 		"botones": {
-			"cargar": "",
-			"descargar": "",
-			"borrar": ""
+			"cargar": "Cargar Tempo",
+			"descargar": "Descargar Todo",
+			"borrar": "Borrar Todo"
 		},
 		"opciones": {}
 	},
 	"editor": {
-		"botones": ""
+		"botones": {
+			"periodo": "Crear Periodo",
+			"evento": "Crear Evento",
+			"tempo": "Editar Tempo"
+		}
 	},
 	"visualizador": {
-		"botones": ""
+		"botones": {
+			"editor": "Editar Tempo"
+		}
 	}
 }

@@ -10,6 +10,23 @@ export default function configurar_cabecera() {
 	escuchar_formulario_tempo();
 }
 
+export function cambiar_cabecera(cabecera) {
+	cambiar_inicio(cabecera.inicio);
+	cambiar_botones(cabecera.botones);
+}
+
+function cambiar_inicio(inicio) {
+	const logo = document.getElementById("logo");
+	logo.setAttribute("alt", inicio.imagen_alt);
+}
+
+function cambiar_botones(botones) {
+	const mis_tempos = document.getElementById("b_colección");
+	mis_tempos.textContent = botones.colección;
+	const nuevo_tempo = document.getElementById("creador");
+	nuevo_tempo.textContent = botones.creador;
+}
+
 function escuchar_botón_colección() {
 	const colección = document.getElementById("b_colección");
 	colección.addEventListener("click", () =>

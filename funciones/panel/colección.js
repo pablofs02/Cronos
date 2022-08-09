@@ -10,14 +10,27 @@ export default function configurar_colección() {
 	crear_ventana_info();
 	listar_tempos(base, tabla).then(lista => {
 		if (lista.length)
-		colocar_lista(lista);
+			colocar_lista(lista);
 		else {
 			colocar_vacío();
 			const colección = document.getElementById("colección");
 			colección.classList.add("colección_vacía");
 		}
 	});
-	escuchar_ventana()
+	escuchar_ventana();
+}
+
+export function cambiar_colección(colección) {
+	cambiar_botones(colección.botones);
+}
+
+function cambiar_botones(botones) {
+	const cargar_tempo = document.getElementById("cargar_tempo");
+	cargar_tempo.textContent = botones.cargar;
+	const descargar_todo = document.getElementById("descargar_todo");
+	descargar_todo.textContent = botones.descargar;
+	const borrar_todo = document.createElement("borrar_todo");
+	borrar_todo.textContent = botones.borrar;
 }
 
 function escuchar_ventana() {

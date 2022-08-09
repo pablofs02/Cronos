@@ -26,6 +26,19 @@ export function en_años(fecha) {
 	return tiempo;
 }
 
+export function cambiar_editor(editor) {
+	cambiar_botones(editor.botones);
+}
+
+function cambiar_botones(botones) {
+	const añadir_periodo = document.getElementById("añadir_periodo");
+	añadir_periodo.textContent = botones.periodo;
+	const añadir_evento = document.getElementById("añadir_evento");
+	añadir_evento.textContent = botones.evento;
+	const editar_tempo = document.getElementById("editar_tempo");
+	editar_tempo.textContent = botones.tempo;
+}
+
 function escuchar_formularios() {
 	escuchar_formulario_periodo();
 	escuchar_formulario_evento();

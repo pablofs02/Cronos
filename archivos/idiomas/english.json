@@ -1,18 +1,40 @@
 {
 	"título": "Cronos - Timelines",
 	"cabecera": {
-		"inicio": "",
-		"botones": "",
-		"opciones": ""
+		"inicio": {
+			"imagen_alt": "Application logo",
+			"título": "Cronos"
+		},
+		"botones": {
+			"colección": "My Tempos",
+			"creador": "New Tempo"
+		}
+	},
+	"opciones": {
+		"idiomas_alt": "Change language",
+		"temas": {
+			"oscuro_alt": "Change to dark theme",
+			"claro_alt": "Change to light theme"
+		}
 	},
 	"colección": {
-		"botones": "",
-		"opciones": ""
+		"botones": {
+			"cargar": "Upload Tempo",
+			"descargar": "Download All",
+			"borrar": "Delete All"
+		},
+		"opciones": {}
 	},
 	"editor": {
-		"botones": ""
+		"botones": {
+			"periodo": "New Period",
+			"evento": "New Event",
+			"tempo": "Edit Tempo"
+		}
 	},
 	"visualizador": {
-		"botones": ""
+		"botones": {
+			"editor": "Edit Tempo"
+		}
 	}
 }
