@@ -46,12 +46,12 @@ export function cargar_visualizador(tempo) {
 }
 
 function definir_límites(tempo) {
-	if (Object.keys(tempo.inicio).length != 0)
+	if (Object.keys(tempo.inicio).length)
 		mínimo = tempo.inicio;
 	else
 		definir_mínimo(tempo);
 
-	if (Object.keys(tempo.fin).length != 0)
+	if (Object.keys(tempo.fin).length)
 		máximo = tempo.fin;
 	else
 		definir_máximo(tempo);
@@ -410,9 +410,26 @@ function añadir_margen() {
 	const rango = (en_años(máximo) - en_años(mínimo));
 	// máximo = Number(máximo) + 0.05 * rango;
 	if (hay_grupos())
-		mínimo -= 0.14 * rango;
-	// else
-	// mínimo -= 0.05 * rango;
+		mínimo = restar_fechas(mínimo, en_objeto(0.14 * rango));
+}
+
+function restar_fechas(fecha_1, fecha_2) {
+	const resultado = {
+		año: fecha_1.año - fecha_2.año
+	};
+
+	return resultado;
+}
+
+function en_objeto(años) {
+	const fecha = {
+		año: parseInt(años)
+	};
+	if (años - fecha.año)
+		fecha.mes = parseInt((años - fecha.año) * 12);
+	if (años - fecha.año - fecha.mes / 12)
+		fecha.día = parseInt((años - fecha.año - fecha.mes / 12) * 365);
+	return fecha;
 }
 
 function limpiar_mostrador() {

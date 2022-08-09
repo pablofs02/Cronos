@@ -43,7 +43,7 @@ function cambiar_idioma_documento(idioma) {
 }
 
 function definir_idioma_actual() {
-	if (localStorage.getItem("idioma") != undefined)
+	if (localStorage.getItem("idioma"))
 		cambiar_idioma(localStorage.getItem("idioma"));
 	else
 		localStorage.setItem("idioma", idioma_actual());
