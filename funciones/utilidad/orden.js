@@ -8,10 +8,20 @@ export function ordenar_elementos(tempo) {
 
 function ordenar_periodos(periodos) {
 	return periodos.sort((p1, p2) => {
+		if (p1.grupo && p2.grupo) {
+			if (p1.grupo.toLowerCase() > p2.grupo.toLowerCase())
+				return 1;
+			else if (p1.grupo.toLowerCase() < p2.grupo.toLowerCase())
+				return -1;
+		} else if (!p1.grupo && p2.grupo)
+			return 1;
+		else if (p1.grupo && !p2.grupo)
+			return -1;
+
 		const por_inicio = en_años(p1.inicio) - en_años(p2.inicio);
 		if (por_inicio)
 			return por_inicio;
-		const por_nombre = p1.nombre.toLocaleLowerCase() > p2.nombre.toLocaleLowerCase() ? 1 : -1;
+		const por_nombre = p1.nombre.toLowerCase() > p2.nombre.toLowerCase() ? 1 : -1;
 		return por_nombre;
 	});
 }

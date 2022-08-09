@@ -212,8 +212,11 @@ function vaciar_visitados() {
 function definir_altitud() {
 	const periodos = mostrador_periodos.childNodes;
 	const nombres = Object.keys(grupos);
+	let primer_grupo = true;
 	for (let i = 0; i < nombres.length; i++) {
 		const listado = grupos[nombres[i]];
+		const etiqueta = crear_etiqueta_grupo(nombres[i], altura_máxima(), primer_grupo);
+		primer_grupo = false;
 		for (let j = 0; j < listado.length; j++) {
 			const periodo = periodos[listado[j]];
 			const altitud = calcular_altitud(periodo);
@@ -222,9 +225,31 @@ function definir_altitud() {
 			periodo.setAttribute("altura", altitud);
 		}
 		altura_grupo_anterior = Number(altura_máxima()) + 1;
+		if (nombres[i] != "_")
+			actualizar_etiqueta_grupo(etiqueta, altura_grupo_anterior);
 		vaciar_visitados();
 	}
 	actualizar_altitud();
+}
+
+function crear_etiqueta_grupo(grupo, altura, primero) {
+	const nodo = document.createElement("div");
+	nodo.classList.add("grupo");
+	const texto = document.createElement("span");
+	texto.textContent = grupo;
+	nodo.appendChild(texto);
+	if (!primero)
+		altura++;
+	nodo.setAttribute("altura", altura);
+	nodo.style.bottom = altura * 22 + "px";
+	return nodo;
+}
+
+function actualizar_etiqueta_grupo(etiqueta, altura) {
+	const etiquetas = document.getElementById("grupos");
+	altura -= etiqueta.getAttribute("altura");
+	etiqueta.style.height = altura * 22 + "px";
+	etiquetas.appendChild(etiqueta);
 }
 
 function calcular_altitud(periodo) {
@@ -410,7 +435,7 @@ function añadir_margen() {
 	const rango = (en_años(máximo) - en_años(mínimo));
 	// máximo = Number(máximo) + 0.05 * rango;
 	if (hay_grupos())
-		mínimo = en_objeto(en_años(mínimo)- 0.14 * rango);
+		mínimo = en_objeto(en_años(mínimo) - 0.14 * rango);
 }
 
 function en_objeto(años) {

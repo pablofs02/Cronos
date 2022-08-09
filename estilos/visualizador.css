@@ -52,6 +52,14 @@
 	z-index: 5;
 }
 
+.grupo {
+	width: 11.5%;
+	position: absolute;
+	background-color: var(--verde);
+	overflow: hidden;
+	z-index: 5;
+}
+
 /**** REGLA ****/
 
 #regla {
