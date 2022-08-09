@@ -31,7 +31,7 @@ export function desactivar_barra_lateral() {
 	desplazador_v.classList.add("oculto");
 }
 
-export default function escuchar_desplacadores() {
+export default function escuchar_desplazadores() {
 	desplazador_h.addEventListener("mousedown", (ratón) => {
 		if (!sobre_barra_h(ratón)) {
 			barra_h.style.left = ratón.offsetX - (barra_h.clientWidth / 2) + "px";

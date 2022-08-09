@@ -1,7 +1,7 @@
 import { cambiar_editor } from "../modo/editor.js";
 import { cambiar_colección } from "../panel/colección.js";
 import { cambiar_visualizador } from "../panel/visualizador.js";
-import { en_colección, en_editor, en_visualizador } from "../principal.js";
+import { en_colección, en_editor, en_visualizador } from "../utilidad/dirección.js";
 import { cambiar_cabecera } from "../utilidad/cabecera.js";
 import carga_json from "../utilidad/json.js";
 

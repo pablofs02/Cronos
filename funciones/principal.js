@@ -5,56 +5,47 @@ import configurar_tema from "./opciones/tema.js";
 import configurar_colección from "./panel/colección.js";
 import configurar_visualizador from "./panel/visualizador.js";
 import configurar_cabecera from "./utilidad/cabecera.js";
-import escuchar_desplacadores from "./utilidad/desplazamiento.js";
+import escuchar_desplazadores from "./utilidad/desplazamiento.js";
+import { en_colección, en_editor, en_visualizador } from "./utilidad/dirección.js";
+import mensaje from "./utilidad/error.js";
 
 try {
-	configurar_idioma();
-	configurar_tema();
-	configurar_cabecera();
-} catch (error) {
-	console.error("Fallo en la configuración.\n", error);
+	try { configurar_idioma(); } catch (error) {
+		mensaje(error, "idioma");
+	}
+	try { configurar_tema(); } catch (error) {
+		mensaje(error, "tema");
+	}
+} catch (error) { mensaje(error, "configuración"); }
+try { configurar_cabecera(); } catch (error) {
+	mensaje(error, "cabecera");
 }
 try {
 	if (en_colección())
-		try {
-			configurar_colección();
-		} catch (error) {
-			console.error("Fallo en la colección.\n", error);
+		try { configurar_colección(); } catch (error) {
+			mensaje(error, "colección");
 		}
 	else if (en_editor() || en_visualizador()) {
 		try {
 			if (en_editor())
-				configurar_editor();
+				try { configurar_editor(); } catch (error) {
+					mensaje(error, "editor");
+				}
 			if (en_visualizador())
-				configurar_visualización();
+				try { configurar_visualización(); } catch (error) {
+					mensaje(error, "visualizar");
+				}
 		} catch (error) {
-			console.error("Fallo en la carga del modo.\n", error);
+			mensaje(error, "modo");
 		}
 		try {
 			configurar_visualizador();
-			escuchar_desplacadores();
+			escuchar_desplazadores();
 		} catch (error) {
-			console.error("Fallo en la visualización.\n", error);
+			mensaje(error, "visualizador");
 		}
 	} else
 		throw new Error("Sitio web desconocido.");
 } catch (error) {
-	console.error("Fallo en el panel.\n", error);
-}
-
-export function en_colección() {
-	return dirección_actual() === "index.html" || !dirección_actual();
-}
-
-export function en_editor() {
-	return dirección_actual() === "editor.html";
-}
-
-export function en_visualizador() {
-	return dirección_actual() === "visualizador.html";
-}
-
-function dirección_actual() {
-	const dirección = location.href.split("/");
-	return dirección[dirección.length - 1];
+	mensaje(error, "panel");
 }
