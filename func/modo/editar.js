@@ -7,6 +7,42 @@ const tabla = "Tempos";
 let tempo = {};
 let elemento;
 
+export function cargar_editor() {
+	cargar_botones();
+}
+
+function cargar_botones() {
+	const nodo = document.createElement("div");
+	nodo.classList.add("botones");
+	nodo.appendChild(cargar_bot_periodo());
+	nodo.appendChild(cargar_bot_evento());
+	nodo.appendChild(cargar_bot_tempo());
+}
+
+function cargar_bot_periodo() {
+	const nodo = document.createElement("button");
+	nodo.classList.add("botón");
+	nodo.id = "añadir_periodo";
+	nodo.textContent = "Crear Periodo";
+	return nodo;
+}
+
+function cargar_bot_evento() {
+	const nodo = document.createElement("button");
+	nodo.classList.add("botón");
+	nodo.id = "añadir_evento";
+	nodo.textContent = "Crear Evento";
+	return nodo;
+}
+
+function cargar_bot_tempo() {
+	const nodo = document.createElement("button");
+	nodo.classList.add("botón");
+	nodo.id = "editar_tempo";
+	nodo.textContent = "Editar Tempo";
+	return nodo;
+}
+
 export default function configurar_editor() {
 	cargar_tempo();
 	crear_ventanas();
