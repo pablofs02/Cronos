@@ -115,7 +115,7 @@ function almacenar(tempo) {
 	guardar_tempo(base, tabla, tempo);
 	localStorage.setItem("tempo", tempo.nombre);
 	formulario_tempo.reset();
-	setTimeout(() => location.assign("editor.html"), 200);
+	setTimeout(() => location.assign("editar.html"), 200);
 }
 
 function mostrar_ventana_tempo() {

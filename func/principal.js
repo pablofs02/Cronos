@@ -1,13 +1,13 @@
-import configurar_editor from "./modo/editor.js";
-import configurar_visualización from "./modo/visualizar.js";
-import configurar_idioma from "./opciones/idioma.js";
-import configurar_tema from "./opciones/tema.js";
+import configurar_editor from "./modo/editar.js";
+import configurar_visualización from "./modo/ver.js";
+import configurar_idioma from "./config/idioma.js";
+import configurar_tema from "./config/tema.js";
 import configurar_colección from "./panel/colección.js";
 import configurar_visualizador from "./panel/visualizador.js";
-import configurar_cabecera from "./utilidad/cabecera.js";
-import escuchar_desplazadores from "./utilidad/desplazamiento.js";
-import { en_colección, en_editor, en_visualizador } from "./utilidad/dirección.js";
-import mensaje from "./utilidad/error.js";
+import configurar_cabecera from "./util/cabecera.js";
+import escuchar_desplazadores from "./util/desplazamiento.js";
+import { en_colección, en_editor, en_visualizador } from "./util/dirección.js";
+import mensaje from "./util/error.js";
 
 try {
 	try { configurar_idioma(); } catch (error) {

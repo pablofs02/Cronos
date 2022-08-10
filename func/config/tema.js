@@ -4,7 +4,7 @@ const nodo_tema = document.getElementById("tema");
 const tema_oscuro = "oscuro";
 const tema_claro = "claro";
 
-const ruta_tema = "estilos/";
+const ruta_tema = "estilos/temas/";
 const terminación = ".css";
 
 export default function configurar_tema() {
@@ -52,7 +52,7 @@ function poner_tema(tema) {
 }
 
 function poner_tema_oscuro() {
-	const icono_tema_claro = "archivos/vectores/modo_claro.svg";
+	const icono_tema_claro = "archivos/temas/modo_claro.svg";
 	const alternativa_tema_claro = "Cambiar a modo claro";
 	const nombre = tema_oscuro + terminación;
 	const ruta_tema_oscuro = ruta_tema + nombre;
@@ -65,7 +65,7 @@ function poner_tema_oscuro() {
 }
 
 function poner_tema_claro() {
-	const icono_tema_oscuro = "archivos/vectores/modo_oscuro.svg";
+	const icono_tema_oscuro = "archivos/temas/modo_oscuro.svg";
 	const alternativa_tema_oscuro = "Cambiar a modo oscuro";
 	const nombre = tema_claro + terminación;
 	const ruta_tema_claro = ruta_tema + nombre;

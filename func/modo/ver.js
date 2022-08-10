@@ -1,5 +1,5 @@
 import { cargar_visualizador } from "../panel/visualizador.js";
-import { tomar_tempo } from "../utilidad/almacenamiento.js";
+import { tomar_tempo } from "../util/almacenamiento.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
@@ -15,5 +15,5 @@ export default function configurar_visualización() {
 function escuchar_botones() {
 	const editar = document.getElementById("editar_tempo");
 	editar.addEventListener("click", () =>
-		location.assign("editor.html"));
+		location.assign("editar.html"));
 }

@@ -1,6 +1,6 @@
 import { cargar_visualizador } from "../panel/visualizador.js";
-import { cambiar_tempo, tomar_tempo } from "../utilidad/almacenamiento.js";
-import { crear_ventana, modificar_ventana } from "../utilidad/formulario.js";
+import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
+import { crear_ventana, modificar_ventana } from "../util/formulario.js";
 
 const base = "Cronos";
 const tabla = "Tempos";

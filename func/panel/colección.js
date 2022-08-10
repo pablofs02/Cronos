@@ -1,4 +1,4 @@
-import { listar_tempos, guardar_tempo, borrar_tempo } from "../utilidad/almacenamiento.js";
+import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 
 const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 
@@ -165,7 +165,7 @@ function crear_imagen(tempo) {
 	if (tempo.imagen)
 		imagen.setAttribute("src", tempo.imagen);
 	else
-		imagen.setAttribute("src", "archivos/imágenes/logo.png");
+		imagen.setAttribute("src", "archivos/logo.png");
 	imagen.setAttribute("alt", "Imagen del tempo " + tempo.nombre);
 	return imagen;
 }
@@ -295,7 +295,7 @@ function modificar_info(tempo) {
 	if (tempo.imagen)
 		imagen.setAttribute("src", tempo.imagen);
 	else
-		imagen.setAttribute("src", "archivos/imágenes/logo.png");
+		imagen.setAttribute("src", "archivos/logo.png");
 }
 
 function ajustar_imágenes() {
@@ -309,7 +309,7 @@ function ajustar_imágenes() {
 
 function editar_tempo(tempo) {
 	localStorage.setItem("tempo", tempo.nombre);
-	location.assign("editor.html");
+	location.assign("editar.html");
 }
 
 function confirmar(tempo) {
@@ -329,7 +329,7 @@ function confirmar_todo(lista) {
 
 function ver_tempo(tempo) {
 	localStorage.setItem("tempo", tempo.nombre);
-	location.assign("visualizador.html");
+	location.assign("ver.html");
 }
 
 function almacenar_archivos(archivos) {

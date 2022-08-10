@@ -1,14 +1,14 @@
-import { cambiar_editor } from "../modo/editor.js";
+import { cambiar_editor } from "../modo/editar.js";
 import { cambiar_colección } from "../panel/colección.js";
 import { cambiar_visualizador } from "../panel/visualizador.js";
-import { en_colección, en_editor, en_visualizador } from "../utilidad/dirección.js";
-import { cambiar_cabecera } from "../utilidad/cabecera.js";
-import carga_json from "../utilidad/json.js";
+import { en_colección, en_editor, en_visualizador } from "../util/dirección.js";
+import { cambiar_cabecera } from "../util/cabecera.js";
+import carga_json from "../util/json.js";
 
 const botón_idiomas = document.getElementById("botón_idioma");
 const lista_idiomas = document.getElementById("lista_idioma");
 
-const ruta_banderas = "archivos/imágenes/banderas/";
+const ruta_banderas = "archivos/banderas/";
 const extensión_bandera = ".png";
 const ruta_idioma = "archivos/idiomas/";
 const extensión_idioma = ".json";

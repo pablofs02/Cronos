@@ -3,11 +3,11 @@ export function en_colección() {
 }
 
 export function en_editor() {
-	return dirección_actual() === "editor.html";
+	return dirección_actual() === "editar.html";
 }
 
 export function en_visualizador() {
-	return dirección_actual() === "visualizador.html";
+	return dirección_actual() === "ver.html";
 }
 
 function dirección_actual() {

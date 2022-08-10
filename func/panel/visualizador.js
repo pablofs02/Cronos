@@ -1,6 +1,6 @@
-import { en_años } from "../modo/editor.js";
-import { cambiar_tempo } from "../utilidad/almacenamiento.js";
-import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../utilidad/desplazamiento.js";
+import { en_años } from "../modo/editar.js";
+import { cambiar_tempo } from "../util/almacenamiento.js";
+import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
