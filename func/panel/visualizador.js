@@ -13,6 +13,68 @@ let escala = 100;
 let máximo = null;
 let mínimo = null;
 
+export function cargar_visualizador() {
+	const panel = document.getElementById("panel");
+	const visualizador = crear_div("visualizador");
+	visualizador.appendChild(cargar_mostrador());
+	visualizador.appendChild(cargar_regla());
+	visualizador.appendChild(cargar_desplazador());
+	visualizador.appendChild(cargar_proporcionador());
+	panel.appendChild(visualizador);
+}
+
+function crear_div(id) {
+	const div = document.createElement("div");
+	div.id = id;
+	return div;
+}
+
+function cargar_mostrador() {
+	const mostrador = crear_div("mostrador");
+	mostrador.appendChild(crear_div("periodos"));
+	mostrador.appendChild(crear_div("eventos"));
+	mostrador.appendChild(crear_div("grupos"));
+	return mostrador;
+}
+
+function cargar_regla() {
+	return crear_div("regla");
+}
+
+function cargar_desplazador() {
+	const desplazador = crear_div("desplazador");
+	desplazador.appendChild(crear_desplazador("horizontal"));
+	desplazador.appendChild(crear_desplazador("vertical"));
+	return desplazador;
+}
+
+function crear_desplazador(x) {
+	const nodo = crear_div("desplazador_" + x);
+	if (x === "vertical") nodo.classList.add("oculto");
+	nodo.appendChild(crear_div("barra_" + x));
+	nodo.appendChild(crear_div("barra_" + x + "_protector"));
+	return nodo;
+}
+
+function cargar_proporcionador() {
+	const nodo = crear_div("proporcionador");
+	const aumentar = crear_div("aumentar");
+	aumentar.classList.add("proporción");
+	const mas = document.createElement("span");
+	mas.classList.add("más");
+	mas.textContent = "+";
+	aumentar.appendChild(mas);
+	nodo.appendChild(aumentar);
+	const disminuir = crear_div("disminuir");
+	disminuir.classList.add("proporción");
+	const menos = document.createElement("span");
+	menos.classList.add("menos");
+	menos.textContent = "-";
+	disminuir.appendChild(menos);
+	nodo.appendChild(disminuir);
+	return nodo;
+}
+
 export default function configurar_visualizador() {
 	escuchar_escalador();
 	escuchar_vestana();
@@ -42,7 +104,7 @@ const grupos = {};
 
 let altura_grupo_anterior = 0;
 
-export function cargar_visualizador(tempo) {
+export function cargar_en_visualizador(tempo) {
 	limpiar_mostrador();
 
 	if (tempo.periodos.length || tempo.eventos.length) {
@@ -58,15 +120,15 @@ export function cargar_visualizador(tempo) {
 }
 
 function definir_límites(tempo) {
-		if (tempo.inicio)
-			mínimo = tempo.inicio;
-		else
-			definir_mínimo(tempo);
+	if (tempo.inicio)
+		mínimo = tempo.inicio;
+	else
+		definir_mínimo(tempo);
 
-		if (tempo.fin)
-			máximo = tempo.fin;
-		else
-			definir_máximo(tempo);
+	if (tempo.fin)
+		máximo = tempo.fin;
+	else
+		definir_máximo(tempo);
 
 	cambiar_tempo("Cronos", "Tempos", tempo);
 }

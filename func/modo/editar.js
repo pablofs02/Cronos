@@ -1,4 +1,4 @@
-import { cargar_visualizador } from "../panel/visualizador.js";
+import { cargar_en_visualizador } from "../panel/visualizador.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "../util/formulario.js";
 
@@ -8,7 +8,8 @@ let tempo = {};
 let elemento;
 
 export function cargar_editor() {
-	cargar_botones();
+	const panel = document.getElementById("panel");
+	panel.appendChild(cargar_botones());
 }
 
 function cargar_botones() {
@@ -17,6 +18,7 @@ function cargar_botones() {
 	nodo.appendChild(cargar_bot_periodo());
 	nodo.appendChild(cargar_bot_evento());
 	nodo.appendChild(cargar_bot_tempo());
+	return nodo;
 }
 
 function cargar_bot_periodo() {
@@ -90,7 +92,7 @@ function escuchar_formulario_periodo() {
 		const periodo = crear_periodo(e);
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
 			tempo.periodos.push(periodo);
-			cargar_visualizador(tempo);
+			cargar_en_visualizador(tempo);
 			if (editando_periodo())
 				borrar_periodo_anterior();
 			cambiar_tempo(base, tabla, tempo);
@@ -148,7 +150,7 @@ function escuchar_formulario_evento() {
 		e.preventDefault();
 		const evento = crear_evento(e);
 		tempo.eventos.push(evento);
-		cargar_visualizador(tempo);
+		cargar_en_visualizador(tempo);
 		if (editando_evento())
 			borrar_evento_anterior();
 		cambiar_tempo(base, tabla, tempo);
@@ -249,7 +251,7 @@ function cargar_tempo() {
 	if (localStorage.getItem("tempo")) {
 		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo_almacenado => {
 			tempo = tempo_almacenado;
-			cargar_visualizador(tempo);
+			cargar_en_visualizador(tempo);
 		});
 	} else
 		throw new Error("No hay ningún tempo seleccionado para editar.");
