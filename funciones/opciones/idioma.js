@@ -49,7 +49,8 @@ function cambiar_título(título) {
 }
 
 function cambiar_bandera(idioma) {
-	const ruta = ruta_banderas + idiomas[idioma] + extensión_bandera;
+	const nombre = idiomas[idioma] + extensión_bandera;
+	const ruta = ruta_banderas + nombre;
 	botón_idiomas.setAttribute("src", ruta);
 }
 
@@ -59,14 +60,16 @@ function cambiar_idioma_documento(idioma) {
 }
 
 function definir_idioma_actual() {
-	if (localStorage.getItem("idioma"))
-		cambiar_idioma(localStorage.getItem("idioma"));
-	else
+	const guardado = localStorage.getItem("idioma")
+	if (guardado && guardado != idioma_actual())
+		cambiar_idioma(guardado);
+	else if (!guardado)
 		localStorage.setItem("idioma", idioma_actual());
 }
 
 function idioma_actual() {
-	const lang = document.querySelector("html").getAttribute("lang");
+	const documento = document.querySelector("html");
+	const lang = documento.getAttribute("lang");
 	const posición = Object.values(idiomas).indexOf(lang);
 	return Object.keys(idiomas)[posición];
 }
@@ -95,7 +98,8 @@ function crear_elemento_idioma(idioma) {
 
 function crear_imagen_elemento(idioma) {
 	const imagen = document.createElement("img");
-	const ruta = ruta_banderas + idiomas[idioma] + extensión_bandera;
+	const nombre = idiomas[idioma] + extensión_bandera;
+	const ruta = ruta_banderas + nombre;
 	imagen.setAttribute("src", ruta);
 	return imagen;
 }
@@ -107,5 +111,6 @@ function crear_texto_elemento(idioma) {
 }
 
 function dignar(palabra) {
-	return palabra.charAt(0).toUpperCase() + palabra.substring(1);
+	const inicial = palabra.charAt(0).toUpperCase();
+	return inicial + palabra.substring(1);
 }
