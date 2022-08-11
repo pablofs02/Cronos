@@ -1,4 +1,4 @@
-import { cargar_en_visualizador } from "../panel/visualizador.js";
+import cargar_visor, { cargar_en_visualizador } from "../panel/visor.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "../util/formulario.js";
 
@@ -6,6 +6,22 @@ const base = "Cronos";
 const tabla = "Tempos";
 let tempo = {};
 let elemento;
+
+export default function cargar_editor_en_panel() {
+	if (!estar_cargado_visor_en_panel())
+		cargar_visor();
+	if (!estar_cargado_botones_editor())
+		cargar_botones_editor();
+	configurar_editor();
+}
+
+function cargar_botones_editor() {
+
+}
+
+function estar_cargado_visor_en_panel() {
+	return document.getElementById("visor");
+}
 
 export function cargar_editor() {
 	const panel = document.getElementById("panel");
@@ -45,7 +61,7 @@ function cargar_bot_tempo() {
 	return nodo;
 }
 
-export default function configurar_editor() {
+export function configurar_editor() {
 	cargar_tempo();
 	crear_ventanas();
 	setTimeout(() => {
@@ -191,7 +207,7 @@ function crear_evento(e) {
 function escuchar_formulario_tempo() {
 	const botón_editar_tempo = document.getElementById("editar_tempo");
 	botón_editar_tempo.addEventListener("click", () => {
-		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo => {
+		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
 			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
 			const ventana_tempo = document.getElementById("tempo");
 			ventana_tempo.classList.add("editando");
@@ -248,8 +264,8 @@ function restablecer_evento() {
 }
 
 function cargar_tempo() {
-	if (localStorage.getItem("tempo")) {
-		tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(tempo_almacenado => {
+	if (sessionStorage.getItem("tempo")) {
+		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo_almacenado => {
 			tempo = tempo_almacenado;
 			cargar_en_visualizador(tempo);
 		});

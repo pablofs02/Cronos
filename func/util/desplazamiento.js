@@ -1,4 +1,4 @@
-import { desplazar_elementos, elevar_elementos } from "../panel/visualizador.js";
+import { desplazar_elementos, elevar_elementos } from "../panel/visor.js";
 
 const desplazador_h = document.getElementById("desplazador_horizontal");
 const barra_h = document.getElementById("barra_horizontal");

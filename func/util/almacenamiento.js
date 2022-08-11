@@ -13,8 +13,8 @@ export function cambiar_tempo(base, tabla, tempo) {
 }
 
 export function borrar_tempo(base, tabla, tempo) {
-	if (localStorage.getItem("tempo") === tempo.nombre)
-		localStorage.removeItem("tempo");
+	if (sessionStorage.getItem("tempo") === tempo.nombre)
+		sessionStorage.removeItem("tempo");
 	acceder_almacén("borrar", { base, tabla, tempo });
 }
 

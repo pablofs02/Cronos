@@ -1,4 +1,4 @@
-import { en_años } from "../modo/editar.js";
+import { en_años } from "../modo/editor.js";
 import { cambiar_tempo } from "../util/almacenamiento.js";
 import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
 
@@ -6,21 +6,34 @@ const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
 	location.assign("index.html"));
 
-const mostrador_periodos = document.getElementById("periodos");
-const mostrador_eventos = document.getElementById("eventos");
-
 let escala = 100;
 let máximo = null;
 let mínimo = null;
 
-export function cargar_visualizador() {
+export default function cargar_visor() {
+	aplicar_estilo_visor();
+	limpiar_panel();
 	const panel = document.getElementById("panel");
+	const botones = document.createElement("div");
+	botones.classList.add("botones");
+	panel.append(botones);
 	const visualizador = crear_div("visualizador");
 	visualizador.appendChild(cargar_mostrador());
 	visualizador.appendChild(cargar_regla());
 	visualizador.appendChild(cargar_desplazador());
 	visualizador.appendChild(cargar_proporcionador());
 	panel.appendChild(visualizador);
+}
+
+function aplicar_estilo_visor() {
+	const estilo = document.getElementById("modo");
+	estilo.setAttribute("href", "estilos/panel/visor.css")
+}
+
+function limpiar_panel() {
+	const panel = document.getElementById("panel");
+	while (panel.firstChild)
+		panel.firstChild.remove();
 }
 
 function crear_div(id) {
@@ -75,7 +88,7 @@ function cargar_proporcionador() {
 	return nodo;
 }
 
-export default function configurar_visualizador() {
+export function configurar_visualizador() {
 	escuchar_escalador();
 	escuchar_vestana();
 }
@@ -169,7 +182,7 @@ export function actualizar_visualizador() {
 }
 
 export function desplazar_elementos() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("pos_x");
@@ -182,7 +195,7 @@ export function desplazar_elementos() {
 }
 
 export function elevar_elementos() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("altura") * 22;
@@ -227,7 +240,7 @@ function ajustar_todo() {
 }
 
 function actualizar_posición() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_relativa = periodo.getAttribute("posición");
@@ -239,7 +252,7 @@ function actualizar_posición() {
 }
 
 function definir_posición() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
@@ -251,7 +264,7 @@ function definir_posición() {
 }
 
 function actualizar_longitud() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const ancho_relativo = periodo.getAttribute("ancho");
@@ -263,7 +276,7 @@ function actualizar_longitud() {
 }
 
 function definir_longitud() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
@@ -284,7 +297,7 @@ function vaciar_visitados() {
 }
 
 function definir_altitud() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	const nombres = Object.keys(grupos);
 	let primer_grupo = true;
 	for (let i = 0; i < nombres.length; i++) {
@@ -374,7 +387,7 @@ function choque_trasero(periodo_1, periodo_2) {
 }
 
 function actualizar_altitud() {
-	const periodos = mostrador_periodos.childNodes;
+	const periodos = document.getElementById("periodos").childNodes;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const altitud = periodo.getAttribute("altura");
@@ -458,7 +471,7 @@ function añadir_periodos(periodos) {
 		const nodo_periodo = crear_periodo(periodo, i);
 		fragmento.appendChild(nodo_periodo);
 	};
-	mostrador_periodos.appendChild(fragmento);
+	document.getElementById("periodos").appendChild(fragmento);
 }
 
 function añadir_eventos(eventos) {
@@ -468,7 +481,7 @@ function añadir_eventos(eventos) {
 		const nodo_evento = crear_evento(evento);
 		fragmento.appendChild(nodo_evento);
 	}
-	mostrador_eventos.appendChild(fragmento);
+	document.getElementById("eventos").appendChild(fragmento);
 }
 
 function actualizar_límites(objeto) {
@@ -525,8 +538,8 @@ function en_objeto(años) {
 }
 
 function limpiar_mostrador() {
-	while (mostrador_periodos.firstChild)
-		mostrador_periodos.firstChild.remove();
-	while (mostrador_eventos.firstChild)
-		mostrador_eventos.firstChild.remove();
+	while (document.getElementById("periodos").firstChild)
+		document.getElementById("periodos").firstChild.remove();
+	while (document.getElementById("eventos").firstChild)
+		document.getElementById("eventos").firstChild.remove();
 }

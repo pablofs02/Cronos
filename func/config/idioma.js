@@ -1,6 +1,6 @@
-import { cambiar_editor } from "../modo/editar.js";
+import { cambiar_editor } from "../modo/editor.js";
 import { cambiar_tablero } from "../panel/tablero.js";
-import { cambiar_visualizador } from "../panel/visualizador.js";
+import { cambiar_visualizador } from "../panel/visor.js";
 import { en_tablero, en_editor, en_visualizador } from "../util/dirección.js";
 import { cambiar_cabecera } from "../util/cabecera.js";
 import carga_json from "../util/json.js";

@@ -1,3 +1,4 @@
+import cargar_editor_en_panel from "../modo/editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 
 const pantalla_ocultar = document.getElementById("pantalla_ocultar");
@@ -322,8 +323,8 @@ function ajustar_imágenes() {
 }
 
 function editar_tempo(tempo) {
-	localStorage.setItem("tempo", tempo.nombre);
-	location.assign("editar.html");
+	sessionStorage.setItem("tempo", tempo.nombre);
+	cargar_editor_en_panel();
 }
 
 function confirmar(tempo) {
@@ -342,8 +343,8 @@ function confirmar_todo(lista) {
 }
 
 function ver_tempo(tempo) {
-	localStorage.setItem("tempo", tempo.nombre);
-	location.assign("ver.html");
+	sessionStorage.setItem("tempo", tempo.nombre);
+	cargar_visor_en_panel();
 }
 
 function almacenar_archivos(archivos) {

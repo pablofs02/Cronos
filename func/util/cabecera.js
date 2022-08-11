@@ -63,11 +63,11 @@ function escuchar_formulario_tempo() {
 		if (e.target.nombre.value)
 			tempo.nombre = e.target.nombre.value;
 		tomar_tempo(base, tabla, tempo.nombre).then(existe => {
-			if (!existe || tempo.nombre == localStorage.getItem("tempo")) {
+			if (!existe || tempo.nombre == sessionStorage.getItem("tempo")) {
 				if (e.target.comentario.value)
 					tempo.comentario = e.target.comentario.value;
 				if (document.getElementById("tempo").classList.contains("editando"))
-					tomar_tempo(base, tabla, localStorage.getItem("tempo")).then(act => {
+					tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(act => {
 						tempo.periodos = act.periodos;
 						tempo.eventos = act.eventos;
 						if (e.target.imagen.files[0]) {
@@ -113,7 +113,7 @@ function escuchar_formulario_tempo() {
 
 function almacenar(tempo) {
 	guardar_tempo(base, tabla, tempo);
-	localStorage.setItem("tempo", tempo.nombre);
+	sessionStorage.setItem("tempo", tempo.nombre);
 	formulario_tempo.reset();
 	setTimeout(() => location.assign("editar.html"), 200);
 }

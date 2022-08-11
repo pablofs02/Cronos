@@ -1,10 +1,18 @@
-import { cargar_en_visualizador } from "../panel/visualizador.js";
+import cargar_visor, { cargar_en_visualizador } from "../panel/visor.js";
 import { tomar_tempo } from "../util/almacenamiento.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
 
-export function cargar_visor() {
+export default function cargar_vista_en_panel() {
+	if (!estar_cargado_visor_en_panel())
+		cargar_visor();
+	else if (!estar_cargado_botones_vista())
+		cargar_botones_vista();
+	configurar_vista();
+}
+
+export function cargar_vista() {
 	const panel = document.getElementById("panel");
 	panel.appendChild(cargar_botones());
 }
@@ -24,8 +32,8 @@ function cargar_bot_editar() {
 	return nodo;
 }
 
-export default function configurar_visualización() {
-	const nombre_tempo = localStorage.getItem("tempo");
+export function configurar_visualización() {
+	const nombre_tempo = sessionStorage.getItem("tempo");
 	tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
 		cargar_en_visualizador(tempo);
 	});
