@@ -5,7 +5,7 @@ const base = "Cronos";
 const tabla = "Tempos";
 
 export default function configurar_cabecera() {
-	escuchar_botón_colección();
+	escuchar_botón_tablero();
 	crear_formulario_tempo();
 	escuchar_formulario_tempo();
 }
@@ -21,15 +21,15 @@ function cambiar_inicio(inicio) {
 }
 
 function cambiar_botones(botones) {
-	const mis_tempos = document.getElementById("b_colección");
-	mis_tempos.textContent = botones.colección;
+	const mis_tempos = document.getElementById("b_tablero");
+	mis_tempos.textContent = botones.tablero;
 	const nuevo_tempo = document.getElementById("creador");
 	nuevo_tempo.textContent = botones.creador;
 }
 
-function escuchar_botón_colección() {
-	const colección = document.getElementById("b_colección");
-	colección.addEventListener("click", () =>
+function escuchar_botón_tablero() {
+	const tablero = document.getElementById("b_tablero");
+	tablero.addEventListener("click", () =>
 		location.assign("index.html"));
 }
 

@@ -4,7 +4,7 @@ const errores = {
 	tema: "Error en el tema.",
 	cabecera: "Error en elemento de la cabecera.",
 	panel: "Error en el panel.",
-	colección: "Error en la colección.",
+	tablero: "Error en la tablero.",
 	visualizador: "Error en el visualizador",
 	modo: "Error en la carga del modo.",
 	editar: "Error en el editor.",

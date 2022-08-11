@@ -1,24 +1,24 @@
-/**** COLECCIÓN ****/
+/**** TABLERO ****/
 
-#colección {
+#tablero {
 	width: 100%;
 	max-height: calc(100vh - (50px + 20px + 35px + 20px));
 	height: 100%;
 	position: absolute;
 	margin-top: 20px;
 	border-radius: 8px;
-	background-color: var(--fondo_colección);
+	background-color: var(--fondo_tablero);
 	overflow-y: auto;
 }
 
 @media (max-width: 1000px) and (max-height: 725px) {
-	#colección {
+	#tablero {
 		border-radius: 0;
 	}
 }
 
 @media (max-height: 725px) {
-	#colección {
+	#tablero {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
@@ -26,7 +26,7 @@
 
 /**** ELEMENTOS ****/
 
-.elemento_colección {
+.elemento_tablero {
 	width: calc(100% - 2 * 20px);
 	height: 20%;
 	display: flex;
@@ -36,7 +36,7 @@
 	cursor: pointer;
 }
 
-.elemento_colección > img {
+.elemento_tablero > img {
 	border-radius: 8px 0 0 8px;
 }
 
@@ -45,13 +45,13 @@
 	overflow: hidden;
 }
 
-.elemento_colección > div > h3 {
+.elemento_tablero > div > h3 {
 	margin: 10px;
 	font-size: x-large;
 	word-wrap: break-word
 }
 
-.elemento_colección > div > p {
+.elemento_tablero > div > p {
 	margin: 10px;
 	font-size: medium;
 }
@@ -218,7 +218,7 @@
 	}
 }
 
-.colección_vacía {
+.tablero_vacía {
 	display: flex;
 	justify-content: center;
 	align-items: center;

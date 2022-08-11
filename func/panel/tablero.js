@@ -5,7 +5,21 @@ const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 const base = "Cronos";
 const tabla = "Tempos";
 
-export default function configurar_colección() {
+export default function cargar_tablero() {
+	if (!estar_cargado_tablero_en_panel())
+		cargar_tablero_en_panel();
+	configurar_tablero();
+}
+
+function cargar_tablero_en_panel() {
+	//# Por implementar.
+}
+
+function estar_cargado_tablero_en_panel() {
+	return document.getElementById("tablero");
+}
+
+function configurar_tablero() {
 	definir_botones_panel();
 	crear_ventana_info();
 	listar_tempos(base, tabla).then(lista => {
@@ -13,15 +27,15 @@ export default function configurar_colección() {
 			colocar_lista(lista);
 		else {
 			colocar_vacío();
-			const colección = document.getElementById("colección");
-			colección.classList.add("colección_vacía");
+			const tablero = document.getElementById("tablero");
+			tablero.classList.add("tablero_vacía");
 		}
 	});
 	escuchar_ventana();
 }
 
-export function cambiar_colección(colección) {
-	cambiar_botones(colección.botones);
+export function cambiar_tablero(tablero) {
+	cambiar_botones(tablero.botones);
 }
 
 function cambiar_botones(botones) {
@@ -46,7 +60,7 @@ function escuchar_ventana() {
 }
 
 function colocar_vacío() {
-	const colección = document.getElementById("colección");
+	const tablero = document.getElementById("tablero");
 	const contenedor = document.createElement("div");
 	contenedor.classList.add("sin_tempos");
 	const icono = document.createElement("div");
@@ -55,17 +69,17 @@ function colocar_vacío() {
 	const texto = document.createElement("div");
 	texto.textContent = "No tienes ningún tempo almacenado.";
 	contenedor.appendChild(texto);
-	colección.appendChild(contenedor);
+	tablero.appendChild(contenedor);
 }
 
 function deshacer_rejilla() {
-	const lista = document.querySelectorAll(".elemento_colección");
+	const lista = document.querySelectorAll(".elemento_tablero");
 	for (let i = 0; i < lista.length; i++)
 		lista[i].lastChild.style.display = "none";
 }
 
 function hacer_rejilla() {
-	const lista = document.querySelectorAll(".elemento_colección");
+	const lista = document.querySelectorAll(".elemento_tablero");
 	for (let i = 0; i < lista.length; i++)
 		lista[i].lastChild.style.display = "grid";
 }
@@ -102,7 +116,7 @@ function definir_botón_borrar_todo() {
 
 function colocar_lista(lista) {
 	if (lista) {
-		const colección = document.getElementById("colección");
+		const tablero = document.getElementById("tablero");
 		const fragmento = document.createDocumentFragment();
 		for (let i = 0; i < lista.length; i++) {
 			const tempo = lista[i];
@@ -118,7 +132,7 @@ function colocar_lista(lista) {
 
 			fragmento.appendChild(nodo);
 		}
-		colección.appendChild(fragmento);
+		tablero.appendChild(fragmento);
 
 		ajustar_imágenes();
 	}
@@ -154,7 +168,7 @@ function crear_desplegable(botones) {
 
 function crear_elemento(tempo) {
 	const nodo = document.createElement("div");
-	nodo.classList.add("elemento_colección");
+	nodo.classList.add("elemento_tablero");
 	nodo.appendChild(crear_imagen(tempo));
 	nodo.appendChild(crear_texto(tempo));
 	return nodo;
@@ -299,7 +313,7 @@ function modificar_info(tempo) {
 }
 
 function ajustar_imágenes() {
-	const elemento = document.querySelectorAll(".elemento_colección");
+	const elemento = document.querySelectorAll(".elemento_tablero");
 	for (let i = 0; i < elemento.length; i++) {
 		const imagen = elemento[i].firstChild;
 		const altura = imagen.clientHeight;

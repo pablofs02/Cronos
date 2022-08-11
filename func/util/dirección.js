@@ -1,4 +1,4 @@
-export function en_colección() {
+export function en_tablero() {
 	return dirección_actual() === "index.html" || !dirección_actual();
 }
 
