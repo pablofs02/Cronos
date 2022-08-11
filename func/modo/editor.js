@@ -8,6 +8,7 @@ let tempo = {};
 let elemento;
 
 export default function cargar_editor_en_panel() {
+	sessionStorage.setItem("modo", "editor");
 	if (!estar_cargado_visor_en_panel())
 		cargar_visor();
 	if (!estar_cargado_botones_editor())
@@ -15,8 +16,27 @@ export default function cargar_editor_en_panel() {
 	configurar_editor();
 }
 
-function cargar_botones_editor() {
+function estar_cargado_botones_editor() {
+	return document.getElementById("añadir_periodo");
+}
 
+function cargar_botones_editor() {
+	const botones = document.getElementById("panel").firstChild;
+	const periodo = document.createElement("button");
+	periodo.id = "añadir_periodo";
+	periodo.textContent = "Crear Periodo";
+	periodo.classList.add("botón");
+	botones.appendChild(periodo);
+	const evento = document.createElement("button");
+	evento.id = "añadir_evento";
+	evento.textContent = "Crear Evento";
+	evento.classList.add("botón");
+	botones.appendChild(evento);
+	const tempo = document.createElement("button");
+	tempo.id = "editar_tempo";
+	tempo.textContent = "Editar Tempo";
+	tempo.classList.add("botón");
+	botones.appendChild(tempo);
 }
 
 function estar_cargado_visor_en_panel() {

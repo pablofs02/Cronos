@@ -1,10 +1,10 @@
 import { desplazar_elementos, elevar_elementos } from "../panel/visor.js";
 
-const desplazador_h = document.getElementById("desplazador_horizontal");
-const barra_h = document.getElementById("barra_horizontal");
+let desplazador_h = null;
+let barra_h = null;
 
-const desplazador_v = document.getElementById("desplazador_vertical");
-const barra_v = document.getElementById("barra_vertical");
+let desplazador_v = null;
+let barra_v = null;
 
 let agarrando_h = false;
 let posición_inicial_barra_h = 0;
@@ -32,6 +32,12 @@ export function desactivar_barra_lateral() {
 }
 
 export default function escuchar_desplazadores() {
+	desplazador_h = document.getElementById("desplazador_horizontal");
+	barra_h = document.getElementById("barra_horizontal");
+
+	desplazador_v = document.getElementById("desplazador_vertical");
+	barra_v = document.getElementById("barra_vertical");
+
 	desplazador_h.addEventListener("mousedown", (ratón) => {
 		if (!sobre_barra_h(ratón)) {
 			barra_h.style.left = ratón.offsetX - (barra_h.clientWidth / 2) + "px";

@@ -1,6 +1,6 @@
 import { en_años } from "../modo/editor.js";
 import { cambiar_tempo } from "../util/almacenamiento.js";
-import { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
+import escuchar_desplazadores, { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -27,7 +27,7 @@ export default function cargar_visor() {
 
 function aplicar_estilo_visor() {
 	const estilo = document.getElementById("modo");
-	estilo.setAttribute("href", "estilos/panel/visor.css")
+	estilo.setAttribute("href", "estilos/panel/visor.css");
 }
 
 function limpiar_panel() {
@@ -119,6 +119,7 @@ let altura_grupo_anterior = 0;
 
 export function cargar_en_visualizador(tempo) {
 	limpiar_mostrador();
+	escuchar_desplazadores();
 
 	if (tempo.periodos.length || tempo.eventos.length) {
 		definir_límites(tempo);
