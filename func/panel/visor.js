@@ -11,7 +11,6 @@ let máximo = null;
 let mínimo = null;
 
 export default function cargar_visor() {
-	aplicar_estilo_visor();
 	limpiar_panel();
 	const panel = document.getElementById("panel");
 	const botones = document.createElement("div");
@@ -23,11 +22,6 @@ export default function cargar_visor() {
 	visualizador.appendChild(cargar_desplazador());
 	visualizador.appendChild(cargar_proporcionador());
 	panel.appendChild(visualizador);
-}
-
-function aplicar_estilo_visor() {
-	const estilo = document.getElementById("modo");
-	estilo.setAttribute("href", "estilos/panel/visor.css");
 }
 
 function limpiar_panel() {
