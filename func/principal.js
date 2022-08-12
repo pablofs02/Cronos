@@ -19,15 +19,14 @@ try {
 	if (!modo) {
 		sessionStorage.setItem("modo", "tablero");
 		cargar_tablero();
+	} else {
+		if (modo == "tablero")
+			cargar_tablero();
+		else if (modo == "editor")
+			cargar_editor();
+		else if (modo == "vista")
+			cargar_vista();
+		else
+			throw new Error("Modo de panel desconocido.");
 	}
-
-	if (modo === "tablero")
-		cargar_tablero();
-	else if (modo === "editor")
-		cargar_editor();
-	else if (modo === "vista")
-		cargar_vista();
-	else
-		throw new Error("Modo de panel desconocido.");
-
 } catch (error) { mensaje(error, "panel"); }

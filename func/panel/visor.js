@@ -22,6 +22,9 @@ export default function cargar_visor() {
 	visualizador.appendChild(cargar_desplazador());
 	visualizador.appendChild(cargar_proporcionador());
 	panel.appendChild(visualizador);
+
+	escuchar_desplazadores();
+	escuchar_escalador();
 }
 
 function limpiar_panel() {

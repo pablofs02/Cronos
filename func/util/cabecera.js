@@ -1,3 +1,4 @@
+import cargar_tablero from "../panel/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "./formulario.js";
 
@@ -29,8 +30,9 @@ function cambiar_botones(botones) {
 
 function escuchar_botón_tablero() {
 	const tablero = document.getElementById("b_tablero");
-	tablero.addEventListener("click", () =>
-		location.assign("index.html"));
+	tablero.addEventListener("click", () => {
+		cargar_tablero();
+	});
 }
 
 function crear_formulario_tempo() {
