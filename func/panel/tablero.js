@@ -9,11 +9,46 @@ const tabla = "Tempos";
 export default function cargar_tablero() {
 	if (!estar_cargado_tablero_en_panel())
 		cargar_tablero_en_panel();
+	if (!estar_cargado_botones_tablero())
+		cargar_botones_tablero();
 	configurar_tablero();
 }
 
+function estar_cargado_botones_tablero() {
+	return document.getElementById("cargar_tempo");
+}
+
+function cargar_botones_tablero() {
+	const botones = document.getElementById("botones");
+	const periodo = document.createElement("button");
+	periodo.id = "cargar_tempo";
+	periodo.textContent = "Cargar Tempo";
+	periodo.classList.add("botón");
+	botones.appendChild(periodo);
+	const entrada = document.createElement("input");
+	entrada.id = "cargar_real";
+	entrada.classList.add("oculto");
+	entrada.type = "file";
+	entrada.accept = ".json";
+	entrada.multiple = true;
+	botones.appendChild(entrada);
+	const evento = document.createElement("button");
+	evento.id = "descargar_todo";
+	evento.textContent = "Descargar Todo";
+	evento.classList.add("botón");
+	botones.appendChild(evento);
+	const tempo = document.createElement("button");
+	tempo.id = "borrar_todo";
+	tempo.textContent = "Borrar Todo";
+	tempo.classList.add("botón");
+	botones.appendChild(tempo);
+}
+
 function cargar_tablero_en_panel() {
-	//# Por implementar.
+	const panel = document.getElementById("panel");
+	const tablero = document.createElement("div");
+	tablero.id = "tablero";
+	panel.appendChild(tablero);
 }
 
 function estar_cargado_tablero_en_panel() {

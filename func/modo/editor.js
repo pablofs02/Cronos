@@ -22,7 +22,7 @@ function estar_cargado_botones_editor() {
 }
 
 function cargar_botones_editor() {
-	const botones = document.getElementById("panel").firstChild;
+	const botones = document.getElementById("botones");
 	const periodo = document.createElement("button");
 	periodo.id = "añadir_periodo";
 	periodo.textContent = "Crear Periodo";

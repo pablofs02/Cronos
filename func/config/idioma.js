@@ -1,7 +1,6 @@
 import { cambiar_editor } from "../modo/editor.js";
 import { cambiar_tablero } from "../panel/tablero.js";
 import { cambiar_visualizador } from "../panel/visor.js";
-import { en_tablero, en_editor, en_visualizador } from "../util/dirección.js";
 import { cambiar_cabecera } from "../util/cabecera.js";
 import carga_json from "../util/json.js";
 
@@ -35,12 +34,13 @@ function cambiar_idioma(idioma) {
 	carga_json(ruta).then(traductor => {
 		cambiar_título(traductor.título);
 		cambiar_cabecera(traductor.cabecera);
-		if (en_tablero())
-			cambiar_tablero(traductor.tablero);
-		else if (en_editor())
-			cambiar_editor(traductor.editor);
-		else if (en_visualizador())
-			cambiar_visualizador(traductor.visualizador);
+		//# Por implementar.
+		// if (en_tablero())
+		// 	cambiar_tablero(traductor.tablero);
+		// else if (en_editor())
+		// 	cambiar_editor(traductor.editor);
+		// else if (en_visualizador())
+		// 	cambiar_visualizador(traductor.visualizador);
 	});
 }
 

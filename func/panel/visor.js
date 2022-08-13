@@ -13,9 +13,6 @@ let mínimo = null;
 export default function cargar_visor() {
 	limpiar_panel();
 	const panel = document.getElementById("panel");
-	const botones = document.createElement("div");
-	botones.classList.add("botones");
-	panel.append(botones);
 	const visualizador = crear_div("visualizador");
 	visualizador.appendChild(cargar_mostrador());
 	visualizador.appendChild(cargar_regla());
@@ -28,9 +25,10 @@ export default function cargar_visor() {
 }
 
 function limpiar_panel() {
-	const panel = document.getElementById("panel");
-	while (panel.firstChild)
-		panel.firstChild.remove();
+	document.getElementById("panel").childNodes[2].remove();
+	const botones = document.getElementById("botones");
+	while (botones.firstChild)
+		botones.firstChild.remove();
 }
 
 function crear_div(id) {
