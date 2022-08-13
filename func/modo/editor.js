@@ -1,6 +1,6 @@
 import { cargar_visor, cargar_en_visualizador } from "../panel/visor.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
-import { crear_ventana, modificar_ventana } from "../ventanas/formulario.js";
+import { modificar_ventana } from "../ventanas/formulario.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
@@ -83,7 +83,6 @@ function cargar_bot_tempo() {
 
 export function configurar_editor() {
 	cargar_tempo();
-	crear_ventanas();
 	setTimeout(() => {
 		escuchar_elementos();
 	}, 200);
@@ -291,29 +290,6 @@ function cargar_tempo() {
 		});
 	} else
 		throw new Error("No hay ningún tempo seleccionado para editar.");
-}
-
-function crear_ventanas() {
-	crear_ventana_periodo();
-	crear_ventana_evento();
-}
-
-function crear_ventana_periodo() {
-	const ventana_periodo = {
-		id: "periodo",
-		título: "Nuevo Periodo",
-		info: ["nombre", "comentario", "grupo", "inicio", "fin"]
-	};
-	document.body.appendChild(crear_ventana(ventana_periodo));
-}
-
-function crear_ventana_evento() {
-	const ventana_evento = {
-		id: "evento",
-		título: "Nuevo Evento",
-		info: ["nombre", "comentario", "fecha"]
-	};
-	document.body.appendChild(crear_ventana(ventana_evento));
 }
 
 function escuchar_elementos() {

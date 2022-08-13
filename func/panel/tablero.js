@@ -90,10 +90,10 @@ function cambiar_botones(botones) {
 }
 
 function escuchar_ventana() {
-	const pantalla_ocultar = document.getElementById("pantalla_ocultar");
+	const ocultador = document.getElementById("ocultador");
 	window.addEventListener("resize", () => {
 		ajustar_imágenes();
-		pantalla_ocultar.classList.add("oculto");
+		ocultador.classList.add("oculto");
 		document.getElementById("info").classList.add("oculto");
 		if (window.innerHeight > 600)
 			hacer_rejilla();
@@ -190,20 +190,20 @@ function crear_opciones(tempo) {
 }
 
 function crear_desplegable(botones) {
-	const pantalla_ocultar = document.getElementById("pantalla_ocultar");
+	const ocultador = document.getElementById("ocultador");
 	const contenedor = document.createElement("div");
 	contenedor.classList.add("contenedor_desplegable_tempo");
 	const desplegable = document.createElement("div");
 	desplegable.innerHTML = "<i class=\"fa-solid fa-ellipsis-vertical\"></i>";
 	desplegable.classList.add("desplegable_tempo");
 	contenedor.addEventListener("click", () => {
-		pantalla_ocultar.classList.remove("oculto");
+		ocultador.classList.remove("oculto");
 		botones.style.display = "flex";
 	});
-	pantalla_ocultar.addEventListener("click", () => {
+	ocultador.addEventListener("click", () => {
 		if (window.innerHeight < 600) {
 			botones.style.display = "none";
-			pantalla_ocultar.classList.add("oculto");
+			ocultador.classList.add("oculto");
 		}
 	});
 	contenedor.appendChild(desplegable);

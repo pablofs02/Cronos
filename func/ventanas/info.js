@@ -1,4 +1,5 @@
 export function cargar_ventana_info() {
+	const ocultador = document.getElementById("ocultador");
 	const ventana = document.createElement("div");
 	ventana.id = "info";
 	ventana.appendChild(crear_sinopsis());
@@ -8,11 +9,11 @@ export function cargar_ventana_info() {
 	ventana.appendChild(espacio_vacío);
 
 	ventana.classList.add("oculto");
-	pantalla_ocultar.addEventListener("click", () =>
+	ocultador.addEventListener("click", () =>
 		ocultar_info(ventana));
 
-	const formularios = document.getElementById("formularios");
-	formularios.appendChild(ventana);
+	const ventanas = document.getElementById("ventanas");
+	ventanas.appendChild(ventana);
 }
 
 function crear_sinopsis() {
@@ -42,13 +43,15 @@ function crear_texto_info() {
 }
 
 export function ocultar_info() {
+	const ocultador = document.getElementById("ocultador");
 	document.getElementById("info").classList.add("oculto");
-	pantalla_ocultar.classList.add("oculto");
+	ocultador.classList.add("oculto");
 }
 
 export function mostrar_info(tempo) {
+	const ocultador = document.getElementById("ocultador");
 	document.getElementById("info").classList.remove("oculto");
-	pantalla_ocultar.classList.remove("oculto");
+	ocultador.classList.remove("oculto");
 	modificar_info(tempo);
 }
 

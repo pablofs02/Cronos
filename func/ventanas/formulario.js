@@ -17,8 +17,8 @@ function crear_formulario_tempo() {
 		título: "Nuevo Tempo",
 		info: ["nombre", "comentario", "imagen"]
 	};
-	const formularios = document.getElementById("formularios");
-	formularios.appendChild(crear_ventana(ventana));
+	const ventanas = document.getElementById("ventanas");
+	ventanas.appendChild(crear_ventana(ventana));
 }
 
 function crear_formulario_periodo() {
@@ -27,8 +27,8 @@ function crear_formulario_periodo() {
 		título: "Nuevo Periodo",
 		info: ["nombre", "comentario", "grupo", "inicio", "fin"]
 	};
-	const formularios = document.getElementById("formularios");
-	formularios.appendChild(crear_ventana(ventana));
+	const ventanas = document.getElementById("ventanas");
+	ventanas.appendChild(crear_ventana(ventana));
 }
 
 function crear_formulario_evento() {
@@ -37,8 +37,8 @@ function crear_formulario_evento() {
 		título: "Nuevo Evento",
 		info: ["nombre", "comentario", "fecha"]
 	};
-	const formularios = document.getElementById("formularios");
-	formularios.appendChild(crear_ventana(ventana));
+	const ventanas = document.getElementById("ventanas");
+	ventanas.appendChild(crear_ventana(ventana));
 }
 
 export function modificar_ventana(id, { título, info }) {
