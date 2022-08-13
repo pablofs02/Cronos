@@ -1,10 +1,10 @@
-import cargar_visor, { cargar_en_visualizador } from "../panel/visor.js";
+import { cargar_visor, cargar_en_visualizador } from "../panel/visor.js";
 import { tomar_tempo } from "../util/almacenamiento.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
 
-export default function cargar_vista_en_panel() {
+export function cargar_vista_en_panel() {
 	if (!estar_cargado_visor_en_panel())
 		cargar_visor();
 	else if (!estar_cargado_botones_vista())

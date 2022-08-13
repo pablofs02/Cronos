@@ -1,11 +1,11 @@
-import cargar_tablero from "../panel/tablero.js";
+import { cargar_tablero } from "../panel/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
 
-export default function configurar_cabecera() {
+export function configurar_cabecera() {
 	escuchar_botón_tablero();
 	escuchar_formulario_tempo();
 }

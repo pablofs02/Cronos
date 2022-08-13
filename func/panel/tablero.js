@@ -1,13 +1,11 @@
-import cargar_editor_en_panel from "../modo/editor.js";
+import { cargar_editor_en_panel } from "../modo/editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 import { mostrar_info } from "../ventanas/info.js";
-
-const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 
 const base = "Cronos";
 const tabla = "Tempos";
 
-export default function cargar_tablero() {
+export function cargar_tablero() {
 	if (!estar_cargado_tablero_en_panel())
 		cargar_tablero_en_panel();
 	if (!estar_cargado_botones_tablero())
@@ -92,6 +90,7 @@ function cambiar_botones(botones) {
 }
 
 function escuchar_ventana() {
+	const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 	window.addEventListener("resize", () => {
 		ajustar_imágenes();
 		pantalla_ocultar.classList.add("oculto");
@@ -191,6 +190,7 @@ function crear_opciones(tempo) {
 }
 
 function crear_desplegable(botones) {
+	const pantalla_ocultar = document.getElementById("pantalla_ocultar");
 	const contenedor = document.createElement("div");
 	contenedor.classList.add("contenedor_desplegable_tempo");
 	const desplegable = document.createElement("div");

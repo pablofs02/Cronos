@@ -1,4 +1,4 @@
-import cargar_visor, { cargar_en_visualizador } from "../panel/visor.js";
+import { cargar_visor, cargar_en_visualizador } from "../panel/visor.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { crear_ventana, modificar_ventana } from "../ventanas/formulario.js";
 
@@ -7,7 +7,7 @@ const tabla = "Tempos";
 let tempo = {};
 let elemento;
 
-export default function cargar_editor_en_panel() {
+export function cargar_editor_en_panel() {
 	sessionStorage.setItem("modo", "editor");
 	if (!estar_cargado_visor_en_panel())
 		cargar_visor();

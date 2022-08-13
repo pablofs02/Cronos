@@ -5,7 +5,7 @@ const tipo = {
 	imagen: "imagen"
 };
 
-export default function cargar_formularios() {
+export function cargar_formularios() {
 	crear_formulario_tempo();
 	crear_formulario_periodo();
 	crear_formulario_evento();

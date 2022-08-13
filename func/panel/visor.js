@@ -1,6 +1,6 @@
 import { en_años } from "../modo/editor.js";
 import { cambiar_tempo } from "../util/almacenamiento.js";
-import escuchar_desplazadores, { activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
+import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "../util/desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -10,7 +10,7 @@ let escala = 100;
 let máximo = null;
 let mínimo = null;
 
-export default function cargar_visor() {
+export function cargar_visor() {
 	limpiar_panel();
 	const panel = document.getElementById("panel");
 	const visualizador = crear_div("visualizador");

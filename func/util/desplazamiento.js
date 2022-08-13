@@ -31,7 +31,7 @@ export function desactivar_barra_lateral() {
 	desplazador_v.classList.add("oculto");
 }
 
-export default function escuchar_desplazadores() {
+export function escuchar_desplazadores() {
 	desplazador_h = document.getElementById("desplazador_horizontal");
 	barra_h = document.getElementById("barra_horizontal");
 
