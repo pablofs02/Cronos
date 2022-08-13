@@ -1,7 +1,6 @@
 import cargar_visor, { cargar_en_visualizador } from "../panel/visor.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
-import escuchar_desplazadores from "../util/desplazamiento.js";
-import { crear_ventana, modificar_ventana } from "../util/formulario.js";
+import { crear_ventana, modificar_ventana } from "../ventanas/formulario.js";
 
 const base = "Cronos";
 const tabla = "Tempos";

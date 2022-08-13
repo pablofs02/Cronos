@@ -25,7 +25,7 @@ export default function cargar_visor() {
 }
 
 function limpiar_panel() {
-	document.getElementById("panel").childNodes[2].remove();
+	document.getElementById("panel").children[1].remove();
 	const botones = document.getElementById("botones");
 	while (botones.firstChild)
 		botones.firstChild.remove();

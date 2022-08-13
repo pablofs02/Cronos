@@ -4,9 +4,14 @@ import cargar_editor from "./modo/editor.js";
 import cargar_vista from "./modo/vista.js";
 import cargar_tablero from "./panel/tablero.js";
 import configurar_cabecera from "./util/cabecera.js";
+import cargar_formularios from "./ventanas/formulario.js";
+import { cargar_ventana_info } from "./ventanas/info.js";
 
 configurar_idioma();
 configurar_tema();
+
+cargar_formularios();
+cargar_ventana_info();
 
 configurar_cabecera();
 

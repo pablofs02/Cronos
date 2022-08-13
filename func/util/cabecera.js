@@ -1,13 +1,12 @@
 import cargar_tablero from "../panel/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
-import { crear_ventana, modificar_ventana } from "./formulario.js";
+import { modificar_ventana } from "../ventanas/formulario.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
 
 export default function configurar_cabecera() {
 	escuchar_botón_tablero();
-	crear_formulario_tempo();
 	escuchar_formulario_tempo();
 }
 
@@ -33,16 +32,6 @@ function escuchar_botón_tablero() {
 	tablero.addEventListener("click", () => {
 		cargar_tablero();
 	});
-}
-
-function crear_formulario_tempo() {
-	const ventana = {
-		id: "tempo",
-		título: "Nuevo Tempo",
-		info: ["nombre", "comentario", "imagen"]
-	};
-	const documento = document.body;
-	documento.appendChild(crear_ventana(ventana));
 }
 
 function escuchar_formulario_tempo() {
