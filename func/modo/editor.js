@@ -1,4 +1,4 @@
-import { cargar_visor, cargar_en_visualizador } from "../panel/visor.js";
+import { cargar_visor, cargar_en_visualizador } from "../visor/visor.js";
 import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
@@ -7,7 +7,7 @@ const tabla = "Tempos";
 let tempo = {};
 let elemento;
 
-export function cargar_editor_en_panel() {
+export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
 	if (!estar_cargado_visor_en_panel())
 		cargar_visor();
@@ -21,40 +21,21 @@ function estar_cargado_botones_editor() {
 }
 
 function cargar_botones_editor() {
+	limpiar_botones();
 	const botones = document.getElementById("botones");
-	const periodo = document.createElement("button");
-	periodo.id = "añadir_periodo";
-	periodo.textContent = "Crear Periodo";
-	periodo.classList.add("botón");
-	botones.appendChild(periodo);
-	const evento = document.createElement("button");
-	evento.id = "añadir_evento";
-	evento.textContent = "Crear Evento";
-	evento.classList.add("botón");
-	botones.appendChild(evento);
-	const tempo = document.createElement("button");
-	tempo.id = "editar_tempo";
-	tempo.textContent = "Editar Tempo";
-	tempo.classList.add("botón");
-	botones.appendChild(tempo);
+	botones.appendChild(cargar_bot_periodo());
+	botones.appendChild(cargar_bot_evento());
+	botones.appendChild(cargar_bot_tempo());
 }
 
 function estar_cargado_visor_en_panel() {
 	return document.getElementById("visor");
 }
 
-export function cargar_editor() {
-	const panel = document.getElementById("panel");
-	panel.appendChild(cargar_botones());
-}
-
-function cargar_botones() {
-	const nodo = document.createElement("div");
-	nodo.classList.add("botones");
-	nodo.appendChild(cargar_bot_periodo());
-	nodo.appendChild(cargar_bot_evento());
-	nodo.appendChild(cargar_bot_tempo());
-	return nodo;
+function limpiar_botones() {
+	const botones = document.getElementById("botones");
+	while (botones.firstChild)
+		botones.firstChild.remove();
 }
 
 function cargar_bot_periodo() {
@@ -99,11 +80,11 @@ export function en_años(fecha) {
 	return tiempo;
 }
 
-export function cambiar_editor(editor) {
-	cambiar_botones(editor.botones);
+export function traducir_editor(editor) {
+	traducir_botones(editor.botones);
 }
 
-function cambiar_botones(botones) {
+function traducir_botones(botones) {
 	const añadir_periodo = document.getElementById("añadir_periodo");
 	añadir_periodo.textContent = botones.periodo;
 	const añadir_evento = document.getElementById("añadir_evento");

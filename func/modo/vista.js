@@ -1,10 +1,10 @@
-import { cargar_visor, cargar_en_visualizador } from "../panel/visor.js";
+import { cargar_visor, cargar_en_visualizador } from "../visor/visor.js";
 import { tomar_tempo } from "../util/almacenamiento.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
 
-export function cargar_vista_en_panel() {
+export function cargar_vista() {
 	if (!estar_cargado_visor_en_panel())
 		cargar_visor();
 	else if (!estar_cargado_botones_vista())
@@ -12,12 +12,7 @@ export function cargar_vista_en_panel() {
 	configurar_vista();
 }
 
-export function cargar_vista() {
-	const panel = document.getElementById("panel");
-	panel.appendChild(cargar_botones());
-}
-
-function cargar_botones() {
+function cargar_botones_vista() {
 	const nodo = document.createElement("div");
 	nodo.classList.add("botones");
 	nodo.appendChild(cargar_bot_editar());

@@ -1,4 +1,4 @@
-import { cargar_editor_en_panel } from "../modo/editor.js";
+import { cargar_editor } from "./editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 import { mostrar_info } from "../ventanas/info.js";
 
@@ -302,7 +302,7 @@ function ajustar_imágenes() {
 
 function editar_tempo(tempo) {
 	sessionStorage.setItem("tempo", tempo.nombre);
-	cargar_editor_en_panel();
+	cargar_editor();
 }
 
 function confirmar(tempo) {

@@ -1,4 +1,4 @@
-import { desplazar_elementos, elevar_elementos } from "../panel/visor.js";
+import { desplazar_elementos, elevar_elementos } from "../visor/visor.js";
 
 let desplazador_h = null;
 let barra_h = null;

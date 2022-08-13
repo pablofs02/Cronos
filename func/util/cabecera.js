@@ -1,4 +1,4 @@
-import { cargar_tablero } from "../panel/tablero.js";
+import { cargar_tablero } from "../modo/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 

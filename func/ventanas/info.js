@@ -4,10 +4,6 @@ export function cargar_ventana_info() {
 	ventana.id = "info";
 	ventana.appendChild(crear_sinopsis());
 
-	const espacio_vacío = document.createElement("div");
-	espacio_vacío.classList.add("no_sé");
-	ventana.appendChild(espacio_vacío);
-
 	ventana.classList.add("oculto");
 	ocultador.addEventListener("click", () =>
 		ocultar_info(ventana));
@@ -55,7 +51,7 @@ export function mostrar_info(tempo) {
 	modificar_info(tempo);
 }
 
-export function modificar_info(tempo) {
+function modificar_info(tempo) {
 	const título = document.getElementById("título_info");
 	título.textContent = tempo.nombre;
 	const comentario = document.getElementById("comentario_info");
