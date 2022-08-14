@@ -1,5 +1,5 @@
 import { en_años } from "../modo/editor.js";
-import { guardar_tempo } from "../util/almacenamiento.js";
+import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "./desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
@@ -135,7 +135,11 @@ export function visualizar_tempo(tempo) {
 }
 
 export function visualizar_tempo_actual() {
-
+	if (sessionStorage.getItem("tempo")) {
+		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo =>
+			visualizar_tempo(tempo));
+	} else
+		throw new Error("No hay ningún tempo seleccionado para editar.");
 }
 
 function definir_límites(tempo) {

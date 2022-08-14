@@ -1,38 +1,25 @@
-import { cargar_visor, visualizar_tempo } from "../visor/visor.js";
+import { cargar_visor, visualizar_tempo, visualizar_tempo_actual } from "../visor/visor.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
-let tempo = {};
+let tempo;
 let elemento;
 
 export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
-	if (!estar_cargado_visor_en_panel())
-		cargar_editor_en_panel();
-	else if (!estar_cargado_botones_editor())
-		cargar_botones_editor();
+	cargar_visor();
+	cargar_botones_editor();
 	configurar_editor();
 }
 
-function cargar_editor_en_panel() {
-	cargar_visor();
-	cargar_botones_editor();
-}
-
-function estar_cargado_botones_editor() {
-	return document.getElementById("añadir_periodo");
-}
-
 function cargar_botones_editor() {
-	limpiar_botones();
-	const botones = document.getElementById("botones");
-	botones.appendChild(cargar_bot_periodo());
-	botones.appendChild(cargar_bot_evento());
-	botones.appendChild(cargar_bot_tempo());
-}
-
-function estar_cargado_visor_en_panel() {
-	return document.getElementById("visor");
+	if (!estar_cargado_botones_editor()) {
+		limpiar_botones();
+		const botones = document.getElementById("botones");
+		botones.appendChild(cargar_bot_periodo());
+		botones.appendChild(cargar_bot_evento());
+		botones.appendChild(cargar_bot_tempo());
+	}
 }
 
 function limpiar_botones() {
@@ -337,4 +324,8 @@ function borrar_evento_anterior() {
 	const eventos = tempo.eventos;
 	const posición = eventos.indexOf(elemento);
 	tempo.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));
+}
+
+function estar_cargado_botones_editor() {
+	return document.getElementById("añadir_periodo");
 }
