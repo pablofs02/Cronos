@@ -1,24 +1,21 @@
 import { ordenar_elementos } from "./orden.js";
 
 const dependencia = "nombre";
+const base = "Cronos";
+const tabla = "Tempos";
 
-export function guardar_tempo(base, tabla, tempo) {
+export function guardar_tempo(tempo) {
 	tempo = ordenar_elementos(tempo);
-	acceder_almacén("guardar", { base, tabla, tempo });
+	acceder_almacén("guardar", tempo);
 }
 
-export function cambiar_tempo(base, tabla, tempo) {
-	tempo = ordenar_elementos(tempo);
-	acceder_almacén("cambiar", { base, tabla, tempo });
-}
-
-export function borrar_tempo(base, tabla, tempo) {
+export function borrar_tempo(tempo) {
 	if (sessionStorage.getItem("tempo") === tempo.nombre)
 		sessionStorage.removeItem("tempo");
-	acceder_almacén("borrar", { base, tabla, tempo });
+	acceder_almacén("borrar", tempo);
 }
 
-export async function tomar_tempo(base, tabla, id) {
+export async function tomar_tempo(id) {
 	const base_de_datos = await new Promise((resolver) => {
 		const petición = indexedDB.open(base);
 		petición.onsuccess = () => resolver(petición.result);
@@ -29,7 +26,7 @@ export async function tomar_tempo(base, tabla, id) {
 		};
 	});
 
-	const tempo = await new Promise((resolver) => {
+	const tempo = await new Promise(resolver => {
 		const transacción = base_de_datos.transaction([tabla], "readonly");
 		const petición = transacción.objectStore(tabla).get(id);
 		petición.onsuccess = () => resolver(petición.result);
@@ -38,8 +35,8 @@ export async function tomar_tempo(base, tabla, id) {
 	return tempo;
 }
 
-export async function listar_tempos(base, tabla) {
-	const base_de_datos = await new Promise((resolver) => {
+export async function listar_tempos() {
+	const base_de_datos = await new Promise(resolver => {
 		const petición = indexedDB.open(base);
 		petición.onsuccess = () => resolver(petición.result);
 		petición.onupgradeneeded = () => {
@@ -49,7 +46,7 @@ export async function listar_tempos(base, tabla) {
 		};
 	});
 
-	const tempos = await new Promise((resolver) => {
+	const tempos = await new Promise(resolver => {
 		const transacción = base_de_datos.transaction([tabla], "readonly");
 		const petición = transacción.objectStore(tabla).getAll();
 		petición.onsuccess = () => resolver(petición.result);
@@ -58,32 +55,26 @@ export async function listar_tempos(base, tabla) {
 	return tempos;
 }
 
-function acceder_almacén(operación, { base, tabla, tempo }) {
-	const base_de_datos_indexada = indexedDB;
+function acceder_almacén(operación, tempo) {
+	let base_de_datos;
+	const petición = indexedDB.open(base);
 
-	if (base_de_datos_indexada) {
-		let base_de_datos;
-		const petición_abrir = base_de_datos_indexada.open(base);
+	petición.onsuccess = () => {
+		base_de_datos = petición.result;
+		const transacción = base_de_datos.transaction([tabla], "readwrite");
+		const almacén = transacción.objectStore(tabla);
+		if (operación === "guardar")
+			almacén.put(tempo);
+		else if (operación === "borrar")
+			almacén.delete(tempo.nombre);
+		else
+			throw new Error("Operación desconocida.");
+	};
 
-		petición_abrir.onsuccess = () => {
-			base_de_datos = petición_abrir.result;
-			const transacción = base_de_datos.transaction([tabla], "readwrite");
-			const almacén = transacción.objectStore(tabla);
-			if (operación === "guardar")
-				almacén.add(tempo);
-			else if (operación === "cambiar")
-				almacén.put(tempo);
-			else if (operación === "borrar")
-				almacén.delete(tempo.nombre);
-			else
-				throw new Error("Operación desconocida.");
-		};
-
-		petición_abrir.onupgradeneeded = () => {
-			base_de_datos = petición_abrir.result;
-			base_de_datos.createObjectStore(tabla, {
-				keyPath: dependencia
-			});
-		};
-	}
+	petición.onupgradeneeded = () => {
+		base_de_datos = petición.result;
+		base_de_datos.createObjectStore(tabla, {
+			keyPath: dependencia
+		});
+	};
 }

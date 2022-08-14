@@ -2,9 +2,6 @@ import { cargar_tablero } from "../modo/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
-const base = "Cronos";
-const tabla = "Tempos";
-
 export function configurar_cabecera() {
 	escuchar_botón_tablero();
 	escuchar_formulario_tempo();
@@ -53,12 +50,12 @@ function escuchar_formulario_tempo() {
 		};
 		if (e.target.nombre.value)
 			tempo.nombre = e.target.nombre.value;
-		tomar_tempo(base, tabla, tempo.nombre).then(existe => {
+		tomar_tempo(tempo.nombre).then(existe => {
 			if (!existe || tempo.nombre == sessionStorage.getItem("tempo")) {
 				if (e.target.comentario.value)
 					tempo.comentario = e.target.comentario.value;
 				if (document.getElementById("tempo").classList.contains("editando"))
-					tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(act => {
+					tomar_tempo(sessionStorage.getItem("tempo")).then(act => {
 						tempo.periodos = act.periodos;
 						tempo.eventos = act.eventos;
 						if (e.target.imagen.files[0]) {
@@ -66,13 +63,13 @@ function escuchar_formulario_tempo() {
 							const lector = new FileReader();
 							lector.onload = function (e) {
 								tempo.imagen = e.target.result;
-								borrar_tempo(base, tabla, act);
+								borrar_tempo(act);
 								almacenar(tempo);
 							};
 							lector.readAsDataURL(archivo);
 						} else {
 							tempo.imagen = act.imagen;
-							borrar_tempo(base, tabla, act);
+							borrar_tempo(act);
 							almacenar(tempo);
 						}
 					});
@@ -103,7 +100,7 @@ function escuchar_formulario_tempo() {
 }
 
 function almacenar(tempo) {
-	guardar_tempo(base, tabla, tempo);
+	guardar_tempo(tempo);
 	sessionStorage.setItem("tempo", tempo.nombre);
 	formulario_tempo.reset();
 	setTimeout(() => location.assign("editar.html"), 200);

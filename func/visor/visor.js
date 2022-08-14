@@ -1,5 +1,5 @@
 import { en_años } from "../modo/editor.js";
-import { cambiar_tempo } from "../util/almacenamiento.js";
+import { guardar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "./desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
@@ -98,7 +98,7 @@ function traducir_botones(botones) {
 }
 
 function hay_grupos() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++)
 		if (periodos[i].getAttribute("grupo") != "_")
 			return true;
@@ -139,7 +139,7 @@ function definir_límites(tempo) {
 	else
 		definir_máximo(tempo);
 
-	cambiar_tempo("Cronos", "Tempos", tempo);
+	guardar_tempo(tempo);
 }
 
 function definir_mínimo(tempo) {
@@ -178,7 +178,7 @@ export function actualizar_visualizador() {
 }
 
 export function desplazar_elementos() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("pos_x");
@@ -191,7 +191,7 @@ export function desplazar_elementos() {
 }
 
 export function elevar_elementos() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("altura") * 22;
@@ -236,7 +236,7 @@ function ajustar_todo() {
 }
 
 function actualizar_posición() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_relativa = periodo.getAttribute("posición");
@@ -248,7 +248,7 @@ function actualizar_posición() {
 }
 
 function definir_posición() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
@@ -260,7 +260,7 @@ function definir_posición() {
 }
 
 function actualizar_longitud() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const ancho_relativo = periodo.getAttribute("ancho");
@@ -272,7 +272,7 @@ function actualizar_longitud() {
 }
 
 function definir_longitud() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const inicio = en_años(JSON.parse(periodo.getAttribute("inicio")));
@@ -293,7 +293,7 @@ function vaciar_visitados() {
 }
 
 function definir_altitud() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	const nombres = Object.keys(grupos);
 	let primer_grupo = true;
 	for (let i = 0; i < nombres.length; i++) {
@@ -302,10 +302,12 @@ function definir_altitud() {
 		primer_grupo = false;
 		for (let j = 0; j < listado.length; j++) {
 			const periodo = periodos[listado[j]];
-			const altitud = calcular_altitud(periodo);
-			vaciar_chocados();
-			periodos_visitados.push(periodo);
-			periodo.setAttribute("altura", altitud);
+			if (periodo) {
+				const altitud = calcular_altitud(periodo);
+				vaciar_chocados();
+				periodos_visitados.push(periodo);
+				periodo.setAttribute("altura", altitud);
+			}
 		}
 		altura_grupo_anterior = Number(altura_máxima()) + 1;
 		if (nombres[i] != "_")
@@ -357,6 +359,8 @@ function listar_choques(periodo) {
 }
 
 function chocan(periodo_1, periodo_2) {
+	if (!(periodo_1 && periodo_2))
+		return false;
 	return choque_frontal(periodo_1, periodo_2) || choque_trasero(periodo_1, periodo_2) || choque_total(periodo_1, periodo_2);
 }
 
@@ -383,7 +387,7 @@ function choque_trasero(periodo_1, periodo_2) {
 }
 
 function actualizar_altitud() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const altitud = periodo.getAttribute("altura");
@@ -413,7 +417,7 @@ function límite_altura() {
 }
 
 function altura_máxima() {
-	const periodos = document.getElementById("periodos").childNodes;
+	const periodos = document.getElementById("periodos").children;
 	let máximo = 0;
 	for (let i = 0; i < periodos.length; i++) {
 		const altura = periodos[i].getAttribute("altura");

@@ -1,9 +1,6 @@
 import { cargar_visor, cargar_en_visualizador } from "../visor/visor.js";
 import { tomar_tempo } from "../util/almacenamiento.js";
 
-const base = "Cronos";
-const tabla = "Tempos";
-
 export function cargar_vista() {
 	sessionStorage.setItem("modo", "vista");
 	if (!estar_cargado_visor_en_panel())
@@ -46,7 +43,7 @@ function cargar_bot_editar() {
 
 function cargar_tempo() {
 	const nombre_tempo = sessionStorage.getItem("tempo");
-	tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
+	tomar_tempo(nombre_tempo).then((tempo) => {
 		cargar_en_visualizador(tempo);
 	});
 	escuchar_botones();

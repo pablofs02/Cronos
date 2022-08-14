@@ -1,9 +1,7 @@
 import { cargar_visor, cargar_en_visualizador } from "../visor/visor.js";
-import { cambiar_tempo, tomar_tempo } from "../util/almacenamiento.js";
+import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
-const base = "Cronos";
-const tabla = "Tempos";
 let tempo = {};
 let elemento;
 
@@ -116,7 +114,7 @@ function escuchar_formulario_periodo() {
 			cargar_en_visualizador(tempo);
 			if (editando_periodo())
 				borrar_periodo_anterior();
-			cambiar_tempo(base, tabla, tempo);
+			guardar_tempo(tempo);
 			setTimeout(() => {
 				location.reload();
 			}, 200);
@@ -174,7 +172,7 @@ function escuchar_formulario_evento() {
 		cargar_en_visualizador(tempo);
 		if (editando_evento())
 			borrar_evento_anterior();
-		cambiar_tempo(base, tabla, tempo);
+		guardar_tempo(tempo);
 		setTimeout(() => {
 			location.reload();
 		}, 200);
@@ -212,7 +210,7 @@ function crear_evento(e) {
 function escuchar_formulario_tempo() {
 	const botón_editar_tempo = document.getElementById("editar_tempo");
 	botón_editar_tempo.addEventListener("click", () => {
-		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo => {
+		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo => {
 			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
 			const ventana_tempo = document.getElementById("tempo");
 			ventana_tempo.classList.add("editando");
@@ -270,7 +268,7 @@ function restablecer_evento() {
 
 function cargar_tempo() {
 	if (sessionStorage.getItem("tempo")) {
-		tomar_tempo(base, tabla, sessionStorage.getItem("tempo")).then(tempo_almacenado => {
+		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo_almacenado => {
 			tempo = tempo_almacenado;
 			cargar_en_visualizador(tempo);
 		});
@@ -284,7 +282,7 @@ function escuchar_elementos() {
 }
 
 function escuchar_periodos() {
-	const nodo_periodos = document.getElementById("periodos").childNodes;
+	const nodo_periodos = document.getElementById("periodos").children;
 	const periodos = tempo.periodos;
 	for (let i = 0; i < nodo_periodos.length; i++)
 		escuchar_periodo(nodo_periodos[i], periodos[i]);
@@ -296,7 +294,7 @@ function escuchar_periodo(nodo, periodo) {
 }
 
 function escuchar_eventos() {
-	const nodo_eventos = document.getElementById("eventos").childNodes;
+	const nodo_eventos = document.getElementById("eventos").children;
 	const eventos = tempo.eventos;
 	for (let i = 0; i < nodo_eventos.length; i++)
 		escuchar_evento(nodo_eventos[i], eventos[i]);

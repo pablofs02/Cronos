@@ -3,9 +3,6 @@ import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamien
 import { mostrar_info } from "../ventanas/info.js";
 import { cargar_vista } from "./vista.js";
 
-const base = "Cronos";
-const tabla = "Tempos";
-
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
 	if (!estar_cargado_tablero_en_panel())
@@ -66,7 +63,7 @@ function estar_cargado_tablero_en_panel() {
 
 function configurar_tablero() {
 	definir_botones_panel();
-	listar_tempos(base, tabla).then(lista => {
+	listar_tempos().then(lista => {
 		if (lista.length)
 			colocar_lista(lista);
 		else {
@@ -147,7 +144,7 @@ function definir_cargar_archivo() {
 
 function definir_descargar_todo() {
 	document.getElementById("descargar_todo").addEventListener("click", () =>
-		listar_tempos(base, tabla).then(lista => {
+		listar_tempos().then(lista => {
 			for (let i = 0; i < lista.length; i++)
 				descargar_objeto(JSON.stringify(lista[i]), lista[i].nombre);
 		}));
@@ -155,7 +152,7 @@ function definir_descargar_todo() {
 
 function definir_botón_borrar_todo() {
 	document.getElementById("borrar_todo").addEventListener("click", () =>
-		listar_tempos(base, tabla).then(lista =>
+		listar_tempos().then(lista =>
 			confirmar_todo(lista)));
 }
 
@@ -325,7 +322,7 @@ function editar_tempo(tempo) {
 
 function confirmar(tempo) {
 	if (confirm("¿Estás seguro de que deseas borrarlo?")) {
-		borrar_tempo(base, tabla, tempo);
+		borrar_tempo(tempo);
 		location.reload();
 	}
 }
@@ -346,7 +343,7 @@ function ver_tempo(tempo) {
 function almacenar_archivos(archivos) {
 	for (let i = 0; i < archivos.length; i++)
 		archivos[i].text().then(texto =>
-			guardar_tempo(base, tabla, JSON.parse(texto)));
+			guardar_tempo(JSON.parse(texto)));
 }
 
 function descargar_objeto(objeto, nombre) {
@@ -358,5 +355,5 @@ function descargar_objeto(objeto, nombre) {
 
 function borrar_todo(lista) {
 	for (let i = 0; i < lista.length; i++)
-		borrar_tempo(base, tabla, lista[i]);
+		borrar_tempo(lista[i]);
 }
