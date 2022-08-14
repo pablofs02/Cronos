@@ -11,17 +11,23 @@ let máximo = null;
 let mínimo = null;
 
 export function cargar_visor() {
-	limpiar_panel();
-	const panel = document.getElementById("panel");
-	const visualizador = crear_div("visualizador");
-	visualizador.appendChild(cargar_mostrador());
-	visualizador.appendChild(cargar_regla());
-	visualizador.appendChild(cargar_desplazador());
-	visualizador.appendChild(cargar_proporcionador());
-	panel.appendChild(visualizador);
+	if (!estar_cargado_visor_en_panel()) {
+		limpiar_panel();
+		const panel = document.getElementById("panel");
+		const visualizador = crear_div("visualizador");
+		visualizador.appendChild(cargar_mostrador());
+		visualizador.appendChild(cargar_regla());
+		visualizador.appendChild(cargar_desplazador());
+		visualizador.appendChild(cargar_proporcionador());
+		panel.appendChild(visualizador);
 
-	escuchar_desplazadores();
-	escuchar_escalador();
+		escuchar_desplazadores();
+		escuchar_escalador();
+	}
+}
+
+function estar_cargado_visor_en_panel() {
+	return document.getElementById("visor");
 }
 
 function limpiar_panel() {
@@ -112,7 +118,7 @@ const grupos = {};
 
 let altura_grupo_anterior = 0;
 
-export function cargar_en_visualizador(tempo) {
+export function visualizar_tempo(tempo) {
 	limpiar_mostrador();
 	escuchar_desplazadores();
 
@@ -126,6 +132,10 @@ export function cargar_en_visualizador(tempo) {
 
 		actualizar_visualizador();
 	}
+}
+
+export function visualizar_tempo_actual() {
+
 }
 
 function definir_límites(tempo) {

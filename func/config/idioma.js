@@ -35,12 +35,12 @@ function cambiar_idioma(idioma) {
 		traducir_título(traductor.título);
 		traducir_cabecera(traductor.cabecera);
 		// # Por implementar.
-		if (en_tablero())
-			traducir_tablero(traductor.tablero);
-		else if (en_editor())
-			traducir_editor(traductor.editor);
-		else if (en_visualizador())
-			traducir_visualizador(traductor.visualizador);
+		// if (en_tablero())
+		// 	traducir_tablero(traductor.tablero);
+		// else if (en_editor())
+		// 	traducir_editor(traductor.editor);
+		// else if (en_visualizador())
+		// 	traducir_visualizador(traductor.visualizador);
 	});
 }
 

@@ -1,4 +1,4 @@
-import { cargar_visor, cargar_en_visualizador } from "../visor/visor.js";
+import { cargar_visor, visualizar_tempo } from "../visor/visor.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
@@ -111,7 +111,7 @@ function escuchar_formulario_periodo() {
 		const periodo = crear_periodo(e);
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
 			tempo.periodos.push(periodo);
-			cargar_en_visualizador(tempo);
+			visualizar_tempo(tempo);
 			if (editando_periodo())
 				borrar_periodo_anterior();
 			guardar_tempo(tempo);
@@ -169,7 +169,7 @@ function escuchar_formulario_evento() {
 		e.preventDefault();
 		const evento = crear_evento(e);
 		tempo.eventos.push(evento);
-		cargar_en_visualizador(tempo);
+		visualizar_tempo(tempo);
 		if (editando_evento())
 			borrar_evento_anterior();
 		guardar_tempo(tempo);
@@ -270,7 +270,7 @@ function cargar_tempo() {
 	if (sessionStorage.getItem("tempo")) {
 		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo_almacenado => {
 			tempo = tempo_almacenado;
-			cargar_en_visualizador(tempo);
+			visualizar_tempo(tempo);
 		});
 	} else
 		throw new Error("No hay ningún tempo seleccionado para editar.");
