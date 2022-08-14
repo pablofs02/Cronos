@@ -1,6 +1,7 @@
 import { cargar_editor } from "./editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 import { mostrar_info } from "../ventanas/info.js";
+import { cargar_vista } from "./vista.js";
 
 const base = "Cronos";
 const tabla = "Tempos";
@@ -322,7 +323,7 @@ function confirmar_todo(lista) {
 
 function ver_tempo(tempo) {
 	sessionStorage.setItem("tempo", tempo.nombre);
-	cargar_visor_en_panel();
+	cargar_vista();
 }
 
 function almacenar_archivos(archivos) {

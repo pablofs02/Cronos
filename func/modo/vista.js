@@ -5,29 +5,41 @@ const base = "Cronos";
 const tabla = "Tempos";
 
 export function cargar_vista() {
-	if (!estar_cargado_visor_en_panel())
+	if (!estar_cargado_visor_en_panel()) {
 		cargar_visor();
-	else if (!estar_cargado_botones_vista())
+		cargar_botones_vista();
+	} else if (!estar_cargado_botones_vista())
 		cargar_botones_vista();
 	configurar_vista();
 }
 
+function configurar_vista() {
+	cargar_tempo();
+	escuchar_botones();
+}
+
+function estar_cargado_visor_en_panel() {
+	return document.getElementById("visor");
+}
+
+function estar_cargado_botones_vista() {
+	return document.getElementById("modo_editor");
+}
+
 function cargar_botones_vista() {
-	const nodo = document.createElement("div");
-	nodo.classList.add("botones");
+	const nodo = document.getElementById("botones");
 	nodo.appendChild(cargar_bot_editar());
-	return nodo;
 }
 
 function cargar_bot_editar() {
 	const nodo = document.createElement("button");
 	nodo.classList.add("botón");
-	nodo.id = "editar_tempo";
-	nodo.textContent = "Editar Tempo";
+	nodo.id = "modo_editor";
+	nodo.textContent = "Editar";
 	return nodo;
 }
 
-export function configurar_visualización() {
+export function cargar_tempo() {
 	const nombre_tempo = sessionStorage.getItem("tempo");
 	tomar_tempo(base, tabla, nombre_tempo).then((tempo) => {
 		cargar_en_visualizador(tempo);
@@ -36,7 +48,7 @@ export function configurar_visualización() {
 }
 
 function escuchar_botones() {
-	const editar = document.getElementById("editar_tempo");
+	const editar = document.getElementById("modo_editor");
 	editar.addEventListener("click", () =>
 		location.assign("editar.html"));
 }
