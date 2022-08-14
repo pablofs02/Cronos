@@ -17,16 +17,11 @@ configurar_cabecera();
 
 const modo = sessionStorage.getItem("modo");
 
-if (!modo) {
-	sessionStorage.setItem("modo", "tablero");
+if (!modo || modo == "tablero")
 	cargar_tablero();
-} else {
-	if (modo == "tablero")
-		cargar_tablero();
-	else if (modo == "editor")
-		cargar_editor();
-	else if (modo == "vista")
-		cargar_vista();
-	else
-		throw new Error("Modo de panel desconocido.");
-}
+else if (modo == "editor")
+	cargar_editor();
+else if (modo == "vista")
+	cargar_vista();
+else
+	throw new Error("Modo de panel desconocido.");

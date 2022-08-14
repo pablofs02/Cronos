@@ -7,6 +7,7 @@ const base = "Cronos";
 const tabla = "Tempos";
 
 export function cargar_tablero() {
+	sessionStorage.setItem("modo", "tablero");
 	if (!estar_cargado_tablero_en_panel())
 		cargar_tablero_en_panel();
 	if (!estar_cargado_botones_tablero())
@@ -77,11 +78,11 @@ function configurar_tablero() {
 	escuchar_ventana();
 }
 
-export function cambiar_tablero(tablero) {
-	cambiar_botones(tablero.botones);
+export function traducir_tablero(tablero) {
+	traducir_botones(tablero.botones);
 }
 
-function cambiar_botones(botones) {
+function traducir_botones(botones) {
 	const cargar_tempo = document.getElementById("cargar_tempo");
 	cargar_tempo.textContent = botones.cargar;
 	const descargar_todo = document.getElementById("descargar_todo");

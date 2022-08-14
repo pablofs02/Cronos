@@ -88,11 +88,11 @@ export function configurar_visualizador() {
 	escuchar_vestana();
 }
 
-export function cambiar_visualizador(visualizador) {
-	cambiar_botones(visualizador.botones);
+export function traducir_visualizador(visualizador) {
+	traducir_botones(visualizador.botones);
 }
 
-function cambiar_botones(botones) {
+function traducir_botones(botones) {
 	const editar_tempo = document.getElementById("editar_tempo");
 	editar_tempo.textContent = botones.editor;
 }

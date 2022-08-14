@@ -1,7 +1,7 @@
 import { traducir_editor } from "../modo/editor.js";
-import { cambiar_tablero } from "../modo/tablero.js";
-import { cambiar_visualizador } from "../visor/visor.js";
-import { cambiar_cabecera } from "../util/cabecera.js";
+import { traducir_tablero } from "../modo/tablero.js";
+import { traducir_visualizador } from "../visor/visor.js";
+import { cambiar_cabecera as traducir_cabecera } from "../util/cabecera.js";
 import carga_json from "../util/json.js";
 
 const botón_idiomas = document.getElementById("botón_idioma");
@@ -32,19 +32,19 @@ function cambiar_idioma(idioma) {
 	localStorage.setItem("idioma", idioma);
 	const ruta = ruta_idioma + idioma + extensión_idioma;
 	carga_json(ruta).then(traductor => {
-		cambiar_título(traductor.título);
-		cambiar_cabecera(traductor.cabecera);
-		//# Por implementar.
-		// if (en_tablero())
-		// 	cambiar_tablero(traductor.tablero);
-		// else if (en_editor())
-		// 	cambiar_editor(traductor.editor);
-		// else if (en_visualizador())
-		// 	cambiar_visualizador(traductor.visualizador);
+		traducir_título(traductor.título);
+		traducir_cabecera(traductor.cabecera);
+		// # Por implementar.
+		if (en_tablero())
+			traducir_tablero(traductor.tablero);
+		else if (en_editor())
+			traducir_editor(traductor.editor);
+		else if (en_visualizador())
+			traducir_visualizador(traductor.visualizador);
 	});
 }
 
-function cambiar_título(título) {
+function traducir_título(título) {
 	document.querySelector("title").textContent = título;
 }
 
