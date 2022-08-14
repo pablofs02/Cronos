@@ -9,12 +9,16 @@ let elemento;
 
 export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
-	if (!estar_cargado_visor_en_panel()) {
-		cargar_visor();
-		cargar_botones_editor();
-	} else if (!estar_cargado_botones_editor())
+	if (!estar_cargado_visor_en_panel())
+		cargar_editor_en_panel();
+	else if (!estar_cargado_botones_editor())
 		cargar_botones_editor();
 	configurar_editor();
+}
+
+function cargar_editor_en_panel() {
+	cargar_visor();
+	cargar_botones_editor();
 }
 
 function estar_cargado_botones_editor() {

@@ -6,12 +6,16 @@ const tabla = "Tempos";
 
 export function cargar_vista() {
 	sessionStorage.setItem("modo", "vista");
-	if (!estar_cargado_visor_en_panel()) {
-		cargar_visor();
-		cargar_botones_vista();
-	} else if (!estar_cargado_botones_vista())
+	if (!estar_cargado_visor_en_panel())
+		cargar_vista_en_panel();
+	else if (!estar_cargado_botones_vista())
 		cargar_botones_vista();
 	configurar_vista();
+}
+
+function cargar_vista_en_panel() {
+	cargar_visor();
+	cargar_botones_vista();
 }
 
 function configurar_vista() {
