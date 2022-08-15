@@ -5,49 +5,69 @@ import { cargar_vista } from "./vista.js";
 
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
-	if (!estar_cargado_tablero_en_panel())
-		cargar_tablero_en_panel();
-	if (!estar_cargado_botones_tablero())
-		cargar_botones_tablero();
+	cargar_tablero_en_panel();
+	cargar_botones_tablero();
 	configurar_tablero();
 }
 
-function estar_cargado_botones_tablero() {
-	return document.getElementById("cargar_tempo");
+function cargar_tablero_en_panel() {
+	if (!estar_cargado_tablero_en_panel()) {
+		limpiar_panel();
+		const panel = document.getElementById("panel");
+		const tablero = document.createElement("div");
+		tablero.id = "tablero";
+		panel.appendChild(tablero);
+	}
 }
 
 function cargar_botones_tablero() {
-	const botones = document.getElementById("botones");
-	const periodo = document.createElement("button");
-	periodo.id = "cargar_tempo";
-	periodo.textContent = "Cargar Tempo";
-	periodo.classList.add("botón");
-	botones.appendChild(periodo);
+	if (!estar_cargado_botones_tablero()) {
+		const botones = document.getElementById("botones");
+		botones.appendChild(crear_botón_cargar_tempo());
+		botones.appendChild(crear_botón_descargar_todo());
+		botones.appendChild(crear_botón_borrar_todo());
+	}
+}
+
+function crear_botón_cargar_tempo() {
+	const fragmento = document.createDocumentFragment();
+	fragmento.appendChild(crear_botón_cargar_falso());
+	fragmento.appendChild(crear_botón_cargar_real());
+	return fragmento;
+}
+
+function crear_botón_cargar_falso() {
+	const botón = document.createElement("button");
+	botón.id = "cargar_tempo";
+	botón.textContent = "Cargar Tempo";
+	botón.classList.add("botón");
+	return botón;
+}
+
+function crear_botón_cargar_real() {
 	const entrada = document.createElement("input");
 	entrada.id = "cargar_real";
 	entrada.classList.add("oculto");
 	entrada.type = "file";
 	entrada.accept = ".json";
 	entrada.multiple = true;
-	botones.appendChild(entrada);
-	const evento = document.createElement("button");
-	evento.id = "descargar_todo";
-	evento.textContent = "Descargar Todo";
-	evento.classList.add("botón");
-	botones.appendChild(evento);
-	const tempo = document.createElement("button");
-	tempo.id = "borrar_todo";
-	tempo.textContent = "Borrar Todo";
-	tempo.classList.add("botón");
-	botones.appendChild(tempo);
+	return entrada;
 }
 
-function cargar_tablero_en_panel() {
-	limpiar_panel();
-	const panel = document.getElementById("panel");
-	const tablero = document.createElement("div");
-	tablero.id = "tablero";
-	panel.appendChild(tablero);
+function crear_botón_descargar_todo() {
+	const descargar_todo = document.createElement("button");
+	descargar_todo.id = "descargar_todo";
+	descargar_todo.textContent = "Descargar Todo";
+	descargar_todo.classList.add("botón");
+	return descargar_todo;
+}
+
+function crear_botón_borrar_todo() {
+	const borrar_todo = document.createElement("button");
+	borrar_todo.id = "borrar_todo";
+	borrar_todo.textContent = "Borrar Todo";
+	borrar_todo.classList.add("botón");
+	return borrar_todo;
 }
 
 function limpiar_panel() {
@@ -55,10 +75,6 @@ function limpiar_panel() {
 	const botones = document.getElementById("botones");
 	while (botones.firstChild)
 		botones.firstChild.remove();
-}
-
-function estar_cargado_tablero_en_panel() {
-	return document.getElementById("tablero");
 }
 
 function configurar_tablero() {
@@ -356,4 +372,12 @@ function descargar_objeto(objeto, nombre) {
 function borrar_todo(lista) {
 	for (let i = 0; i < lista.length; i++)
 		borrar_tempo(lista[i]);
+}
+
+function estar_cargado_tablero_en_panel() {
+	return document.getElementById("tablero");
+}
+
+function estar_cargado_botones_tablero() {
+	return document.getElementById("cargar_tempo");
 }
