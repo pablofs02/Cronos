@@ -2,12 +2,23 @@ import { cargar_editor } from "./editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 import { mostrar_info } from "../ventanas/info.js";
 import { cargar_vista } from "./vista.js";
+import { crear_botón } from "../util/elementos.js";
 
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
 	cargar_tablero_en_panel();
 	cargar_botones_tablero();
-	configurar_tablero();
+	definir_botones_panel();
+	listar_tempos().then(lista => {
+		if (lista.length)
+			colocar_lista(lista);
+		else {
+			colocar_vacío();
+			const tablero = document.getElementById("tablero");
+			tablero.classList.add("tablero_vacío");
+		}
+	});
+	escuchar_ventana();
 }
 
 function cargar_tablero_en_panel() {
@@ -51,18 +62,20 @@ function crear_botón_cargar_real() {
 }
 
 function crear_botón_descargar_todo() {
-	return crear_botón("descargar_todo", "Descargar Todo");
+	const botón = crear_botón("descargar_todo", "Descargar Todo");
+	botón.addEventListener("click", () =>
+		listar_tempos().then(lista => {
+			for (let i = 0; i < lista.length; i++)
+				descargar_objeto(JSON.stringify(lista[i]), lista[i].nombre);
+		}));
+	return botón;
 }
 
 function crear_botón_borrar_todo() {
-	return crear_botón("borrar_todo", "Borrar Todo");
-}
-
-function crear_botón(id, contenido) {
-	const botón = document.createElement("button");
-	botón.classList.add("botón");
-	botón.textContent = contenido;
-	botón.id = id;
+	const botón = crear_botón("borrar_todo", "Borrar Todo");
+	botón.addEventListener("click", () =>
+		listar_tempos().then(lista =>
+			confirmar_todo(lista)));
 	return botón;
 }
 
@@ -71,20 +84,6 @@ function limpiar_panel() {
 	const botones = document.getElementById("botones");
 	while (botones.firstChild)
 		botones.firstChild.remove();
-}
-
-function configurar_tablero() {
-	definir_botones_panel();
-	listar_tempos().then(lista => {
-		if (lista.length)
-			colocar_lista(lista);
-		else {
-			colocar_vacío();
-			const tablero = document.getElementById("tablero");
-			tablero.classList.add("tablero_vacío");
-		}
-	});
-	escuchar_ventana();
 }
 
 export function traducir_tablero(tablero) {
@@ -138,13 +137,7 @@ function hacer_rejilla() {
 		lista[i].lastChild.style.display = "grid";
 }
 
-function definir_botones_panel() {
-	definir_cargar_archivo();
-	definir_descargar_todo();
-	definir_botón_borrar_todo();
-}
-
-function definir_cargar_archivo() {
+function definir_cargar_archivo() { //
 	const cargar = document.getElementById("cargar_real");
 	document.getElementById("cargar_tempo").addEventListener("click", () =>
 		cargar.click());
@@ -152,20 +145,6 @@ function definir_cargar_archivo() {
 		almacenar_archivos(archivos.target.files);
 		location.reload();
 	});
-}
-
-function definir_descargar_todo() {
-	document.getElementById("descargar_todo").addEventListener("click", () =>
-		listar_tempos().then(lista => {
-			for (let i = 0; i < lista.length; i++)
-				descargar_objeto(JSON.stringify(lista[i]), lista[i].nombre);
-		}));
-}
-
-function definir_botón_borrar_todo() {
-	document.getElementById("borrar_todo").addEventListener("click", () =>
-		listar_tempos().then(lista =>
-			confirmar_todo(lista)));
 }
 
 function colocar_lista(lista) {

@@ -1,6 +1,7 @@
 import { cargar_visor, visualizar_tempo, cargar_tempo } from "../visor/visor.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
+import { crear_botón } from "../util/elementos.js";
 
 let tempo_actual;
 let elemento;
@@ -9,12 +10,11 @@ export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
 	cargar_visor();
 	cargar_botones_editor();
+	escuchar_formularios();
 	cargar_tempo().then(tempo_almacenado => {
 		tempo_actual = tempo_almacenado;
 		escuchar_elementos();
 	});
-	escuchar_formularios();
-	escuchar_formulario_tempo();
 }
 
 function cargar_botones_editor() {
@@ -27,27 +27,36 @@ function cargar_botones_editor() {
 }
 
 function cargar_bot_periodo() {
-	const nodo = document.createElement("button");
-	nodo.classList.add("botón");
-	nodo.id = "añadir_periodo";
-	nodo.textContent = "Crear Periodo";
-	return nodo;
+	const botón = crear_botón("añadir_periodo", "Crear Periodo");
+	botón.addEventListener("click", () => {
+		cerrar_ventanas();
+		modificar_ventana("periodo", { título: "Nuevo Periodo" });
+		mostrar_ventana_periodo();
+	});
+	return botón;
 }
 
 function cargar_bot_evento() {
-	const nodo = document.createElement("button");
-	nodo.classList.add("botón");
-	nodo.id = "añadir_evento";
-	nodo.textContent = "Crear Evento";
-	return nodo;
+	const botón = crear_botón("añadir_evento", "Crear Evento");
+	botón.addEventListener("click", () => {
+		cerrar_ventanas();
+		modificar_ventana("evento", { título: "Nuevo Evento" });
+		mostrar_ventana_evento();
+	});
+	return botón;
 }
 
 function cargar_bot_tempo() {
-	const nodo = document.createElement("button");
-	nodo.classList.add("botón");
-	nodo.id = "editar_tempo";
-	nodo.textContent = "Editar Tempo";
-	return nodo;
+	const botón = crear_botón("editar_tempo", "Editar Tempo");
+	botón.addEventListener("click", () => {
+		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo => {
+			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
+			const ventana_tempo = document.getElementById("tempo");
+			ventana_tempo.classList.add("editando");
+			ventana_tempo.classList.remove("oculto");
+		});
+	});
+	return botón;
 }
 
 export function en_años(fecha) {
@@ -78,7 +87,6 @@ function escuchar_formularios() {
 }
 
 function escuchar_formulario_periodo() {
-	const botón_nuevo_periodo = document.getElementById("añadir_periodo");
 	const formulario_periodo = document.getElementById("formulario_periodo");
 	const cerrar_periodo = document.getElementById("cerrar_periodo");
 
@@ -97,12 +105,6 @@ function escuchar_formulario_periodo() {
 			restablecer_periodo();
 		} else
 			alert("¡El fin del periodo no puede se anterior al inicio!");
-	});
-
-	botón_nuevo_periodo.addEventListener("click", () => {
-		cerrar_ventanas();
-		modificar_ventana("periodo", { título: "Nuevo Periodo" });
-		mostrar_ventana_periodo();
 	});
 
 	cerrar_periodo.addEventListener("click", () => {
@@ -137,7 +139,6 @@ function crear_periodo(e) {
 }
 
 function escuchar_formulario_evento() {
-	const botón_nuevo_evento = document.getElementById("añadir_evento");
 	const formulario_evento = document.getElementById("formulario_evento");
 	const cerrar_evento = document.getElementById("cerrar_evento");
 
@@ -153,12 +154,6 @@ function escuchar_formulario_evento() {
 			location.reload();
 		}, 200);
 		restablecer_evento();
-	});
-
-	botón_nuevo_evento.addEventListener("click", () => {
-		cerrar_ventanas();
-		modificar_ventana("evento", { título: "Nuevo Evento" });
-		mostrar_ventana_evento();
 	});
 
 	cerrar_evento.addEventListener("click", () => {
@@ -181,18 +176,6 @@ function crear_evento(e) {
 	if (e.target["fecha-AC"].checked)
 		evento.fecha = -evento.fecha;
 	return evento;
-}
-
-function escuchar_formulario_tempo() {
-	const botón_editar_tempo = document.getElementById("editar_tempo");
-	botón_editar_tempo.addEventListener("click", () => {
-		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo => {
-			modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
-			const ventana_tempo = document.getElementById("tempo");
-			ventana_tempo.classList.add("editando");
-			ventana_tempo.classList.remove("oculto");
-		});
-	});
 }
 
 function cerrar_ventanas() {
