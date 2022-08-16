@@ -134,10 +134,11 @@ export function visualizar_tempo(tempo) {
 	}
 }
 
-export function visualizar_tempo_actual() {
+export async function cargar_tempo() {
 	if (sessionStorage.getItem("tempo")) {
-		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo =>
-			visualizar_tempo(tempo));
+		const tempo = await tomar_tempo(sessionStorage.getItem("tempo"));
+		visualizar_tempo(tempo);
+		return tempo;
 	} else
 		throw new Error("No hay ningún tempo seleccionado para editar.");
 }

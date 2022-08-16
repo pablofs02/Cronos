@@ -1,15 +1,20 @@
-import { cargar_visor, visualizar_tempo, visualizar_tempo_actual } from "../visor/visor.js";
+import { cargar_visor, visualizar_tempo, cargar_tempo } from "../visor/visor.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
-let tempo;
+let tempo_actual;
 let elemento;
 
 export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
 	cargar_visor();
 	cargar_botones_editor();
-	configurar_editor();
+	cargar_tempo().then(tempo_almacenado => {
+		tempo_actual = tempo_almacenado;
+		escuchar_elementos();
+	});
+	escuchar_formularios();
+	escuchar_formulario_tempo();
 }
 
 function cargar_botones_editor() {
@@ -43,15 +48,6 @@ function cargar_bot_tempo() {
 	nodo.id = "editar_tempo";
 	nodo.textContent = "Editar Tempo";
 	return nodo;
-}
-
-export function configurar_editor() {
-	cargar_tempo();
-	setTimeout(() => {
-		escuchar_elementos();
-	}, 200);
-	escuchar_formularios();
-	escuchar_formulario_tempo();
 }
 
 export function en_años(fecha) {
@@ -90,11 +86,11 @@ function escuchar_formulario_periodo() {
 		e.preventDefault();
 		const periodo = crear_periodo(e);
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
-			tempo.periodos.push(periodo);
-			visualizar_tempo(tempo);
+			tempo_actual.periodos.push(periodo);
+			visualizar_tempo(tempo_actual);
 			if (editando_periodo())
 				borrar_periodo_anterior();
-			guardar_tempo(tempo);
+			guardar_tempo(tempo_actual);
 			setTimeout(() => {
 				location.reload();
 			}, 200);
@@ -148,11 +144,11 @@ function escuchar_formulario_evento() {
 	formulario_evento.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const evento = crear_evento(e);
-		tempo.eventos.push(evento);
-		visualizar_tempo(tempo);
+		tempo_actual.eventos.push(evento);
+		visualizar_tempo(tempo_actual);
 		if (editando_evento())
 			borrar_evento_anterior();
-		guardar_tempo(tempo);
+		guardar_tempo(tempo_actual);
 		setTimeout(() => {
 			location.reload();
 		}, 200);
@@ -246,16 +242,6 @@ function restablecer_evento() {
 	formulario_evento.reset();
 }
 
-function cargar_tempo() {
-	if (sessionStorage.getItem("tempo")) {
-		tomar_tempo(sessionStorage.getItem("tempo")).then(tempo_almacenado => {
-			tempo = tempo_almacenado;
-			visualizar_tempo(tempo);
-		});
-	} else
-		throw new Error("No hay ningún tempo seleccionado para editar.");
-}
-
 function escuchar_elementos() {
 	escuchar_periodos();
 	escuchar_eventos();
@@ -263,7 +249,7 @@ function escuchar_elementos() {
 
 function escuchar_periodos() {
 	const nodo_periodos = document.getElementById("periodos").children;
-	const periodos = tempo.periodos;
+	const periodos = tempo_actual.periodos;
 	for (let i = 0; i < nodo_periodos.length; i++)
 		escuchar_periodo(nodo_periodos[i], periodos[i]);
 }
@@ -275,7 +261,7 @@ function escuchar_periodo(nodo, periodo) {
 
 function escuchar_eventos() {
 	const nodo_eventos = document.getElementById("eventos").children;
-	const eventos = tempo.eventos;
+	const eventos = tempo_actual.eventos;
 	for (let i = 0; i < nodo_eventos.length; i++)
 		escuchar_evento(nodo_eventos[i], eventos[i]);
 }
@@ -308,15 +294,15 @@ function editando_evento() {
 }
 
 function borrar_periodo_anterior() {
-	const periodos = tempo.periodos;
+	const periodos = tempo_actual.periodos;
 	const posición = periodos.indexOf(elemento);
-	tempo.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
+	tempo_actual.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
 }
 
 function borrar_evento_anterior() {
-	const eventos = tempo.eventos;
+	const eventos = tempo_actual.eventos;
 	const posición = eventos.indexOf(elemento);
-	tempo.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));
+	tempo_actual.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));
 }
 
 function estar_cargado_botones_editor() {
