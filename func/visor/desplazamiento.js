@@ -14,7 +14,7 @@ let agarrando_v = false;
 let posición_inicial_barra_v = 0;
 let posición_inicial_y = 0;
 
-export function longitud_visualizador() {
+export function longitud_visor() {
 	return desplazador_h.clientWidth;
 }
 

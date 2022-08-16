@@ -1,6 +1,6 @@
 import { en_años } from "../modo/editor.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
-import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visualizador, posición_actual } from "./desplazamiento.js";
+import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visor, posición_actual } from "./desplazamiento.js";
 
 const inicio = document.getElementById("inicio");
 inicio.addEventListener("click", () =>
@@ -14,12 +14,12 @@ export function cargar_visor() {
 	if (!estar_cargado_visor_en_panel()) {
 		limpiar_panel();
 		const panel = document.getElementById("panel");
-		const visualizador = crear_div("visualizador");
-		visualizador.appendChild(cargar_mostrador());
-		visualizador.appendChild(cargar_regla());
-		visualizador.appendChild(cargar_desplazador());
-		visualizador.appendChild(cargar_proporcionador());
-		panel.appendChild(visualizador);
+		const visor = crear_div("visor");
+		visor.appendChild(cargar_mostrador());
+		visor.appendChild(cargar_regla());
+		visor.appendChild(cargar_desplazador());
+		visor.appendChild(cargar_proporcionador());
+		panel.appendChild(visor);
 
 		escuchar_desplazadores();
 		escuchar_escalador();
@@ -89,13 +89,13 @@ function cargar_proporcionador() {
 	return nodo;
 }
 
-export function configurar_visualizador() {
+export function configurar_visor() {
 	escuchar_escalador();
 	escuchar_vestana();
 }
 
-export function traducir_visualizador(visualizador) {
-	traducir_botones(visualizador.botones);
+export function traducir_visor(visor) {
+	traducir_botones(visor.botones);
 }
 
 function traducir_botones(botones) {
@@ -130,7 +130,7 @@ export function visualizar_tempo(tempo) {
 		if (tempo.eventos)
 			añadir_eventos(tempo.eventos);
 
-		actualizar_visualizador();
+		actualizar_visor();
 	}
 }
 
@@ -181,7 +181,7 @@ function definir_máximo(tempo) {
 	tempo.fin = máximo;
 }
 
-export function actualizar_visualizador() {
+export function actualizar_visor() {
 	añadir_margen();
 	actualizar_barra_h(escala);
 	definir_posición();
@@ -197,9 +197,9 @@ export function desplazar_elementos() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_base = periodo.getAttribute("pos_x");
-		const longitud_total = longitud_visualizador() * 100 / escala;
+		const longitud_total = longitud_visor() * 100 / escala;
 		const desplazamiento = posición_actual() / 100 * longitud_total;
-		const exceso = posición_actual() / 100 * longitud_visualizador();
+		const exceso = posición_actual() / 100 * longitud_visor();
 		const posición_desplazada = posición_base - desplazamiento + exceso;
 		periodo.style.left = posición_desplazada + "px";
 	}
@@ -255,7 +255,7 @@ function actualizar_posición() {
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
 		const posición_relativa = periodo.getAttribute("posición");
-		const posición_absoluta = longitud_visualizador() / 100 * posición_relativa;
+		const posición_absoluta = longitud_visor() / 100 * posición_relativa;
 		const distancia = posición_absoluta * (100 / escala);
 		periodo.setAttribute("pos_x", distancia);
 		periodo.style.left = distancia + "px";
@@ -280,7 +280,7 @@ function actualizar_longitud() {
 		const periodo = periodos[i];
 		const ancho_relativo = periodo.getAttribute("ancho");
 		const ancho_escalado = ancho_relativo / escala * 100;
-		const ancho_pantalla = longitud_visualizador();
+		const ancho_pantalla = longitud_visor();
 		const ancho_absoluto = ancho_escalado / 100 * ancho_pantalla;
 		periodo.style.width = ancho_absoluto + "px";
 	}

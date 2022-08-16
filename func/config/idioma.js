@@ -1,6 +1,6 @@
 import { traducir_editor } from "../modo/editor.js";
 import { traducir_tablero } from "../modo/tablero.js";
-import { traducir_visualizador } from "../visor/visor.js";
+import { traducir_visor } from "../visor/visor.js";
 import { cambiar_cabecera as traducir_cabecera } from "../util/cabecera.js";
 import carga_json from "../util/json.js";
 
@@ -39,8 +39,8 @@ function cambiar_idioma(idioma) {
 		// 	traducir_tablero(traductor.tablero);
 		// else if (en_editor())
 		// 	traducir_editor(traductor.editor);
-		// else if (en_visualizador())
-		// 	traducir_visualizador(traductor.visualizador);
+		// else if (en_vista())
+		// 	traducir_vista(traductor.vista);
 	});
 }
 
