@@ -14,18 +14,11 @@ export function cargar_editor() {
 
 function cargar_botones_editor() {
 	if (!estar_cargado_botones_editor()) {
-		limpiar_botones();
 		const botones = document.getElementById("botones");
 		botones.appendChild(cargar_bot_periodo());
 		botones.appendChild(cargar_bot_evento());
 		botones.appendChild(cargar_bot_tempo());
 	}
-}
-
-function limpiar_botones() {
-	const botones = document.getElementById("botones");
-	while (botones.firstChild)
-		botones.firstChild.remove();
 }
 
 function cargar_bot_periodo() {

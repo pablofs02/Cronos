@@ -37,11 +37,7 @@ function crear_botón_cargar_tempo() {
 }
 
 function crear_botón_cargar_falso() {
-	const botón = document.createElement("button");
-	botón.id = "cargar_tempo";
-	botón.textContent = "Cargar Tempo";
-	botón.classList.add("botón");
-	return botón;
+	return crear_botón("cargar_tempo", "Cargar Tempo");
 }
 
 function crear_botón_cargar_real() {
@@ -55,19 +51,19 @@ function crear_botón_cargar_real() {
 }
 
 function crear_botón_descargar_todo() {
-	const descargar_todo = document.createElement("button");
-	descargar_todo.id = "descargar_todo";
-	descargar_todo.textContent = "Descargar Todo";
-	descargar_todo.classList.add("botón");
-	return descargar_todo;
+	return crear_botón("descargar_todo", "Descargar Todo");
 }
 
 function crear_botón_borrar_todo() {
-	const borrar_todo = document.createElement("button");
-	borrar_todo.id = "borrar_todo";
-	borrar_todo.textContent = "Borrar Todo";
-	borrar_todo.classList.add("botón");
-	return borrar_todo;
+	return crear_botón("borrar_todo", "Borrar Todo");
+}
+
+function crear_botón(id, contenido) {
+	const botón = document.createElement("button");
+	botón.classList.add("botón");
+	botón.textContent = contenido;
+	botón.id = id;
+	return botón;
 }
 
 function limpiar_panel() {
@@ -85,7 +81,7 @@ function configurar_tablero() {
 		else {
 			colocar_vacío();
 			const tablero = document.getElementById("tablero");
-			tablero.classList.add("tablero_vacía");
+			tablero.classList.add("tablero_vacío");
 		}
 	});
 	escuchar_ventana();

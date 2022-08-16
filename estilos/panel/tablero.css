@@ -218,7 +218,7 @@
 	}
 }
 
-.tablero_vacía {
+.tablero_vacío {
 	display: flex;
 	justify-content: center;
 	align-items: center;
