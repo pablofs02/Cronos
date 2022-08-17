@@ -1,4 +1,4 @@
-import { en_años } from "../modo/editor.js";
+import { en_años } from "../util/elementos.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visor, posición_actual } from "./desplazamiento.js";
 

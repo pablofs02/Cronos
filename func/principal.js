@@ -1,6 +1,6 @@
 import { configurar_idioma } from "./config/idioma.js";
 import { configurar_tema } from "./config/tema.js";
-import { cargar_editor } from "./modo/editor.js";
+import { cargar_editor } from "./modo/editor/editor.js";
 import { cargar_vista } from "./modo/vista.js";
 import { cargar_tablero } from "./modo/tablero.js";
 import { configurar_cabecera } from "./util/cabecera.js";

@@ -1,5 +1,5 @@
 import { cargar_visor, cargar_tempo } from "../visor/visor.js";
-import { cargar_editor } from "./editor.js";
+import { cargar_editor } from "./editor/editor.js";
 
 let tempo_actual;
 

@@ -1,4 +1,4 @@
-import { en_años } from "../modo/editor.js";
+import { en_años } from "../util/elementos.js";
 
 export function ordenar_elementos(tempo) {
 	tempo.periodos = ordenar_periodos(tempo.periodos);

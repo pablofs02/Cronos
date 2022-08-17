@@ -1,4 +1,4 @@
-import { cargar_editor } from "./editor.js";
+import { cargar_editor } from "./editor/editor.js";
 import { listar_tempos, guardar_tempo, borrar_tempo } from "../util/almacenamiento.js";
 import { mostrar_info } from "../ventanas/info.js";
 import { cargar_vista } from "./vista.js";

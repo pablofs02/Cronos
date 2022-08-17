@@ -1,4 +1,4 @@
-import { traducir_editor } from "../modo/editor.js";
+import { traducir_editor } from "../modo/editor/editor.js";
 import { traducir_tablero } from "../modo/tablero.js";
 import { traducir_visor } from "../visor/visor.js";
 import { cambiar_cabecera as traducir_cabecera } from "../util/cabecera.js";
