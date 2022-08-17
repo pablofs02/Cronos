@@ -2,10 +2,6 @@ import { en_años } from "../util/elementos.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visor, posición_actual } from "./desplazamiento.js";
 
-const inicio = document.getElementById("inicio");
-inicio.addEventListener("click", () =>
-	location.assign("index.html"));
-
 let escala = 100;
 let máximo = null;
 let mínimo = null;
@@ -499,7 +495,7 @@ function añadir_eventos(eventos) {
 	document.getElementById("eventos").appendChild(fragmento);
 }
 
-function actualizar_límites(objeto) {
+export function actualizar_límites(objeto) {
 	actualizar_mínimo(objeto);
 	actualizar_máximo(objeto);
 }

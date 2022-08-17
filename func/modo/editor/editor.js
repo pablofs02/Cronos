@@ -1,16 +1,16 @@
 import { cargar_visor, cargar_tempo } from "../../visor/visor.js";
 import { modificar_ventana } from "../../ventanas/formulario.js";
 import { cargar_botones_editor, traducir_botones } from "./botones.js";
-import { escuchar_formularios } from "./ventanas.js";
+import { escuchar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
 
-let tempo_actual;
+export let tempo_actual;
 let elemento;
 
 export function cargar_editor() {
 	sessionStorage.setItem("modo", "editor");
 	cargar_visor();
 	cargar_botones_editor();
-	escuchar_formularios();
+	escuchar_ventanas();
 	cargar_tempo().then(tempo_almacenado => {
 		tempo_actual = tempo_almacenado;
 		escuchar_elementos();
@@ -21,43 +21,43 @@ export function traducir_editor(editor) {
 	traducir_botones(editor.botones);
 }
 
-function crear_periodo(e) {
+export function crear_periodo(info) {
 	const periodo = {
-		nombre: e.target.nombre.value,
-		comentario: e.target.comentario.value,
-		inicio: { año: Number(e.target.inicio_año.value) },
-		fin: { año: Number(e.target.fin_año.value) },
-		grupo: e.target.grupo.value
+		nombre: info.nombre.value,
+		comentario: info.comentario.value,
+		inicio: { año: Number(info.inicio_año.value) },
+		fin: { año: Number(info.fin_año.value) },
+		grupo: info.grupo.value
 	};
-	if (e.target.inicio_mes.value) {
-		periodo.inicio.mes = Number(e.target.inicio_mes.value);
-		if (e.target.inicio_día.value)
-			periodo.inicio.día = Number(e.target.inicio_día.value);
+	if (info.inicio_mes.value) {
+		periodo.inicio.mes = Number(info.inicio_mes.value);
+		if (info.inicio_día.value)
+			periodo.inicio.día = Number(info.inicio_día.value);
 	}
-	if (e.target.fin_mes.value) {
-		periodo.fin.mes = Number(e.target.fin_mes.value);
-		if (e.target.fin_día.value)
-			periodo.fin.día = Number(e.target.fin_día.value);
+	if (info.fin_mes.value) {
+		periodo.fin.mes = Number(info.fin_mes.value);
+		if (info.fin_día.value)
+			periodo.fin.día = Number(info.fin_día.value);
 	}
-	if (e.target["inicio-AC"].checked)
+	if (info["inicio-AC"].checked)
 		periodo.inicio.año = -periodo.inicio.año;
-	if (e.target["fin-AC"].checked)
+	if (info["fin-AC"].checked)
 		periodo.fin.año = -periodo.fin.año;
 	return periodo;
 }
 
-function crear_evento(e) {
+export function crear_evento(info) {
 	const evento = {
-		nombre: e.target.nombre.value,
-		comentario: e.target.comentario.value,
-		fecha: { año: Number(e.target.fecha_año.value) },
+		nombre: info.nombre.value,
+		comentario: info.comentario.value,
+		fecha: { año: Number(info.fecha_año.value) },
 	};
-	if (e.target.fecha_mes.value) {
-		periodo.fecha.mes = Number(e.target.fecha_mes.value);
-		if (e.target.fecha_día.value)
-			periodo.fecha.día = Number(e.target.fecha_día.value);
+	if (info.fecha_mes.value) {
+		periodo.fecha.mes = Number(info.fecha_mes.value);
+		if (info.fecha_día.value)
+			periodo.fecha.día = Number(info.fecha_día.value);
 	}
-	if (e.target["fecha-AC"].checked)
+	if (info["fecha-AC"].checked)
 		evento.fecha = -evento.fecha;
 	return evento;
 }
@@ -105,21 +105,13 @@ function editar_evento(evento) {
 	document.getElementById("evento").classList.add("editando");
 }
 
-function editando_periodo() {
-	return document.getElementById("periodo").classList.contains("editando");
-}
-
-function editando_evento() {
-	return document.getElementById("evento").classList.contains("editando");
-}
-
-function borrar_periodo_anterior() {
+export function borrar_periodo_anterior() {
 	const periodos = tempo_actual.periodos;
 	const posición = periodos.indexOf(elemento);
 	tempo_actual.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
 }
 
-function borrar_evento_anterior() {
+export function borrar_evento_anterior() {
 	const eventos = tempo_actual.eventos;
 	const posición = eventos.indexOf(elemento);
 	tempo_actual.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));

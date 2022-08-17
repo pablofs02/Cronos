@@ -1,4 +1,7 @@
+import { tomar_tempo } from "../../util/almacenamiento.js";
 import { crear_botón } from "../../util/elementos.js";
+import { modificar_ventana } from "../../ventanas/formulario.js";
+import { cerrar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
 
 export function cargar_botones_editor() {
 	if (!estar_cargado_botones_editor()) {

@@ -3,13 +3,30 @@ import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 
 export function configurar_cabecera() {
-	escuchar_botón_tablero();
+	escuchar_botones_cabecera();
 	escuchar_formulario_tempo();
 }
 
 export function cambiar_cabecera(cabecera) {
 	cambiar_inicio(cabecera.inicio);
 	cambiar_botones(cabecera.botones);
+}
+
+function escuchar_botones_cabecera() {
+	escuchar_botón_inicio();
+	escuchar_botón_tablero();
+}
+
+function escuchar_botón_inicio() {
+	const inicio = document.getElementById("inicio");
+	inicio.addEventListener("click", () =>
+		cargar_tablero());
+}
+
+function escuchar_botón_tablero() {
+	const tablero = document.getElementById("b_tablero");
+	tablero.addEventListener("click", () =>
+		cargar_tablero());
 }
 
 function cambiar_inicio(inicio) {
@@ -22,13 +39,6 @@ function cambiar_botones(botones) {
 	mis_tempos.textContent = botones.tablero;
 	const nuevo_tempo = document.getElementById("creador");
 	nuevo_tempo.textContent = botones.creador;
-}
-
-function escuchar_botón_tablero() {
-	const tablero = document.getElementById("b_tablero");
-	tablero.addEventListener("click", () => {
-		cargar_tablero();
-	});
 }
 
 function escuchar_formulario_tempo() {

@@ -8,7 +8,7 @@ export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
 	cargar_tablero_en_panel();
 	cargar_botones_tablero();
-	definir_botones_panel();
+	definir_cargar_archivo();
 	listar_tempos().then(lista => {
 		if (lista.length)
 			colocar_lista(lista);
@@ -137,7 +137,7 @@ function hacer_rejilla() {
 		lista[i].lastChild.style.display = "grid";
 }
 
-function definir_cargar_archivo() { //
+function definir_cargar_archivo() {
 	const cargar = document.getElementById("cargar_real");
 	document.getElementById("cargar_tempo").addEventListener("click", () =>
 		cargar.click());
