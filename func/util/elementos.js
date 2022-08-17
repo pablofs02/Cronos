@@ -6,6 +6,12 @@ export function crear_botón(id, contenido) {
 	return botón;
 }
 
+export function crear_div(id) {
+	const div = document.createElement("div");
+	div.id = id;
+	return div;
+}
+
 export function en_años(fecha) {
 	let tiempo = fecha.año;
 	if (fecha.mes)

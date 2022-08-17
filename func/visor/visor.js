@@ -1,4 +1,4 @@
-import { en_años } from "../util/elementos.js";
+import { crear_div, en_años } from "../util/elementos.js";
 import { guardar_tempo, tomar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, activar_barra_lateral, actualizar_barra_h, altura_actual, bajar_barra, desactivar_barra_lateral, longitud_visor, posición_actual } from "./desplazamiento.js";
 
@@ -31,12 +31,6 @@ function limpiar_panel() {
 	const botones = document.getElementById("botones");
 	while (botones.firstChild)
 		botones.firstChild.remove();
-}
-
-function crear_div(id) {
-	const div = document.createElement("div");
-	div.id = id;
-	return div;
 }
 
 function cargar_mostrador() {
