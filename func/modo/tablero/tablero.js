@@ -1,7 +1,9 @@
 import { listar_tempos } from "../../util/almacenamiento.js";
 import { mostrar_info } from "../../ventanas/info.js";
-import { cargar_botones_tablero, crear_botones, traducir_botones } from "./botones.js";
+import { cargar_botones_tablero, traducir_botones } from "./botones.js";
 import { crear_div } from "../../util/elementos.js";
+import { ajustar_imágenes, escuchar_ventana } from "./ventanas.js";
+import { crear_elemento, crear_opciones } from "./elementos.js";
 
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
@@ -44,19 +46,6 @@ export function traducir_tablero(tablero) {
 	traducir_botones(tablero.botones);
 }
 
-function escuchar_ventana() {
-	const ocultador = document.getElementById("ocultador");
-	window.addEventListener("resize", () => {
-		ajustar_imágenes();
-		ocultador.classList.add("oculto");
-		document.getElementById("info").classList.add("oculto");
-		if (window.innerHeight > 600)
-			hacer_rejilla();
-		else
-			deshacer_rejilla();
-	});
-}
-
 function colocar_vacío() {
 	const tablero = document.getElementById("tablero");
 	const contenedor = document.createElement("div");
@@ -68,18 +57,6 @@ function colocar_vacío() {
 	texto.textContent = "No tienes ningún tempo almacenado.";
 	contenedor.appendChild(texto);
 	tablero.appendChild(contenedor);
-}
-
-function deshacer_rejilla() {
-	const lista = document.querySelectorAll(".elemento_tablero");
-	for (let i = 0; i < lista.length; i++)
-		lista[i].lastChild.style.display = "none";
-}
-
-function hacer_rejilla() {
-	const lista = document.querySelectorAll(".elemento_tablero");
-	for (let i = 0; i < lista.length; i++)
-		lista[i].lastChild.style.display = "grid";
 }
 
 function colocar_lista(lista) {
@@ -103,82 +80,6 @@ function colocar_lista(lista) {
 		tablero.appendChild(fragmento);
 
 		ajustar_imágenes();
-	}
-}
-
-function crear_opciones(tempo) {
-	const fragmento = document.createDocumentFragment();
-	const botones = crear_botones(tempo);
-	fragmento.appendChild(crear_desplegable(botones));
-	fragmento.appendChild(botones);
-	return fragmento;
-}
-
-function crear_desplegable(botones) {
-	const ocultador = document.getElementById("ocultador");
-	const contenedor = document.createElement("div");
-	contenedor.classList.add("contenedor_desplegable_tempo");
-	const desplegable = document.createElement("div");
-	desplegable.innerHTML = "<i class=\"fa-solid fa-ellipsis-vertical\"></i>";
-	desplegable.classList.add("desplegable_tempo");
-	contenedor.addEventListener("click", () => {
-		ocultador.classList.remove("oculto");
-		botones.style.display = "flex";
-	});
-	ocultador.addEventListener("click", () => {
-		if (window.innerHeight < 600) {
-			botones.style.display = "none";
-			ocultador.classList.add("oculto");
-		}
-	});
-	contenedor.appendChild(desplegable);
-	return contenedor;
-}
-
-function crear_elemento(tempo) {
-	const nodo = document.createElement("div");
-	nodo.classList.add("elemento_tablero");
-	nodo.appendChild(crear_imagen(tempo));
-	nodo.appendChild(crear_texto(tempo));
-	return nodo;
-}
-
-function crear_imagen(tempo) {
-	const imagen = document.createElement("img");
-	if (tempo.imagen)
-		imagen.setAttribute("src", tempo.imagen);
-	else
-		imagen.setAttribute("src", "archivos/logo.png");
-	imagen.setAttribute("alt", "Imagen del tempo " + tempo.nombre);
-	return imagen;
-}
-
-function crear_texto(tempo) {
-	const texto = document.createElement("div");
-	texto.classList.add("texto_tempo");
-	texto.appendChild(crear_título(tempo));
-	texto.appendChild(crear_comentario(tempo));
-	return texto;
-}
-
-function crear_título(tempo) {
-	const título = document.createElement("h3");
-	título.textContent = tempo.nombre;
-	return título;
-}
-
-function crear_comentario(tempo) {
-	const comentario = document.createElement("p");
-	comentario.textContent = tempo.comentario;
-	return comentario;
-}
-
-function ajustar_imágenes() {
-	const elemento = document.querySelectorAll(".elemento_tablero");
-	for (let i = 0; i < elemento.length; i++) {
-		const imagen = elemento[i].firstChild;
-		const altura = imagen.clientHeight;
-		imagen.style.width = altura + "px";
 	}
 }
 
