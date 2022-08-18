@@ -1,40 +1,17 @@
+import { mostrar_info } from "../../ventanas/info.js";
 import { crear_botones } from "./opciones.js";
 
-export function crear_opciones(tempo) {
-	const fragmento = document.createDocumentFragment();
-	const botones = crear_botones(tempo);
-	fragmento.appendChild(crear_desplegable(botones));
-	fragmento.appendChild(botones);
-	return fragmento;
-}
-
-function crear_desplegable(botones) {
-	const ocultador = document.getElementById("ocultador");
-	const contenedor = document.createElement("div");
-	contenedor.classList.add("contenedor_desplegable_tempo");
-	const desplegable = document.createElement("div");
-	desplegable.innerHTML = "<i class=\"fa-solid fa-ellipsis-vertical\"></i>";
-	desplegable.classList.add("desplegable_tempo");
-	contenedor.addEventListener("click", () => {
-		ocultador.classList.remove("oculto");
-		botones.style.display = "flex";
-	});
-	ocultador.addEventListener("click", () => {
-		if (window.innerHeight < 600) {
-			botones.style.display = "none";
-			ocultador.classList.add("oculto");
-		}
-	});
-	contenedor.appendChild(desplegable);
-	return contenedor;
-}
-
 export function crear_elemento(tempo) {
-	const nodo = document.createElement("div");
-	nodo.classList.add("elemento_tablero");
-	nodo.appendChild(crear_imagen(tempo));
-	nodo.appendChild(crear_texto(tempo));
-	return nodo;
+	const elemento = document.createElement("div");
+	elemento.classList.add("elemento_tablero");
+	elemento.appendChild(crear_imagen(tempo));
+	elemento.appendChild(crear_texto(tempo));
+	elemento.children[0].addEventListener("click", () =>
+		mostrar_info(tempo));
+	elemento.children[1].addEventListener("click", () =>
+		mostrar_info(tempo));
+	elemento.appendChild(crear_opciones(tempo));
+	return elemento;
 }
 
 function crear_imagen(tempo) {
@@ -65,4 +42,33 @@ function crear_comentario(tempo) {
 	const comentario = document.createElement("p");
 	comentario.textContent = tempo.comentario;
 	return comentario;
+}
+
+function crear_opciones(tempo) {
+	const fragmento = document.createDocumentFragment();
+	const botones = crear_botones(tempo);
+	fragmento.appendChild(crear_desplegable(botones));
+	fragmento.appendChild(botones);
+	return fragmento;
+}
+
+function crear_desplegable(botones) {
+	const ocultador = document.getElementById("ocultador");
+	const contenedor = document.createElement("div");
+	contenedor.classList.add("contenedor_desplegable_tempo");
+	const desplegable = document.createElement("div");
+	desplegable.innerHTML = "<i class=\"fa-solid fa-ellipsis-vertical\"></i>";
+	desplegable.classList.add("desplegable_tempo");
+	contenedor.addEventListener("click", () => {
+		ocultador.classList.remove("oculto");
+		botones.style.display = "flex";
+	});
+	ocultador.addEventListener("click", () => {
+		if (window.innerHeight < 600) {
+			botones.style.display = "none";
+			ocultador.classList.add("oculto");
+		}
+	});
+	contenedor.appendChild(desplegable);
+	return contenedor;
 }

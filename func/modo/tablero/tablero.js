@@ -1,9 +1,8 @@
 import { listar_tempos } from "../../util/almacenamiento.js";
-import { mostrar_info } from "../../ventanas/info.js";
 import { cargar_botones_tablero, traducir_botones } from "./botones.js";
 import { crear_div } from "../../util/elementos.js";
 import { ajustar_imágenes, escuchar_ventana } from "./ventanas.js";
-import { crear_elemento, crear_opciones } from "./elementos.js";
+import { crear_elemento } from "./elementos.js";
 
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
@@ -13,18 +12,8 @@ export function cargar_tablero() {
 	escuchar_ventana();
 }
 
-function poner_tempos_en_tablero() {
-	const tablero = document.getElementById("tablero").children;
-	if (!tablero.length)
-		listar_tempos().then(lista => {
-			if (lista.length)
-				colocar_lista(lista);
-			else {
-				colocar_vacío();
-				const tablero = document.getElementById("tablero");
-				tablero.classList.add("tablero_vacío");
-			}
-		});
+export function traducir_tablero(tablero) {
+	traducir_botones(tablero.botones);
 }
 
 function cargar_tablero_en_panel() {
@@ -35,19 +24,34 @@ function cargar_tablero_en_panel() {
 	}
 }
 
-function limpiar_panel() {
-	document.getElementById("panel").children[1].remove();
-	const botones = document.getElementById("botones");
-	while (botones.firstChild)
-		botones.firstChild.remove();
+function poner_tempos_en_tablero() {
+	if (!hay_elementos())
+		enlistar_tempos_en_tablero();
 }
 
-export function traducir_tablero(tablero) {
-	traducir_botones(tablero.botones);
+function enlistar_tempos_en_tablero() {
+	listar_tempos().then(lista => {
+		if (lista.length)
+			colocar_lista(lista);
+		else
+			indicar_vacío();
+	});
 }
 
-function colocar_vacío() {
+function colocar_lista(lista) {
+	if (lista) {
+		const tablero = document.getElementById("tablero");
+		const fragmento = document.createDocumentFragment();
+		for (let i = 0; i < lista.length; i++)
+			fragmento.appendChild(crear_elemento(lista[i]));
+		tablero.appendChild(fragmento);
+		ajustar_imágenes();
+	}
+}
+
+function indicar_vacío() {
 	const tablero = document.getElementById("tablero");
+	tablero.classList.add("tablero_vacío");
 	const contenedor = document.createElement("div");
 	contenedor.classList.add("sin_tempos");
 	const icono = document.createElement("div");
@@ -59,30 +63,17 @@ function colocar_vacío() {
 	tablero.appendChild(contenedor);
 }
 
-function colocar_lista(lista) {
-	if (lista) {
-		const tablero = document.getElementById("tablero");
-		const fragmento = document.createDocumentFragment();
-		for (let i = 0; i < lista.length; i++) {
-			const tempo = lista[i];
-			const nodo = crear_elemento(tempo);
-
-			const opciones = crear_opciones(tempo);
-			nodo.appendChild(opciones);
-
-			nodo.children[0].addEventListener("click", () =>
-				mostrar_info(tempo));
-			nodo.children[1].addEventListener("click", () =>
-				mostrar_info(tempo));
-
-			fragmento.appendChild(nodo);
-		}
-		tablero.appendChild(fragmento);
-
-		ajustar_imágenes();
-	}
+function limpiar_panel() {
+	document.getElementById("panel").children[1].remove();
+	const botones = document.getElementById("botones");
+	while (botones.firstChild)
+		botones.firstChild.remove();
 }
 
 function estar_cargado_tablero_en_panel() {
 	return document.getElementById("tablero");
+}
+
+function hay_elementos() {
+	return document.getElementById("tablero").children.length;
 }
