@@ -62,10 +62,8 @@ function cargar_botón_borrar_todo() {
 
 function confirmar_todo(lista) {
 	if (confirm("¿Estás seguro de que deseas borrar todos los tempos?"))
-		if (confirm("¿De verdad que estás seguro de que deseas borrar TODOS los tempos?")) {
+		if (confirm("¿De verdad que estás seguro de que deseas borrar TODOS los tempos?"))
 			borrar_todo(lista);
-			location.reload();
-		}
 }
 
 function borrar_todo(lista) {

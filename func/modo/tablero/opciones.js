@@ -62,10 +62,8 @@ function editar_tempo(tempo) {
 }
 
 function confirmar(tempo) {
-	if (confirm("¿Estás seguro de que deseas borrarlo?")) {
+	if (confirm("¿Estás seguro de que deseas borrarlo?"))
 		borrar_tempo(tempo);
-		location.reload();
-	}
 }
 
 function ver_tempo(tempo) {

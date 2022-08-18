@@ -72,9 +72,6 @@ function escuchar_formulario_periodo() {
 				borrar_periodo_anterior();
 			actualizar_límites(entrada);
 			guardar_tempo(tempo_actual);
-			setTimeout(() => {
-				location.reload();
-			}, 200);
 			restablecer_periodo();
 		} else
 			alert("¡El fin del periodo no puede se anterior al inicio!");
@@ -104,9 +101,6 @@ function escuchar_formulario_evento() {
 		if (editando_evento())
 			borrar_evento_anterior();
 		guardar_tempo(tempo_actual);
-		setTimeout(() => {
-			location.reload();
-		}, 200);
 		restablecer_evento();
 	});
 }

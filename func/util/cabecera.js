@@ -1,6 +1,7 @@
 import { cargar_tablero } from "../modo/tablero/tablero.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
+import { cargar_editor } from "../modo/editor/editor.js";
 
 export function configurar_cabecera() {
 	escuchar_botones_cabecera();
@@ -113,7 +114,7 @@ function almacenar(tempo) {
 	guardar_tempo(tempo);
 	sessionStorage.setItem("tempo", tempo.nombre);
 	formulario_tempo.reset();
-	setTimeout(() => location.assign("editar.html"), 200);
+	cargar_editor();
 }
 
 function mostrar_ventana_tempo() {
