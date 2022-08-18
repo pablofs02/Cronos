@@ -1,7 +1,5 @@
-import { cargar_editor } from "../editor/editor.js";
-import { listar_tempos, guardar_tempo, borrar_tempo } from "../../util/almacenamiento.js";
+import { listar_tempos } from "../../util/almacenamiento.js";
 import { mostrar_info } from "../../ventanas/info.js";
-import { cargar_vista } from "../vista.js";
 import { cargar_botones_tablero, crear_botones, traducir_botones } from "./botones.js";
 import { crear_div } from "../../util/elementos.js";
 
@@ -9,7 +7,6 @@ export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
 	cargar_tablero_en_panel();
 	cargar_botones_tablero();
-	definir_cargar_archivo();
 	poner_tempos_en_tablero();
 	escuchar_ventana();
 }
@@ -83,16 +80,6 @@ function hacer_rejilla() {
 	const lista = document.querySelectorAll(".elemento_tablero");
 	for (let i = 0; i < lista.length; i++)
 		lista[i].lastChild.style.display = "grid";
-}
-
-function definir_cargar_archivo() {
-	const cargar = document.getElementById("cargar_real");
-	document.getElementById("cargar_tempo").addEventListener("click", () =>
-		cargar.click());
-	cargar.addEventListener("change", archivos => {
-		almacenar_archivos(archivos.target.files);
-		location.reload();
-	});
 }
 
 function colocar_lista(lista) {
@@ -193,41 +180,6 @@ function ajustar_imágenes() {
 		const altura = imagen.clientHeight;
 		imagen.style.width = altura + "px";
 	}
-}
-
-function editar_tempo(tempo) {
-	sessionStorage.setItem("tempo", tempo.nombre);
-	cargar_editor();
-}
-
-function confirmar(tempo) {
-	if (confirm("¿Estás seguro de que deseas borrarlo?")) {
-		borrar_tempo(tempo);
-		location.reload();
-	}
-}
-
-function ver_tempo(tempo) {
-	sessionStorage.setItem("tempo", tempo.nombre);
-	cargar_vista();
-}
-
-function almacenar_archivos(archivos) {
-	for (let i = 0; i < archivos.length; i++)
-		archivos[i].text().then(texto =>
-			guardar_tempo(JSON.parse(texto)));
-}
-
-function descargar_objeto(objeto, nombre) {
-	const element = document.createElement("a");
-	element.setAttribute("href", "data:text/plain," + encodeURIComponent(objeto));
-	element.setAttribute("download", nombre + ".json");
-	element.click();
-}
-
-function borrar_todo(lista) {
-	for (let i = 0; i < lista.length; i++)
-		borrar_tempo(lista[i]);
 }
 
 function estar_cargado_tablero_en_panel() {

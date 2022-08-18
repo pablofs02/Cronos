@@ -1,37 +1,50 @@
-import { listar_tempos } from "../../util/almacenamiento.js";
+import { borrar_tempo, guardar_tempo, listar_tempos } from "../../util/almacenamiento.js";
 import { crear_botón } from "../../util/elementos.js";
+import { cargar_editor } from "../editor/editor.js";
+import { cargar_vista } from "../vista.js";
 
 export function cargar_botones_tablero() {
 	if (!estar_cargado_botones_tablero()) {
 		const botones = document.getElementById("botones");
-		botones.appendChild(crear_botón_cargar_tempo());
-		botones.appendChild(crear_botón_descargar_todo());
-		botones.appendChild(crear_botón_borrar_todo());
+		botones.appendChild(cargar_botón_cargar_tempo());
+		botones.appendChild(cargar_botón_descargar_todo());
+		botones.appendChild(cargar_botón_borrar_todo());
 	}
 }
 
-function crear_botón_cargar_tempo() {
-	const fragmento = document.createDocumentFragment();
-	fragmento.appendChild(crear_botón_cargar_falso());
-	fragmento.appendChild(crear_botón_cargar_real());
-	return fragmento;
+function cargar_botón_cargar_tempo() {
+	const botón = crear_botón_cargar_tempo();
+	botón.addEventListener("click", () =>
+		abrir_ventana_de_subida());
+	return botón;
 }
 
-function crear_botón_cargar_falso() {
+function crear_botón_cargar_tempo() {
 	return crear_botón("cargar_tempo", "Cargar Tempo");
 }
 
-function crear_botón_cargar_real() {
+function cargar_botón_subida() {
 	const entrada = document.createElement("input");
-	entrada.id = "cargar_real";
-	entrada.classList.add("oculto");
 	entrada.type = "file";
 	entrada.accept = ".json";
 	entrada.multiple = true;
 	return entrada;
 }
 
-function crear_botón_descargar_todo() {
+function abrir_ventana_de_subida() {
+	const subida = cargar_botón_subida();
+	subida.click();
+	subida.addEventListener("change", archivos =>
+		almacenar_archivos(archivos.target.files));
+}
+
+function almacenar_archivos(archivos) {
+	for (let i = 0; i < archivos.length; i++)
+		archivos[i].text().then(texto =>
+			guardar_tempo(JSON.parse(texto)));
+}
+
+function cargar_botón_descargar_todo() {
 	const botón = crear_botón("descargar_todo", "Descargar Todo");
 	botón.addEventListener("click", () =>
 		listar_tempos().then(lista => {
@@ -41,7 +54,7 @@ function crear_botón_descargar_todo() {
 	return botón;
 }
 
-function crear_botón_borrar_todo() {
+function cargar_botón_borrar_todo() {
 	const botón = crear_botón("borrar_todo", "Borrar Todo");
 	botón.addEventListener("click", () =>
 		listar_tempos().then(lista =>
@@ -113,6 +126,35 @@ function crear_descargar(tempo) {
 		ocultar_ocultador();
 	});
 	return descargar;
+}
+
+function editar_tempo(tempo) {
+	sessionStorage.setItem("tempo", tempo.nombre);
+	cargar_editor();
+}
+
+function confirmar(tempo) {
+	if (confirm("¿Estás seguro de que deseas borrarlo?")) {
+		borrar_tempo(tempo);
+		location.reload();
+	}
+}
+
+function ver_tempo(tempo) {
+	sessionStorage.setItem("tempo", tempo.nombre);
+	cargar_vista();
+}
+
+function descargar_objeto(objeto, nombre) {
+	const element = document.createElement("a");
+	element.setAttribute("href", "data:text/plain," + encodeURIComponent(objeto));
+	element.setAttribute("download", nombre + ".json");
+	element.click();
+}
+
+function borrar_todo(lista) {
+	for (let i = 0; i < lista.length; i++)
+		borrar_tempo(lista[i]);
 }
 
 function ocultar_ocultador() {
