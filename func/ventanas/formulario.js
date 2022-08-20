@@ -60,7 +60,7 @@ function modificar_ventana_fecha(id, info, variable) {
 	const tiempos = Object.keys(info[variable]);
 	for (let i = 0; i < tiempos.length; i++) {
 		const tiempo = tiempos[i];
-		if (info[variable] > 0)
+		if (info[variable][tiempo] >= 0)
 			tomar(variable + "_" + tiempo + "_" + id).value = info[variable][tiempo];
 		else {
 			tomar(variable + "_" + tiempo + "_" + id).value = -info[variable][tiempo];
