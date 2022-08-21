@@ -1,3 +1,7 @@
+const grupos = {};
+
+let altura_grupo_anterior = 0;
+
 function crear_etiqueta_grupo(grupo, altura, primero) {
 	const nodo = document.createElement("div");
 	nodo.classList.add("grupo");
@@ -18,7 +22,7 @@ function actualizar_etiqueta_grupo(etiqueta, altura) {
 	etiquetas.appendChild(etiqueta);
 }
 
-function hay_grupos() {
+export function hay_grupos() {
 	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++)
 		if (periodos[i].getAttribute("grupo") != "_")
@@ -26,7 +30,7 @@ function hay_grupos() {
 	return false;
 }
 
-function agregar_a_grupo(grupo, id) {
+export function agregar_a_grupo(grupo, id) {
 	if (grupos[grupo]) {
 		grupos[grupo].push(id);
 	} else {

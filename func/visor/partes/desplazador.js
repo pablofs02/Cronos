@@ -1,4 +1,4 @@
-import { desplazar_elementos, elevar_elementos } from "../visor.js";
+import { crear_div } from "../../util/elementos.js";
 
 let desplazador_h = null;
 let barra_h = null;
@@ -247,7 +247,7 @@ function actualizar_barra_lateral() {
 	barra.style.height = longitud * límite_altura() / altura_visible + "px";
 }
 
-function cargar_desplazador() {
+export function cargar_desplazador() {
 	const desplazador = crear_div("desplazador");
 	desplazador.appendChild(crear_desplazador("horizontal"));
 	desplazador.appendChild(crear_desplazador("vertical"));

@@ -1,4 +1,6 @@
-function escuchar_escalador() {
+import { crear_div } from "../../util/elementos.js";
+
+export function escuchar_escalador() {
 	const aumentar = document.getElementById("aumentar");
 	aumentar.addEventListener("click", () => {
 		if (escala > 10) {
@@ -16,7 +18,7 @@ function escuchar_escalador() {
 	});
 }
 
-function cargar_proporcionador() {
+export function cargar_escalador() {
 	const nodo = crear_div("proporcionador");
 	const aumentar = crear_div("aumentar");
 	aumentar.classList.add("proporción");

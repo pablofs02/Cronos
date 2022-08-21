@@ -1,10 +1,15 @@
 import { crear_div } from "../util/elementos.js";
 import { tomar_tempo } from "../util/almacenamiento.js";
-import { escuchar_desplazadores, actualizar_barra_h } from "./partes/desplazador.js";
+import { escuchar_desplazadores, actualizar_barra_h, cargar_desplazador } from "./partes/desplazador.js";
+import { añadir_eventos, añadir_periodos, cargar_mostrador } from "./partes/mostrador.js";
+import { cargar_regla } from "./partes/regla.js";
+import { cargar_escalador, escuchar_escalador } from "./partes/escalador.js";
+import { añadir_margen, definir_límites } from "./posicionador/extremos.js";
+import { actualizar_posición, definir_posición } from "./posicionador/horizontal.js";
+import { actualizar_longitud, definir_longitud } from "./posicionador/longitud.js";
+import { comprobar_altura, definir_altitud } from "./posicionador/vertical.js";
 
 export let escala = 100;
-export let máximo = null;
-export let mínimo = null;
 
 export function cargar_visor() {
 	if (!estar_cargado_visor_en_panel()) {
@@ -14,7 +19,7 @@ export function cargar_visor() {
 		visor.appendChild(cargar_mostrador());
 		visor.appendChild(cargar_regla());
 		visor.appendChild(cargar_desplazador());
-		visor.appendChild(cargar_proporcionador());
+		visor.appendChild(cargar_escalador());
 		panel.appendChild(visor);
 
 		escuchar_desplazadores();
@@ -49,10 +54,6 @@ function traducir_botones(botones) {
 
 let periodos_visitados = [];
 let periodos_chocados = [];
-
-const grupos = {};
-
-let altura_grupo_anterior = 0;
 
 export function visualizar_tempo(tempo) {
 	limpiar_mostrador();

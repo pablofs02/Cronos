@@ -1,6 +1,6 @@
 import { guardar_tempo } from "../../util/almacenamiento.js";
 import { en_años } from "../../util/elementos.js";
-import { actualizar_límites, actualizar_máximo, actualizar_mínimo, visualizar_tempo } from "../../visor/visor.js";
+import { visualizar_tempo } from "../../visor/visor.js";
 import { borrar_evento_anterior, borrar_periodo_anterior, crear_evento, crear_periodo, tempo_actual } from "./editor.js";
 
 export function escuchar_ventanas() {

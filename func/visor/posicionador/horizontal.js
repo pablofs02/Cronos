@@ -1,4 +1,9 @@
-function actualizar_posición() {
+import { en_años } from "../../util/elementos.js";
+import { longitud_visor } from "../partes/desplazador.js";
+import { escala } from "../visor.js";
+import { máximo, mínimo } from "./extremos.js";
+
+export function actualizar_posición() {
 	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
@@ -10,7 +15,7 @@ function actualizar_posición() {
 	}
 }
 
-function definir_posición() {
+export function definir_posición() {
 	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];

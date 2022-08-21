@@ -1,4 +1,9 @@
-function actualizar_longitud() {
+import { en_años } from "../../util/elementos.js";
+import { longitud_visor } from "../partes/desplazador.js";
+import { escala } from "../visor.js";
+import { máximo, mínimo } from "./extremos.js";
+
+export function actualizar_longitud() {
 	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
@@ -10,7 +15,7 @@ function actualizar_longitud() {
 	}
 }
 
-function definir_longitud() {
+export function definir_longitud() {
 	const periodos = document.getElementById("periodos").children;
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];

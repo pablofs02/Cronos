@@ -1,3 +1,10 @@
+import { guardar_tempo } from "../../util/almacenamiento.js";
+import { en_años } from "../../util/elementos.js";
+import { hay_grupos } from "./grupos.js";
+
+export let máximo;
+export let mínimo;
+
 export function actualizar_límites(objeto) {
 	actualizar_mínimo(objeto);
 	actualizar_máximo(objeto);

@@ -1,4 +1,7 @@
-function cargar_mostrador() {
+import { crear_div } from "../../util/elementos.js";
+import { agregar_a_grupo } from "../posicionador/grupos.js";
+
+export function cargar_mostrador() {
 	const mostrador = crear_div("mostrador");
 	mostrador.appendChild(crear_div("periodos"));
 	mostrador.appendChild(crear_div("eventos"));
@@ -35,7 +38,7 @@ function crear_evento(evento) {
 	return nodo;
 }
 
-function añadir_periodos(periodos) {
+export function añadir_periodos(periodos) {
 	const fragmento = document.createDocumentFragment();
 	for (let i = 0; i < periodos.length; i++) {
 		const periodo = periodos[i];
@@ -45,7 +48,7 @@ function añadir_periodos(periodos) {
 	document.getElementById("periodos").appendChild(fragmento);
 }
 
-function añadir_eventos(eventos) {
+export function añadir_eventos(eventos) {
 	const fragmento = document.createDocumentFragment();
 	for (let i = 0; i < eventos.length; i++) {
 		const evento = eventos[i];

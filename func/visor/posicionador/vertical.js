@@ -1,4 +1,6 @@
-function definir_altitud() {
+import { altura_actual, bajar_barra, desactivar_barra_lateral } from "../partes/desplazador.js";
+
+export function definir_altitud() {
 	const periodos = document.getElementById("periodos").children;
 	const nombres = Object.keys(grupos);
 	let primer_grupo = true;
@@ -35,7 +37,7 @@ function primer_espacio(menor) {
 	return menor;
 }
 
-function comprobar_altura() {
+export function comprobar_altura() {
 	if ((Number(altura_máxima()) + 1) * 22 - 2 > límite_altura()) {
 		activar_barra_lateral();
 		actualizar_barra_lateral();
