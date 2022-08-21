@@ -1,8 +1,6 @@
-const grupos = {};
+export const grupos = {};
 
-let altura_grupo_anterior = 0;
-
-function crear_etiqueta_grupo(grupo, altura, primero) {
+export function crear_etiqueta_grupo(grupo, altura, primero) {
 	const nodo = document.createElement("div");
 	nodo.classList.add("grupo");
 	const texto = document.createElement("span");
@@ -15,7 +13,7 @@ function crear_etiqueta_grupo(grupo, altura, primero) {
 	return nodo;
 }
 
-function actualizar_etiqueta_grupo(etiqueta, altura) {
+export function actualizar_etiqueta_grupo(etiqueta, altura) {
 	const etiquetas = document.getElementById("grupos");
 	altura -= etiqueta.getAttribute("altura");
 	etiqueta.style.height = altura * 22 + "px";
@@ -36,8 +34,4 @@ export function agregar_a_grupo(grupo, id) {
 	} else {
 		grupos[grupo] = [id];
 	}
-}
-
-function vaciar_chocados() {
-	periodos_chocados = periodos_chocados.slice(-1, -1);
 }

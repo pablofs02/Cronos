@@ -3,13 +3,11 @@ import { tomar_tempo } from "../util/almacenamiento.js";
 import { escuchar_desplazadores, actualizar_barra_h, cargar_desplazador } from "./partes/desplazador.js";
 import { añadir_eventos, añadir_periodos, cargar_mostrador } from "./partes/mostrador.js";
 import { cargar_regla } from "./partes/regla.js";
-import { cargar_escalador, escuchar_escalador } from "./partes/escalador.js";
+import { cargar_escalador, escala, escuchar_escalador } from "./partes/escalador.js";
 import { añadir_margen, definir_límites } from "./posicionador/extremos.js";
-import { actualizar_posición, definir_posición } from "./posicionador/horizontal.js";
+import { actualizar_posición, definir_posición, desplazar_elementos } from "./posicionador/horizontal.js";
 import { actualizar_longitud, definir_longitud } from "./posicionador/longitud.js";
 import { comprobar_altura, definir_altitud } from "./posicionador/vertical.js";
-
-export let escala = 100;
 
 export function cargar_visor() {
 	if (!estar_cargado_visor_en_panel()) {
@@ -52,9 +50,6 @@ function traducir_botones(botones) {
 	editar_tempo.textContent = botones.editor;
 }
 
-let periodos_visitados = [];
-let periodos_chocados = [];
-
 export function visualizar_tempo(tempo) {
 	limpiar_mostrador();
 	escuchar_desplazadores();
@@ -96,16 +91,12 @@ function escuchar_vestana() {
 		ajustar_todo());
 }
 
-function ajustar_todo() {
+export function ajustar_todo() {
 	actualizar_barra_h(escala);
 	actualizar_longitud();
 	actualizar_posición();
 	desplazar_elementos();
 	comprobar_altura();
-}
-
-function vaciar_visitados() {
-	periodos_visitados = periodos_visitados.slice(-1, -1);
 }
 
 function limpiar_mostrador() {

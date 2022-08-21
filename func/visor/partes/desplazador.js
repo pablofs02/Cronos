@@ -1,4 +1,6 @@
 import { crear_div } from "../../util/elementos.js";
+import { desplazar_elementos } from "../posicionador/horizontal.js";
+import { altura_máxima, elevar_elementos, límite_altura } from "../posicionador/vertical.js";
 
 let desplazador_h = null;
 let barra_h = null;
@@ -240,7 +242,7 @@ function sobre_barra_v_dedo(dedo) {
 	return pos_dado > inferior && pos_dado < superior;
 }
 
-function actualizar_barra_lateral() {
+export function actualizar_barra_lateral() {
 	const barra = document.getElementById("barra_vertical");
 	const longitud = document.getElementById("desplazador_vertical").clientHeight;
 	const altura_visible = (Number(altura_máxima()) + 1) * 22 - 2;

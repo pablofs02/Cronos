@@ -1,4 +1,7 @@
 import { crear_div } from "../../util/elementos.js";
+import { ajustar_todo } from "../visor.js";
+
+export let escala = 100;
 
 export function escuchar_escalador() {
 	const aumentar = document.getElementById("aumentar");

@@ -1,4 +1,10 @@
-import { altura_actual, bajar_barra, desactivar_barra_lateral } from "../partes/desplazador.js";
+import { en_años } from "../../util/elementos.js";
+import { activar_barra_lateral, actualizar_barra_lateral, altura_actual, bajar_barra, desactivar_barra_lateral } from "../partes/desplazador.js";
+import { crear_etiqueta_grupo, grupos } from "./grupos.js";
+
+let periodos_visitados = [];
+let periodos_chocados = [];
+let altura_grupo_anterior = 0;
 
 export function definir_altitud() {
 	const periodos = document.getElementById("periodos").children;
@@ -47,11 +53,11 @@ export function comprobar_altura() {
 	elevar_elementos();
 }
 
-function límite_altura() {
+export function límite_altura() {
 	return document.getElementById("mostrador").clientHeight;
 }
 
-function altura_máxima() {
+export function altura_máxima() {
 	const periodos = document.getElementById("periodos").children;
 	let máximo = 0;
 	for (let i = 0; i < periodos.length; i++) {
@@ -120,4 +126,12 @@ export function elevar_elementos() {
 		const posición_desplazada = posición_base - desplazamiento;
 		periodo.style.bottom = posición_desplazada + "px";
 	}
+}
+
+function vaciar_visitados() {
+	periodos_visitados = periodos_visitados.slice(-1, -1);
+}
+
+function vaciar_chocados() {
+	periodos_chocados = periodos_chocados.slice(-1, -1);
 }
