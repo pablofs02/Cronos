@@ -1,6 +1,6 @@
 import { guardar_tempo } from "../../util/almacenamiento.js";
 import { en_años } from "../../util/elementos.js";
-import { actualizar_límites, visualizar_tempo } from "../../visor/visor.js";
+import { actualizar_límites, actualizar_máximo, actualizar_mínimo, visualizar_tempo } from "../../visor/visor.js";
 import { borrar_evento_anterior, borrar_periodo_anterior, crear_evento, crear_periodo, tempo_actual } from "./editor.js";
 
 export function escuchar_ventanas() {
@@ -70,7 +70,8 @@ function escuchar_formulario_periodo() {
 			visualizar_tempo(tempo_actual);
 			if (editando_periodo())
 				borrar_periodo_anterior();
-			actualizar_límites(entrada);
+			actualizar_mínimo({ inicio: { año: entrada.target.inicio_año.value, mes: entrada.target.inicio_mes.value, día: entrada.target.inicio_día.value } });
+			actualizar_máximo({ fin: { año: entrada.target.fin_año.value, mes: entrada.target.fin_mes.value, día: entrada.target.fin_día.value } });
 			guardar_tempo(tempo_actual);
 			restablecer_periodo();
 		} else

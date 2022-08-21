@@ -20,3 +20,14 @@ export function en_años(fecha) {
 		tiempo += Number(fecha.día / 365);
 	return tiempo;
 }
+
+export function en_objeto(año) {
+	const fecha = {
+		año: parseInt(año)
+	};
+	if (año - fecha.año)
+		fecha.mes = parseInt((año - fecha.año) * 12);
+	if (año - fecha.año - fecha.mes / 12)
+		fecha.día = parseInt((año - fecha.año - fecha.mes / 12) * 365);
+	return fecha;
+}

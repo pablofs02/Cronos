@@ -1,4 +1,4 @@
-import { desplazar_elementos, elevar_elementos } from "../visor/visor.js";
+import { desplazar_elementos, elevar_elementos } from "../visor.js";
 
 let desplazador_h = null;
 let barra_h = null;
@@ -238,4 +238,26 @@ function sobre_barra_v_dedo(dedo) {
 	const compensación = dedo.touches[0].pageY - desplazador_v.getBoundingClientRect().top;
 	const pos_dado = desplazador_v.clientHeight - compensación;
 	return pos_dado > inferior && pos_dado < superior;
+}
+
+function actualizar_barra_lateral() {
+	const barra = document.getElementById("barra_vertical");
+	const longitud = document.getElementById("desplazador_vertical").clientHeight;
+	const altura_visible = (Number(altura_máxima()) + 1) * 22 - 2;
+	barra.style.height = longitud * límite_altura() / altura_visible + "px";
+}
+
+function cargar_desplazador() {
+	const desplazador = crear_div("desplazador");
+	desplazador.appendChild(crear_desplazador("horizontal"));
+	desplazador.appendChild(crear_desplazador("vertical"));
+	return desplazador;
+}
+
+function crear_desplazador(x) {
+	const nodo = crear_div("desplazador_" + x);
+	if (x === "vertical") nodo.classList.add("oculto");
+	nodo.appendChild(crear_div("barra_" + x));
+	nodo.appendChild(crear_div("barra_" + x + "_protector"));
+	return nodo;
 }
