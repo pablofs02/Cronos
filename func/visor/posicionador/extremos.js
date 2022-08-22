@@ -1,3 +1,4 @@
+import { tempo_actual } from "../../modo/editor/editor.js";
 import { guardar_tempo } from "../../util/almacenamiento.js";
 import { en_años } from "../../util/elementos.js";
 import { hay_grupos } from "./grupos.js";
@@ -19,8 +20,10 @@ export function actualizar_mínimo(objeto) {
 
 function comprobar_mínimo(fecha) {
 	if (mínimo) {
-		if (en_años(mínimo) > en_años(fecha))
+		if (en_años(mínimo) > en_años(fecha)) {
 			mínimo = fecha;
+			tempo_actual.inicio = fecha;
+		}
 	} else
 		mínimo = fecha;
 }
@@ -34,8 +37,10 @@ export function actualizar_máximo(objeto) {
 
 function comprobar_máximo(fecha) {
 	if (máximo) {
-		if (en_años(máximo) < en_años(fecha))
+		if (en_años(máximo) < en_años(fecha)) {
 			máximo = fecha;
+			tempo_actual.fin = fecha;
+		}
 	} else
 		máximo = fecha;
 }
@@ -48,12 +53,12 @@ export function añadir_margen() {
 }
 
 export function definir_límites(tempo) {
-	if (tempo.inicio)
+	if (tempo.inicio.año)
 		mínimo = tempo.inicio;
 	else
 		definir_mínimo(tempo);
 
-	if (tempo.fin)
+	if (tempo.fin.año)
 		máximo = tempo.fin;
 	else
 		definir_máximo(tempo);

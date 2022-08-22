@@ -13,7 +13,7 @@ export function crear_div(id) {
 }
 
 export function en_años(fecha) {
-	let tiempo = fecha.año;
+	let tiempo = Number(fecha.año);
 	if (fecha.mes)
 		tiempo += Number(fecha.mes / 12);
 	if (fecha.día)

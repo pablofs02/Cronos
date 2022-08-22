@@ -1,5 +1,6 @@
 import { guardar_tempo } from "../../util/almacenamiento.js";
 import { en_años } from "../../util/elementos.js";
+import { actualizar_máximo, actualizar_mínimo } from "../../visor/posicionador/extremos.js";
 import { visualizar_tempo } from "../../visor/visor.js";
 import { borrar_evento_anterior, borrar_periodo_anterior, crear_evento, crear_periodo, tempo_actual } from "./editor.js";
 
@@ -62,7 +63,7 @@ function escuchar_ventana_periodo() {
 
 function escuchar_formulario_periodo() {
 	const formulario_periodo = document.getElementById("formulario_periodo");
-	formulario_periodo.addEventListener("submit", (entrada) => {
+	formulario_periodo.addEventListener("submit", entrada => {
 		entrada.preventDefault();
 		const periodo = crear_periodo(entrada.target);
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
@@ -70,8 +71,8 @@ function escuchar_formulario_periodo() {
 			visualizar_tempo(tempo_actual);
 			if (editando_periodo())
 				borrar_periodo_anterior();
-			actualizar_mínimo({ inicio: { año: entrada.target.inicio_año.value, mes: entrada.target.inicio_mes.value, día: entrada.target.inicio_día.value } });
-			actualizar_máximo({ fin: { año: entrada.target.fin_año.value, mes: entrada.target.fin_mes.value, día: entrada.target.fin_día.value } });
+			actualizar_mínimo(periodo);
+			actualizar_máximo(periodo);
 			guardar_tempo(tempo_actual);
 			restablecer_periodo();
 		} else
