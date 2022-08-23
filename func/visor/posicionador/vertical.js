@@ -1,6 +1,6 @@
 import { en_años } from "../../util/elementos.js";
 import { activar_barra_lateral, actualizar_barra_lateral, altura_actual, bajar_barra, desactivar_barra_lateral } from "../partes/desplazador.js";
-import { crear_etiqueta_grupo, grupos } from "./grupos.js";
+import { actualizar_etiqueta_grupo, crear_etiqueta_grupo, grupos } from "./grupos.js";
 
 let periodos_visitados = [];
 let periodos_chocados = [];
