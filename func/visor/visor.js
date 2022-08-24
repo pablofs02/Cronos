@@ -30,10 +30,8 @@ function estar_cargado_visor_en_panel() {
 }
 
 function limpiar_panel() {
-	document.getElementById("panel").children[1].remove();
-	const botones = document.getElementById("botones");
-	while (botones.firstChild)
-		botones.firstChild.remove();
+	document.getElementById("panel").innerHTML = "";
+	document.getElementById("panel").appendChild(crear_div("botones"));
 }
 
 export function configurar_visor() {
