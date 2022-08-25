@@ -1,6 +1,6 @@
 import { borrar_tempo } from "../../util/almacenamiento.js";
-import { cargar_editor } from "../editor/editor.js";
-import { cargar_vista } from "../vista/vista.js";
+import { cargar_editor } from "../editor/cargador.js";
+import { cargar_vista } from "../vista/cargador.js";
 
 export function crear_botones(tempo) {
 	const opciones = document.createElement("div");

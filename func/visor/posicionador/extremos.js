@@ -1,4 +1,4 @@
-import { tempo_actual } from "../../modo/editor/editor.js";
+import { tempo_actual } from "../../modo/editor/cargador.js";
 import { guardar_tempo } from "../../util/almacenamiento.js";
 import { en_años, en_objeto } from "../../util/elementos.js";
 import { hay_grupos } from "./grupos.js";

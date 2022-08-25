@@ -1,7 +1,4 @@
-import { traducir_editor } from "../modo/editor/editor.js";
-import { traducir_tablero } from "../modo/tablero/tablero.js";
-import { traducir_visor } from "../visor/visor.js";
-import { cambiar_cabecera as traducir_cabecera } from "../util/cabecera.js";
+import { traducir_cabecera } from "../util/cabecera.js";
 import carga_json from "../util/json.js";
 
 const botón_idiomas = document.getElementById("botón_idioma");

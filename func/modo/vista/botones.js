@@ -1,4 +1,4 @@
-import { cargar_editor } from "../editor/editor.js";
+import { cargar_editor } from "../editor/cargador.js";
 
 export function cargar_botones_vista() {
 	if (!estar_cargado_botones_vista()) {
