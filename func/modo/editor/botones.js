@@ -5,11 +5,18 @@ import { cerrar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from
 
 export function cargar_botones_editor() {
 	if (!estar_cargado_botones_editor()) {
+		limpiar_botones();
 		const botones = document.getElementById("botones");
 		botones.appendChild(cargar_botón_añadir_periodo());
 		botones.appendChild(cargar_botón_añadir_evento());
 		botones.appendChild(cargar_botón_editar_info_tempo());
 	}
+}
+
+function limpiar_botones() {
+	const botones = document.getElementById("botones");
+	while (botones.firstChild)
+		botones.firstChild.remove();
 }
 
 export function traducir_botones(botones) {
