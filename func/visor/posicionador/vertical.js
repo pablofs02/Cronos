@@ -28,6 +28,9 @@ export function definir_altitud() {
 			actualizar_etiqueta_grupo(etiqueta, altura_grupo_anterior);
 		vaciar_visitados();
 	}
+	periodos_visitados = [];
+	periodos_chocados = [];
+	altura_grupo_anterior = 0;
 	actualizar_altitud();
 }
 
