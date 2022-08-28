@@ -64,9 +64,14 @@ function definir_idioma_actual() {
 		localStorage.setItem("idioma", idioma_actual());
 }
 
-function idioma_actual() {
+function lang_actual() {
 	const documento = document.querySelector("html");
 	const lang = documento.getAttribute("lang");
+	return lang;
+}
+
+function idioma_actual() {
+	const lang = lang_actual();
 	const posición = Object.values(idiomas).indexOf(lang);
 	return Object.keys(idiomas)[posición];
 }
