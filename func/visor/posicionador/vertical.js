@@ -1,6 +1,6 @@
 import { en_años } from "../../util/elementos.js";
 import { activar_barra_lateral, actualizar_barra_lateral, altura_actual, bajar_barra, desactivar_barra_lateral } from "../partes/desplazador.js";
-import { actualizar_etiqueta_grupo, crear_etiqueta_grupo, grupos } from "./grupos.js";
+import { actualizar_etiqueta_grupo, crear_etiqueta_grupo, grupos, vaciar_grupos } from "./grupos.js";
 
 let periodos_visitados = [];
 let periodos_chocados = [];
@@ -28,9 +28,10 @@ export function definir_altitud() {
 			actualizar_etiqueta_grupo(etiqueta, altura_grupo_anterior);
 		vaciar_visitados();
 	}
-	periodos_visitados = [];
-	periodos_chocados = [];
 	altura_grupo_anterior = 0;
+	vaciar_visitados();
+	vaciar_chocados();
+	vaciar_grupos();
 	actualizar_altitud();
 }
 
@@ -132,9 +133,9 @@ export function elevar_elementos() {
 }
 
 function vaciar_visitados() {
-	periodos_visitados = periodos_visitados.slice(-1, -1);
+	periodos_visitados = [];
 }
 
 function vaciar_chocados() {
-	periodos_chocados = periodos_chocados.slice(-1, -1);
+	periodos_chocados = [];
 }

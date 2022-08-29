@@ -1,4 +1,4 @@
-export const grupos = {};
+export let grupos = {};
 
 export function crear_etiqueta_grupo(grupo, altura, primero) {
 	const nodo = document.createElement("div");
@@ -34,4 +34,8 @@ export function agregar_a_grupo(grupo, id) {
 	} else {
 		grupos[grupo] = [id];
 	}
+}
+
+export function vaciar_grupos() {
+	grupos = {};
 }
