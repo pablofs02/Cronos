@@ -34,11 +34,13 @@ export function desactivar_barra_lateral() {
 }
 
 export function escuchar_desplazadores() {
+	escuchar_desplazador_horizontal();
+	escuchar_desplazador_vertical();
+}
+
+function escuchar_desplazador_horizontal() {
 	desplazador_h = document.getElementById("desplazador_horizontal");
 	barra_h = document.getElementById("barra_horizontal");
-
-	desplazador_v = document.getElementById("desplazador_vertical");
-	barra_v = document.getElementById("barra_vertical");
 
 	desplazador_h.addEventListener("mousedown", (ratón) => {
 		if (!sobre_barra_h(ratón)) {
@@ -50,6 +52,61 @@ export function escuchar_desplazadores() {
 		agarrando_h = true;
 		document.body.style.cursor = "grabbing";
 	});
+
+	document.body.addEventListener("mousedown", (ratón) => {
+		if (agarrando_h) {
+			posición_inicial_x = ratón.pageX;
+		}
+	});
+
+	desplazador_h.addEventListener("touchstart", (dedo) => {
+		if (!sobre_barra_h_dedo(dedo)) {
+			const compensación = dedo.touches[0].pageX - desplazador_h.getBoundingClientRect().left;
+			barra_h.style.left = compensación - (barra_h.clientWidth / 2) + "px";
+			comprobar_límites_h();
+			desplazar_elementos();
+		}
+		posición_inicial_barra_h = desunizar(barra_h.style.left);
+		agarrando_h = true;
+	});
+
+	document.body.addEventListener("mousemove", (ratón) => {
+		if (agarrando_h) {
+			const diferencia_ratón_x = ratón.pageX - posición_inicial_x;
+			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
+			barra_h.style.left = movimiento_x + "px";
+			comprobar_límites_h();
+			desplazar_elementos();
+		}
+	});
+
+	document.body.addEventListener("mouseup", () => {
+		if (agarrando_h) {
+			agarrando_h = false;
+			document.body.style.cursor = "";
+		}
+	});
+
+	document.body.addEventListener("touchstart", (dedo) => {
+		if (agarrando_h) {
+			posición_inicial_x = dedo.touches[0].pageX;
+		}
+	});
+
+	document.body.addEventListener("touchmove", (dedo) => {
+		if (agarrando_h) {
+			const diferencia_x = dedo.touches[0].pageX - posición_inicial_x;
+			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_x);
+			barra_h.style.left = movimiento_x + "px";
+			comprobar_límites_h();
+			desplazar_elementos();
+		}
+	});
+}
+
+function escuchar_desplazador_vertical() {
+	desplazador_v = document.getElementById("desplazador_vertical");
+	barra_v = document.getElementById("barra_vertical");
 
 	desplazador_v.addEventListener("mousedown", (ratón) => {
 		if (!sobre_barra_v(ratón)) {
@@ -63,22 +120,12 @@ export function escuchar_desplazadores() {
 	});
 
 	document.body.addEventListener("mousedown", (ratón) => {
-		if (agarrando_h) {
-			posición_inicial_x = ratón.pageX;
-		}
 		if (agarrando_v) {
 			posición_inicial_y = ratón.pageY;
 		}
 	});
 
 	document.body.addEventListener("mousemove", (ratón) => {
-		if (agarrando_h) {
-			const diferencia_ratón_x = ratón.pageX - posición_inicial_x;
-			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
-			barra_h.style.left = movimiento_x + "px";
-			comprobar_límites_h();
-			desplazar_elementos();
-		}
 		if (agarrando_v) {
 			const diferencia_ratón_y = -(ratón.pageY - posición_inicial_y);
 			const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_ratón_y);
@@ -89,25 +136,10 @@ export function escuchar_desplazadores() {
 	});
 
 	document.body.addEventListener("mouseup", () => {
-		if (agarrando_h) {
-			agarrando_h = false;
-			document.body.style.cursor = "";
-		}
 		if (agarrando_v) {
 			agarrando_v = false;
 			document.body.style.cursor = "";
 		}
-	});
-
-	desplazador_h.addEventListener("touchstart", (dedo) => {
-		if (!sobre_barra_h_dedo(dedo)) {
-			const compensación = dedo.touches[0].pageX - desplazador_h.getBoundingClientRect().left;
-			barra_h.style.left = compensación - (barra_h.clientWidth / 2) + "px";
-			comprobar_límites_h();
-			desplazar_elementos();
-		}
-		posición_inicial_barra_h = desunizar(barra_h.style.left);
-		agarrando_h = true;
 	});
 
 	desplazador_v.addEventListener("touchstart", (dedo) => {
@@ -123,22 +155,12 @@ export function escuchar_desplazadores() {
 	});
 
 	document.body.addEventListener("touchstart", (dedo) => {
-		if (agarrando_h) {
-			posición_inicial_x = dedo.touches[0].pageX;
-		}
 		if (agarrando_v) {
 			posición_inicial_y = dedo.touches[0].pageY;
 		}
 	});
 
 	document.body.addEventListener("touchmove", (dedo) => {
-		if (agarrando_h) {
-			const diferencia_x = dedo.touches[0].pageX - posición_inicial_x;
-			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_x);
-			barra_h.style.left = movimiento_x + "px";
-			comprobar_límites_h();
-			desplazar_elementos();
-		}
 		if (agarrando_v) {
 			const diferencia_y = -(dedo.touches[0].pageY - posición_inicial_y);
 			const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_y);
