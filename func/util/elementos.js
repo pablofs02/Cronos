@@ -31,3 +31,7 @@ export function en_objeto(año) {
 		fecha.día = parseInt((año - fecha.año - fecha.mes / 12) * 365);
 	return fecha;
 }
+
+export function desunizar(variable) {
+	return variable.substring(0, variable.length - 2);
+}
