@@ -1,3 +1,6 @@
+import { desunizar } from "../../../util/elementos.js";
+import { desplazar_elementos } from "../../posicionador/horizontal.js";
+
 let desplazador_h = null;
 let barra_h = null;
 

@@ -1,3 +1,6 @@
+import { desunizar } from "../../../util/elementos.js";
+import { elevar_elementos } from "../../posicionador/vertical.js";
+
 let desplazador_v = null;
 let barra_v = null;
 

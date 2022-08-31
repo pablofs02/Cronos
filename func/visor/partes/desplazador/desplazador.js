@@ -1,4 +1,4 @@
-import { crear_div } from "../../util/elementos.js";
+import { crear_div } from "../../../util/elementos.js";
 import { escuchar_barra_horizontal } from "./barra_horizontal.js";
 import { escuchar_desplazador_vertical } from "./barra_vertical.js";
 

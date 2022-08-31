@@ -1,5 +1,5 @@
 import { en_años } from "../../util/elementos.js";
-import { longitud_visor, posición_actual } from "../partes/desplazador.js";
+import { longitud_visor, posición_actual } from "../partes/desplazador/barra_horizontal.js";
 import { escala } from "../partes/escalador.js";
 import { máximo, mínimo } from "./extremos.js";
 
