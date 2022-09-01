@@ -20,6 +20,11 @@ export function escuchar_desplazador_vertical() {
 	desplazador = document.getElementById("desplazador_vertical");
 	barra = document.getElementById("barra_vertical");
 
+	escuchar_acciones_de_ratón();
+	escuchar_acciones_táctiles();
+}
+
+function escuchar_acciones_de_ratón() {
 	desplazador.addEventListener("mousedown", ratón => {
 		if (!sobre_barra_v(ratón)) {
 			barra.style.bottom = (desplazador.clientHeight - ratón.offsetY) - (barra.clientHeight / 2) + "px";
@@ -53,7 +58,9 @@ export function escuchar_desplazador_vertical() {
 			document.body.style.cursor = "";
 		}
 	});
+}
 
+function escuchar_acciones_táctiles() {
 	desplazador.addEventListener("touchstart", dedo => {
 		if (!sobre_barra_v_dedo(dedo)) {
 			const compensación = dedo.touches[0].clientY - desplazador.getBoundingClientRect().top;

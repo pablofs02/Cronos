@@ -11,6 +11,11 @@ export function escuchar_barra_horizontal() {
 	desplazador = document.getElementById("desplazador_horizontal");
 	barra = document.getElementById("barra_horizontal");
 
+	escuchar_acciones_de_ratón();
+	escuchar_acciones_táctiles();
+}
+
+function escuchar_acciones_de_ratón() {
 	desplazador.addEventListener("mousedown", ratón => {
 		if (!sobre_barra_h(ratón)) {
 			barra.style.left = ratón.offsetX - (barra.clientWidth / 2) + "px";
@@ -28,17 +33,6 @@ export function escuchar_barra_horizontal() {
 		}
 	});
 
-	desplazador.addEventListener("touchstart", dedo => {
-		if (!sobre_barra_h_dedo(dedo)) {
-			const compensación = dedo.touches[0].pageX - desplazador.getBoundingClientRect().left;
-			barra.style.left = compensación - (barra.clientWidth / 2) + "px";
-			comprobar_límites_h();
-			desplazar_elementos();
-		}
-		posición_inicial_barra = desunizar(barra.style.left);
-		agarrando = true;
-	});
-
 	document.body.addEventListener("mousemove", ratón => {
 		if (agarrando) {
 			const diferencia_ratón_x = ratón.pageX - posición_inicial;
@@ -54,6 +48,19 @@ export function escuchar_barra_horizontal() {
 			agarrando = false;
 			document.body.style.cursor = "";
 		}
+	});
+}
+
+function escuchar_acciones_táctiles() {
+	desplazador.addEventListener("touchstart", dedo => {
+		if (!sobre_barra_h_dedo(dedo)) {
+			const compensación = dedo.touches[0].pageX - desplazador.getBoundingClientRect().left;
+			barra.style.left = compensación - (barra.clientWidth / 2) + "px";
+			comprobar_límites_h();
+			desplazar_elementos();
+		}
+		posición_inicial_barra = desunizar(barra.style.left);
+		agarrando = true;
 	});
 
 	document.body.addEventListener("touchstart", dedo => {
