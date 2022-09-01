@@ -4,47 +4,43 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="archivos/imágenes/logo.png">
+	<link rel="shortcut icon" href="archivos/logo.png">
 	<link rel="stylesheet" href="estilos/principal.css">
-	<link rel="stylesheet" href="estilos/colección.css">
-	<link rel="stylesheet" href="estilos/oscuro.css" id="tema">
+	<link rel="stylesheet" href="estilos/panel/tablero.css">
+	<link rel="stylesheet" href="estilos/panel/visor.css">
+	<link rel="stylesheet" href="estilos/temas/oscuro.css" id="tema">
 	<title> Cronos - Líneas Temporales </title>
 </head>
 
 <body>
-	<div id="pantalla_ocultar" class="pantalla_ocultar oculto"></div>
+	<div id="ocultador" class="ocultador oculto"></div>
+	<div id="ventanas"></div>
 
 	<header class="cabecera">
 		<div id="inicio" class="cabecera">
-			<img id="logo" src="archivos/imágenes/logo.png" alt="Logo-Waifu Temporal">
+			<img id="logo" src="archivos/logo.png" alt="Logo-Waifu Temporal">
 			<h1> Cronos </h1>
 		</div>
 		<div>
-			<button id="b_colección" class="botón"> Mis Tempos </button>
+			<button id="b_tablero" class="botón"> Mis Tempos </button>
 			<button id="creador" class="botón"> Nuevo Tempo </button>
 		</div>
 		<div id="opciones">
-			<img id="botón_idioma" src="archivos/imágenes/banderas/es.png" alt="Idioma">
+			<img id="botón_idioma" src="archivos/banderas/es.png" alt="Idioma">
 			<ul id="lista_idioma" class="oculto"></ul>
-			<input id="botón_tema" type="image" src="archivos/vectores/modo_claro.svg" alt="Cambiar a modo claro">
+			<input id="botón_tema" type="image" src="archivos/temas/modo_claro.svg" alt="Cambiar a modo claro">
 		</div>
 	</header>
 
 	<main>
 		<div style="height: 20px;"></div>
-		<div class="panel">
-			<div class="botones">
-				<button id="cargar_tempo" class="botón"> Cargar Tempo </button>
-				<input id="cargar_real" class="oculto" type="file" accept=".json" multiple>
-				<button id="descargar_todo" class="botón"> Descargar Todo </button>
-				<button id="borrar_todo" class="botón"> Borrar Todo </button>
-			</div>
-
-			<div id="colección"></div>
+		<div id="panel">
+			<div id="botones" class="botones"></div>
+			<div id="tablero"></div>
 		</div>
 	</main>
 
-	<script src="funciones/principal.js" type="module"></script>
+	<script src="func/principal.js" type="module"></script>
 	<script src="https://kit.fontawesome.com/9fbde9ecdb.js" crossorigin="anonymous"></script>
 </body>
 

@@ -6,7 +6,7 @@
 			"título": "Cronos"
 		},
 		"botones": {
-			"colección": "My Tempos",
+			"tablero": "My Tempos",
 			"creador": "New Tempo"
 		}
 	},
@@ -17,7 +17,7 @@
 			"claro_alt": "Change to light theme"
 		}
 	},
-	"colección": {
+	"tablero": {
 		"botones": {
 			"cargar": "Upload Tempo",
 			"descargar": "Download All",
@@ -32,7 +32,7 @@
 			"tempo": "Edit Tempo"
 		}
 	},
-	"visualizador": {
+	"visor": {
 		"botones": {
 			"editor": "Edit Tempo"
 		}

@@ -1,0 +1,19 @@
+:root {
+	--fondo_base: #223;
+	--fondo_cabecera: #448;
+	--fondo_selección: #ccc;
+	--fondo_visor: #000;
+	--fondo_tablero: #a33;
+	--fondo_formulario: #29f;
+	--borde: #666;
+	--fuente: #000;
+	--periodo: #29f;
+	--evento: #f22;
+	--botón: #f70;
+	--azul: #44f;
+	--verde: #4d4;
+	--amarillo: #dd0;
+	--naranja: #fa0;
+	--rojo: #f00;
+	--negro: #000;
+}

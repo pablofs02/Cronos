@@ -6,7 +6,7 @@
 			"título": "Cronos"
 		},
 		"botones": {
-			"colección": "Mis Tempos",
+			"tablero": "Mis Tempos",
 			"creador": "Nuevo Tempo"
 		}
 	},
@@ -17,7 +17,7 @@
 			"claro_alt": "Cambiar a modo claro"
 		}
 	},
-	"colección": {
+	"tablero": {
 		"botones": {
 			"cargar": "Cargar Tempo",
 			"descargar": "Descargar Todo",
@@ -32,7 +32,7 @@
 			"tempo": "Editar Tempo"
 		}
 	},
-	"visualizador": {
+	"visor": {
 		"botones": {
 			"editor": "Editar Tempo"
 		}
