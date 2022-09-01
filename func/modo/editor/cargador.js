@@ -62,7 +62,7 @@ export function crear_evento(info) {
 	return evento;
 }
 
-function escuchar_elementos() {
+export function escuchar_elementos() {
 	escuchar_periodos();
 	escuchar_eventos();
 }
