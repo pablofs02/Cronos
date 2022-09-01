@@ -22,16 +22,16 @@ export function escuchar_escalador() {
 }
 
 export function cargar_escalador() {
-	const nodo = crear_div("proporcionador");
+	const nodo = crear_div("escalador");
 	const aumentar = crear_div("aumentar");
-	aumentar.classList.add("proporción");
+	aumentar.classList.add("escalador");
 	const mas = document.createElement("span");
 	mas.classList.add("más");
 	mas.textContent = "+";
 	aumentar.appendChild(mas);
 	nodo.appendChild(aumentar);
 	const disminuir = crear_div("disminuir");
-	disminuir.classList.add("proporción");
+	disminuir.classList.add("escalador");
 	const menos = document.createElement("span");
 	menos.classList.add("menos");
 	menos.textContent = "-";

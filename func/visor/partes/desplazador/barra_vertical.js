@@ -1,82 +1,82 @@
 import { desunizar } from "../../../util/elementos.js";
 import { elevar_elementos } from "../../posicionador/vertical.js";
 
-let desplazador_v = null;
-let barra_v = null;
+let desplazador = null;
+let barra = null;
 
-let agarrando_v = false;
-let posición_inicial_barra_v = 0;
-let posición_inicial_y = 0;
+let agarrando = false;
+let posición_inicial_barra = 0;
+let posición_inicial = 0;
 
 export function activar_barra_lateral() {
-	desplazador_v.classList.remove("oculto");
+	desplazador.classList.remove("oculto");
 }
 
 export function desactivar_barra_lateral() {
-	desplazador_v.classList.add("oculto");
+	desplazador.classList.add("oculto");
 }
 
 export function escuchar_desplazador_vertical() {
-	desplazador_v = document.getElementById("desplazador_vertical");
-	barra_v = document.getElementById("barra_vertical");
+	desplazador = document.getElementById("desplazador_vertical");
+	barra = document.getElementById("barra_vertical");
 
-	desplazador_v.addEventListener("mousedown", (ratón) => {
+	desplazador.addEventListener("mousedown", ratón => {
 		if (!sobre_barra_v(ratón)) {
-			barra_v.style.bottom = (desplazador_v.clientHeight - ratón.offsetY) - (barra_v.clientHeight / 2) + "px";
+			barra.style.bottom = (desplazador.clientHeight - ratón.offsetY) - (barra.clientHeight / 2) + "px";
 			comprobar_límites_v();
 			elevar_elementos();
 		}
-		posición_inicial_barra_v = desunizar(barra_v.style.bottom);
-		agarrando_v = true;
+		posición_inicial_barra = desunizar(barra.style.bottom);
+		agarrando = true;
 		document.body.style.cursor = "grabbing";
 	});
 
-	document.body.addEventListener("mousedown", (ratón) => {
-		if (agarrando_v) {
-			posición_inicial_y = ratón.pageY;
+	document.body.addEventListener("mousedown", ratón => {
+		if (agarrando) {
+			posición_inicial = ratón.pageY;
 		}
 	});
 
-	document.body.addEventListener("mousemove", (ratón) => {
-		if (agarrando_v) {
-			const diferencia_ratón_y = -(ratón.pageY - posición_inicial_y);
-			const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_ratón_y);
-			barra_v.style.bottom = movimiento_y + "px";
+	document.body.addEventListener("mousemove", ratón => {
+		if (agarrando) {
+			const diferencia_ratón_y = -(ratón.pageY - posición_inicial);
+			const movimiento_y = Number(posición_inicial_barra) + Number(diferencia_ratón_y);
+			barra.style.bottom = movimiento_y + "px";
 			comprobar_límites_v();
 			elevar_elementos();
 		}
 	});
 
 	document.body.addEventListener("mouseup", () => {
-		if (agarrando_v) {
-			agarrando_v = false;
+		if (agarrando) {
+			agarrando = false;
 			document.body.style.cursor = "";
 		}
 	});
 
-	desplazador_v.addEventListener("touchstart", (dedo) => {
+	desplazador.addEventListener("touchstart", dedo => {
 		if (!sobre_barra_v_dedo(dedo)) {
-			const compensación = dedo.touches[0].clientY - desplazador_v.getBoundingClientRect().top;
-			barra_v.style.bottom = compensación - (barra_v.clientHeight / 2) + "px";
+			const compensación = dedo.touches[0].clientY - desplazador.getBoundingClientRect().top;
+			barra.style.bottom = compensación - (barra.clientHeight / 2) + "px";
 			comprobar_límites_v();
 			elevar_elementos();
 		}
-		posición_inicial_barra_v = desunizar(barra_v.style.bottom);
-		agarrando_v = true;
+		posición_inicial_barra = desunizar(barra.style.bottom);
+		agarrando = true;
 		document.body.style.cursor = "grabbing";
 	});
 
-	document.body.addEventListener("touchstart", (dedo) => {
-		if (agarrando_v) {
-			posición_inicial_y = dedo.touches[0].pageY;
+	document.body.addEventListener("touchstart", dedo => {
+		if (agarrando) {
+			posición_inicial = dedo.touches[0].pageY;
 		}
 	});
 
-	document.body.addEventListener("touchmove", (dedo) => {
-		if (agarrando_v) {
-			const diferencia_y = -(dedo.touches[0].pageY - posición_inicial_y);
-			const movimiento_y = Number(posición_inicial_barra_v) + Number(diferencia_y);
-			barra_v.style.bottom = movimiento_y + "px";
+	document.body.addEventListener("touchmove", dedo => {
+		if (agarrando) {
+			const diferencia_y = -(dedo.touches[0].pageY - posición_inicial);
+			const movimiento_y = Number(posición_inicial_barra) + Number(diferencia_y);
+			barra.style.bottom = movimiento_y + "px";
 			comprobar_límites_v();
 			elevar_elementos();
 		}
@@ -84,49 +84,49 @@ export function escuchar_desplazador_vertical() {
 }
 
 export function altura_actual() {
-	const longitud_absoluta = desplazador_v.clientHeight;
-	const longitud_relativa = longitud_absoluta - desunizar(barra_v.style.height);
-	const posición_relativa = desunizar(barra_v.style.bottom);
+	const longitud_absoluta = desplazador.clientHeight;
+	const longitud_relativa = longitud_absoluta - desunizar(barra.style.height);
+	const posición_relativa = desunizar(barra.style.bottom);
 	const posición_absoluta = longitud_absoluta / longitud_relativa * posición_relativa;
 	const posición_absoluta_sobre_100 = 100 / longitud_absoluta * posición_absoluta;
 	return posición_absoluta_sobre_100;
 }
 
 export function bajar_barra() {
-	barra_v.style.bottom = "0px";
+	barra.style.bottom = "0px";
 }
 
 function comprobar_límites_v() {
 	if (límite_inferior())
-		barra_v.style.bottom = "0px";
+		barra.style.bottom = "0px";
 	if (límite_superior())
-		barra_v.style.bottom = desplazador_v.clientHeight - barra_v.clientHeight + "px";
+		barra.style.bottom = desplazador.clientHeight - barra.clientHeight + "px";
 }
 
 function límite_inferior() {
-	const posición_barra = Number(desunizar(barra_v.style.bottom));
+	const posición_barra = Number(desunizar(barra.style.bottom));
 	const mínimo_barra = 0;
 	return posición_barra < mínimo_barra;
 }
 
 function límite_superior() {
-	const posición_barra = Number(desunizar(barra_v.style.bottom));
-	const máximo_barra = Number(desplazador_v.clientHeight - barra_v.clientHeight);
+	const posición_barra = Number(desunizar(barra.style.bottom));
+	const máximo_barra = Number(desplazador.clientHeight - barra.clientHeight);
 	return posición_barra > máximo_barra;
 }
 
 function sobre_barra_v(ratón) {
-	const inferior = desunizar(barra_v.style.bottom);
-	const superior = Number(inferior) + Number(barra_v.clientHeight);
-	const pos_ratón = desplazador_v.clientHeight - ratón.offsetY;
+	const inferior = desunizar(barra.style.bottom);
+	const superior = Number(inferior) + Number(barra.clientHeight);
+	const pos_ratón = desplazador.clientHeight - ratón.offsetY;
 	return pos_ratón > inferior && pos_ratón < superior;
 }
 
 function sobre_barra_v_dedo(dedo) {
-	const inferior = desunizar(barra_v.style.bottom);
-	const superior = Number(inferior) + Number(barra_v.clientHeight);
-	const compensación = dedo.touches[0].pageY - desplazador_v.getBoundingClientRect().top;
-	const pos_dado = desplazador_v.clientHeight - compensación;
+	const inferior = desunizar(barra.style.bottom);
+	const superior = Number(inferior) + Number(barra.clientHeight);
+	const compensación = dedo.touches[0].pageY - desplazador.getBoundingClientRect().top;
+	const pos_dado = desplazador.clientHeight - compensación;
 	return pos_dado > inferior && pos_dado < superior;
 }
 

@@ -1,73 +1,72 @@
 import { desunizar } from "../../../util/elementos.js";
 import { desplazar_elementos } from "../../posicionador/horizontal.js";
 
-let desplazador_h = null;
-let barra_h = null;
+let desplazador, barra;
 
-let agarrando_h = false;
-let posición_inicial_barra_h = 0;
-let posición_inicial_x = 0;
+let agarrando = false;
+let posición_inicial_barra = 0;
+let posición_inicial = 0;
 
 export function escuchar_barra_horizontal() {
-	desplazador_h = document.getElementById("desplazador_horizontal");
-	barra_h = document.getElementById("barra_horizontal");
+	desplazador = document.getElementById("desplazador_horizontal");
+	barra = document.getElementById("barra_horizontal");
 
-	desplazador_h.addEventListener("mousedown", (ratón) => {
+	desplazador.addEventListener("mousedown", ratón => {
 		if (!sobre_barra_h(ratón)) {
-			barra_h.style.left = ratón.offsetX - (barra_h.clientWidth / 2) + "px";
+			barra.style.left = ratón.offsetX - (barra.clientWidth / 2) + "px";
 			comprobar_límites_h();
 			desplazar_elementos();
 		}
-		posición_inicial_barra_h = desunizar(barra_h.style.left);
-		agarrando_h = true;
+		posición_inicial_barra = desunizar(barra.style.left);
+		agarrando = true;
 		document.body.style.cursor = "grabbing";
 	});
 
-	document.body.addEventListener("mousedown", (ratón) => {
-		if (agarrando_h) {
-			posición_inicial_x = ratón.pageX;
+	document.body.addEventListener("mousedown", ratón => {
+		if (agarrando) {
+			posición_inicial = ratón.pageX;
 		}
 	});
 
-	desplazador_h.addEventListener("touchstart", (dedo) => {
+	desplazador.addEventListener("touchstart", dedo => {
 		if (!sobre_barra_h_dedo(dedo)) {
-			const compensación = dedo.touches[0].pageX - desplazador_h.getBoundingClientRect().left;
-			barra_h.style.left = compensación - (barra_h.clientWidth / 2) + "px";
+			const compensación = dedo.touches[0].pageX - desplazador.getBoundingClientRect().left;
+			barra.style.left = compensación - (barra.clientWidth / 2) + "px";
 			comprobar_límites_h();
 			desplazar_elementos();
 		}
-		posición_inicial_barra_h = desunizar(barra_h.style.left);
-		agarrando_h = true;
+		posición_inicial_barra = desunizar(barra.style.left);
+		agarrando = true;
 	});
 
-	document.body.addEventListener("mousemove", (ratón) => {
-		if (agarrando_h) {
-			const diferencia_ratón_x = ratón.pageX - posición_inicial_x;
-			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_ratón_x);
-			barra_h.style.left = movimiento_x + "px";
+	document.body.addEventListener("mousemove", ratón => {
+		if (agarrando) {
+			const diferencia_ratón_x = ratón.pageX - posición_inicial;
+			const movimiento_x = Number(posición_inicial_barra) + Number(diferencia_ratón_x);
+			barra.style.left = movimiento_x + "px";
 			comprobar_límites_h();
 			desplazar_elementos();
 		}
 	});
 
 	document.body.addEventListener("mouseup", () => {
-		if (agarrando_h) {
-			agarrando_h = false;
+		if (agarrando) {
+			agarrando = false;
 			document.body.style.cursor = "";
 		}
 	});
 
-	document.body.addEventListener("touchstart", (dedo) => {
-		if (agarrando_h) {
-			posición_inicial_x = dedo.touches[0].pageX;
+	document.body.addEventListener("touchstart", dedo => {
+		if (agarrando) {
+			posición_inicial = dedo.touches[0].pageX;
 		}
 	});
 
-	document.body.addEventListener("touchmove", (dedo) => {
-		if (agarrando_h) {
-			const diferencia_x = dedo.touches[0].pageX - posición_inicial_x;
-			const movimiento_x = Number(posición_inicial_barra_h) + Number(diferencia_x);
-			barra_h.style.left = movimiento_x + "px";
+	document.body.addEventListener("touchmove", dedo => {
+		if (agarrando) {
+			const diferencia_x = dedo.touches[0].pageX - posición_inicial;
+			const movimiento_x = Number(posición_inicial_barra) + Number(diferencia_x);
+			barra.style.left = movimiento_x + "px";
 			comprobar_límites_h();
 			desplazar_elementos();
 		}
@@ -75,52 +74,52 @@ export function escuchar_barra_horizontal() {
 }
 
 function sobre_barra_h(ratón) {
-	const izquierda = desunizar(barra_h.style.left);
-	const derecha = Number(izquierda) + Number(barra_h.clientWidth);
+	const izquierda = desunizar(barra.style.left);
+	const derecha = Number(izquierda) + Number(barra.clientWidth);
 	const pos_ratón = ratón.offsetX;
 	return pos_ratón > izquierda && pos_ratón < derecha;
 }
 
 function sobre_barra_h_dedo(dedo) {
-	const izquierda = desunizar(barra_h.style.left);
-	const derecha = Number(izquierda) + Number(barra_h.clientWidth);
-	const pos_dedo = dedo.touches[0].pageX - desplazador_h.getBoundingClientRect().left;
+	const izquierda = desunizar(barra.style.left);
+	const derecha = Number(izquierda) + Number(barra.clientWidth);
+	const pos_dedo = dedo.touches[0].pageX - desplazador.getBoundingClientRect().left;
 	return pos_dedo > izquierda && pos_dedo < derecha;
 }
 
 function límite_izquierdo() {
-	const posición_barra = Number(desunizar(barra_h.style.left));
+	const posición_barra = Number(desunizar(barra.style.left));
 	const mínimo_barra = 0;
 	return posición_barra < mínimo_barra;
 }
 
 function límite_derecho() {
-	const posición_barra = Number(desunizar(barra_h.style.left));
-	const máximo_barra = Number(desplazador_h.clientWidth - barra_h.clientWidth);
+	const posición_barra = Number(desunizar(barra.style.left));
+	const máximo_barra = Number(desplazador.clientWidth - barra.clientWidth);
 	return posición_barra > máximo_barra;
 }
 
 function comprobar_límites_h() {
 	if (límite_izquierdo())
-		barra_h.style.left = "0px";
+		barra.style.left = "0px";
 	if (límite_derecho())
-		barra_h.style.left = desplazador_h.clientWidth - barra_h.clientWidth + "px";
+		barra.style.left = desplazador.clientWidth - barra.clientWidth + "px";
 }
 
 export function posición_actual() {
-	const longitud_absoluta = desplazador_h.clientWidth;
-	const longitud_relativa = longitud_absoluta - desunizar(barra_h.style.width);
-	const posición_relativa = desunizar(barra_h.style.left);
+	const longitud_absoluta = desplazador.clientWidth;
+	const longitud_relativa = longitud_absoluta - desunizar(barra.style.width);
+	const posición_relativa = desunizar(barra.style.left);
 	const posición_absoluta = longitud_absoluta / longitud_relativa * posición_relativa;
 	const posición_absoluta_sobre_100 = 100 / longitud_absoluta * posición_absoluta;
 	return posición_absoluta_sobre_100;
 }
 
 export function longitud_visor() {
-	return desplazador_h.clientWidth;
+	return desplazador.clientWidth;
 }
 
-export function actualizar_barra_h(proporción) {
-	barra_h.style.width = (desplazador_h.clientWidth / 100) * proporción + "px";
+export function actualizar_barra_h(escalador) {
+	barra.style.width = (desplazador.clientWidth / 100) * escalador + "px";
 	comprobar_límites_h();
 }

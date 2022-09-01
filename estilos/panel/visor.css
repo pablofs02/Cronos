@@ -142,15 +142,15 @@
 	position: absolute;
 }
 
-/**** PROPORCIONADOR ****/
+/**** ESCALADOR ****/
 
-#proporcionador {
+#escalador {
 	position: absolute;
 	display: flex;
 	margin: 20px;
 }
 
-.proporción {
+.escalador {
 	width: 32px;
 	height: 32px;
 	margin-right: 16px;
@@ -158,7 +158,7 @@
 	background-color: var(--rojo);
 }
 
-.proporción:hover {
+.escalador:hover {
 	opacity: 80%;
 	cursor: pointer;
 }
