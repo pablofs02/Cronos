@@ -1,4 +1,5 @@
 import { guardar_tempo } from "../../util/almacenamiento.js";
+import { ocultar_ventana_tempo } from "../../util/cabecera.js";
 import { en_años } from "../../util/elementos.js";
 import { actualizar_máximo, actualizar_mínimo } from "../../visor/posicionador/extremos.js";
 import { visualizar_tempo } from "../../visor/visor.js";
@@ -17,16 +18,19 @@ export function cerrar_ventanas() {
 export function mostrar_ventana_periodo() {
 	const ventana_periodo = document.getElementById("periodo");
 	ventana_periodo.classList.remove("oculto");
+	document.getElementById("nombre_periodo").focus();
 }
 
 export function mostrar_ventana_evento() {
 	const ventana_evento = document.getElementById("evento");
 	ventana_evento.classList.remove("oculto");
+	document.getElementById("nombre_evento").focus();
 }
 
 function ocultar_ventanas() {
 	ocultar_ventana_periodo();
 	ocultar_ventana_evento();
+	ocultar_ventana_tempo();
 }
 
 function ocultar_ventana_periodo() {
@@ -76,6 +80,7 @@ function escuchar_formulario_periodo() {
 			escuchar_elementos();
 			guardar_tempo(tempo_actual);
 			restablecer_periodo();
+			ocultar_ventana_periodo();
 		} else
 			alert("¡El fin del periodo no puede se anterior al inicio!");
 	});
@@ -105,6 +110,7 @@ function escuchar_formulario_evento() {
 		visualizar_tempo(tempo_actual);
 		guardar_tempo(tempo_actual);
 		restablecer_evento();
+		ocultar_ventana_evento();
 	});
 }
 

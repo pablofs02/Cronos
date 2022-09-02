@@ -6,6 +6,7 @@ import { crear_elemento } from "./elementos.js";
 
 export function cargar_tablero() {
 	sessionStorage.setItem("modo", "tablero");
+	sessionStorage.removeItem("tempo");
 	cargar_tablero_en_panel();
 	cargar_botones_tablero();
 	poner_tempos_en_tablero();

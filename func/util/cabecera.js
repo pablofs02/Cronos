@@ -2,6 +2,7 @@ import { cargar_tablero } from "../modo/tablero/cargador.js";
 import { borrar_tempo, guardar_tempo, tomar_tempo } from "./almacenamiento.js";
 import { modificar_ventana } from "../ventanas/formulario.js";
 import { cargar_editor } from "../modo/editor/cargador.js";
+import { cerrar_ventanas } from "../modo/editor/ventanas.js";
 
 export function configurar_cabecera() {
 	escuchar_botones_cabecera();
@@ -62,7 +63,7 @@ function escuchar_formulario_tempo() {
 		if (e.target.nombre.value)
 			tempo.nombre = e.target.nombre.value;
 		tomar_tempo(tempo.nombre).then(existe => {
-			if (!existe || tempo.nombre == sessionStorage.getItem("tempo")) {
+			if (!existe || (document.getElementById("tempo").classList.contains("editando") && sessionStorage.getItem("modo") != "tablero")) {
 				if (e.target.comentario.value)
 					tempo.comentario = e.target.comentario.value;
 				if (document.getElementById("tempo").classList.contains("editando"))
@@ -96,6 +97,7 @@ function escuchar_formulario_tempo() {
 					} else
 						almacenar(tempo);
 				}
+				cerrar_ventanas();
 			} else
 				alert("Ese nombre ya está en uso.");
 		});
@@ -117,12 +119,13 @@ function almacenar(tempo) {
 	cargar_editor();
 }
 
-function mostrar_ventana_tempo() {
+export function mostrar_ventana_tempo() {
 	const ventana_tempo = document.getElementById("tempo");
 	ventana_tempo.classList.remove("oculto");
+	document.getElementById("nombre_tempo").focus();
 }
 
-function ocultar_ventana_tempo() {
+export function ocultar_ventana_tempo() {
 	const ventana_tempo = document.getElementById("tempo");
 	ventana_tempo.classList.add("oculto");
 	ventana_tempo.classList.remove("editando");

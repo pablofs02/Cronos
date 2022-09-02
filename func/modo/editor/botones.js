@@ -1,4 +1,5 @@
 import { tomar_tempo } from "../../util/almacenamiento.js";
+import { mostrar_ventana_tempo } from "../../util/cabecera.js";
 import { crear_botón } from "../../util/elementos.js";
 import { modificar_ventana } from "../../ventanas/formulario.js";
 import { cerrar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
@@ -64,9 +65,8 @@ function cargar_botón_editar_info_tempo() {
 function abrir_ventana_editar_info_tempo() {
 	tomar_tempo(sessionStorage.getItem("tempo")).then(tempo => {
 		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
-		const ventana_tempo = document.getElementById("tempo");
-		ventana_tempo.classList.add("editando");
-		ventana_tempo.classList.remove("oculto");
+		mostrar_ventana_tempo();
+		document.getElementById("tempo").classList.add("editando");
 	});
 }
 
