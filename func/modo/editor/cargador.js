@@ -1,7 +1,8 @@
-import { cargar_visor, cargar_tempo } from "../../visor/visor.js";
+import { cargar_visor, cargar_tempo, visualizar_tempo } from "../../visor/visor.js";
 import { modificar_ventana } from "../../ventanas/formulario.js";
 import { cargar_botones_editor, traducir_botones } from "./botones.js";
-import { escuchar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
+import { cerrar_ventanas, escuchar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
+import { crear_botón } from "../../util/elementos.js";
 
 export let tempo_actual;
 let elemento;
@@ -96,6 +97,10 @@ function editar_periodo(periodo) {
 	mostrar_ventana_periodo();
 	elemento = periodo;
 	document.getElementById("periodo").classList.add("editando");
+	const eliminar = crear_botón("borrar_periodo", "Eliminar");
+	eliminar.addEventListener("click", () =>
+		preguntar_si_borrar_periodo());
+	document.getElementById("periodo").appendChild(eliminar);
 }
 
 function editar_evento(evento) {
@@ -105,13 +110,20 @@ function editar_evento(evento) {
 	document.getElementById("evento").classList.add("editando");
 }
 
-export function borrar_periodo_anterior() {
+function preguntar_si_borrar_periodo() {
+	if (confirm("¿Seguro que quieres borrar este periodo?"))
+		borrar_periodo_actual();
+}
+
+export function borrar_periodo_actual() {
 	const periodos = tempo_actual.periodos;
 	const posición = periodos.indexOf(elemento);
 	tempo_actual.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
+	visualizar_tempo(tempo_actual);
+	cerrar_ventanas();
 }
 
-export function borrar_evento_anterior() {
+export function borrar_evento_actual() {
 	const eventos = tempo_actual.eventos;
 	const posición = eventos.indexOf(elemento);
 	tempo_actual.periodos = eventos.slice(0, posición).concat(eventos.slice(posición + 1));

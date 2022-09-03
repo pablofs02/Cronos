@@ -3,7 +3,7 @@ import { ocultar_ventana_tempo } from "../../util/cabecera.js";
 import { en_años } from "../../util/elementos.js";
 import { actualizar_máximo, actualizar_mínimo } from "../../visor/posicionador/extremos.js";
 import { visualizar_tempo } from "../../visor/visor.js";
-import { borrar_evento_anterior, borrar_periodo_anterior, crear_evento, crear_periodo, escuchar_elementos, tempo_actual } from "./cargador.js";
+import { borrar_evento_actual, borrar_periodo_actual, crear_evento, crear_periodo, escuchar_elementos, tempo_actual } from "./cargador.js";
 
 export function escuchar_ventanas() {
 	escuchar_ventana_periodo();
@@ -36,7 +36,10 @@ function ocultar_ventanas() {
 function ocultar_ventana_periodo() {
 	const ventana_periodo = document.getElementById("periodo");
 	ventana_periodo.classList.add("oculto");
-	ventana_periodo.classList.remove("editando");
+	if (ventana_periodo.classList.contains("editando")) {
+		document.getElementById("borrar_periodo").remove();
+		ventana_periodo.classList.remove("editando");
+	}
 }
 
 function ocultar_ventana_evento() {
@@ -73,7 +76,7 @@ function escuchar_formulario_periodo() {
 		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
 			tempo_actual.periodos.push(periodo);
 			if (editando_periodo())
-				borrar_periodo_anterior();
+				borrar_periodo_actual();
 			actualizar_mínimo(periodo);
 			actualizar_máximo(periodo);
 			visualizar_tempo(tempo_actual);
@@ -106,7 +109,7 @@ function escuchar_formulario_evento() {
 		const evento = crear_evento(entrada.target);
 		tempo_actual.eventos.push(evento);
 		if (editando_evento())
-			borrar_evento_anterior();
+			borrar_evento_actual();
 		visualizar_tempo(tempo_actual);
 		guardar_tempo(tempo_actual);
 		restablecer_evento();
