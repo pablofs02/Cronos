@@ -3,6 +3,7 @@ import { modificar_ventana } from "../../ventanas/formulario.js";
 import { cargar_botones_editor, traducir_botones } from "./botones.js";
 import { cerrar_ventanas, escuchar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
 import { crear_botón } from "../../util/elementos.js";
+import { corregir_extremos, mínimo } from "../../visor/posicionador/extremos.js";
 
 export let tempo_actual;
 let elemento;
@@ -119,7 +120,9 @@ export function borrar_periodo_actual() {
 	const periodos = tempo_actual.periodos;
 	const posición = periodos.indexOf(elemento);
 	tempo_actual.periodos = periodos.slice(0, posición).concat(periodos.slice(posición + 1));
+	corregir_extremos(elemento);
 	visualizar_tempo(tempo_actual);
+	escuchar_elementos();
 	cerrar_ventanas();
 }
 

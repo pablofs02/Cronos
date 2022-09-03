@@ -18,6 +18,23 @@ export function actualizar_mínimo(objeto) {
 		comprobar_mínimo(objeto.fecha);
 }
 
+export function corregir_extremos(objeto) {
+	if (en_años(objeto.inicio) === en_años(mínimo)) {
+		tempo_actual.inicio = {};
+		mínimo = null;
+		if (tempo_actual.periodos.length && tempo_actual.eventos.length)
+			definir_mínimo(tempo_actual);
+	}
+
+	if (en_años(objeto.fin) === en_años(máximo)) {
+		tempo_actual.fin = {};
+		máximo = null;
+		if (tempo_actual.periodos.length && tempo_actual.eventos.length)
+			definir_máximo(tempo_actual);
+	}
+	guardar_tempo(tempo_actual);
+}
+
 function comprobar_mínimo(fecha) {
 	if (mínimo) {
 		if (en_años(mínimo) > en_años(fecha)) {
@@ -47,7 +64,6 @@ function comprobar_máximo(fecha) {
 
 export function añadir_margen() {
 	const rango = (en_años(máximo) - en_años(mínimo));
-	// máximo = Number(máximo) + 0.05 * rango;
 	if (hay_grupos())
 		mínimo = en_objeto(en_años(mínimo) - 0.14 * rango);
 }
