@@ -13,6 +13,7 @@
 	<title> Cronos - Líneas Temporales </title>
 </head>
 
+
 <body>
 	<div id="ocultador" class="ocultador oculto"></div>
 	<div id="ventanas"></div>
@@ -41,8 +42,57 @@
 		</div>
 	</main>
 
-	<script src="func/config/tema.js"></script>
-	<script src="func/principal.js" type="module"></script>
+	<div>
+		<!-- Imágenes Precargadas -->
+		<div style="display: none;">
+			<img src="archivos/banderas/es.png">
+			<img src="archivos/banderas/en.png">
+			<img src="archivos/banderas/de.png">
+			<img src="archivos/banderas/fr.png">
+			<img src="archivos/banderas/it.png">
+			<img src="archivos/banderas/ja.png">
+			<img src="archivos/banderas/ko.png">
+			<img src="archivos/banderas/pt.png">
+			<img src="archivos/banderas/zh.png">
+			<img src="archivos/temas/modo_claro.svg">
+			<img src="archivos/temas/modo_oscuro.svg">
+		</div>
+		<!-- Configuración -->
+		<script src="func/config/tema.js"></script>
+		<script src="func/config/idioma.js" type="module"></script>
+		<!-- Funcionalidad Precarga -->
+		<script src="func/modo/editor/botones.js" type="module"></script>
+		<script src="func/modo/editor/cargador.js" type="module"></script>
+		<script src="func/modo/editor/ventanas.js" type="module"></script>
+		<script src="func/modo/tablero/botones.js" type="module"></script>
+		<script src="func/modo/tablero/cargador.js" type="module"></script>
+		<script src="func/modo/tablero/elementos.js" type="module"></script>
+		<script src="func/modo/tablero/opciones.js" type="module"></script>
+		<script src="func/modo/tablero/ventanas.js" type="module"></script>
+		<script src="func/modo/vista/botones.js" type="module"></script>
+		<script src="func/modo/vista/cargador.js" type="module"></script>
+		<script src="func/util/almacenamiento.js" type="module"></script>
+		<script src="func/util/cabecera.js" type="module"></script>
+		<script src="func/util/elementos.js" type="module"></script>
+		<script src="func/util/json.js" type="module"></script>
+		<script src="func/util/orden.js" type="module"></script>
+		<script src="func/ventanas/formulario.js" type="module"></script>
+		<script src="func/ventanas/info.js" type="module"></script>
+		<script src="func/visor/partes/desplazador/barra_horizontal.js" type="module"></script>
+		<script src="func/visor/partes/desplazador/barra_vertical.js" type="module"></script>
+		<script src="func/visor/partes/desplazador/desplazador.js" type="module"></script>
+		<script src="func/visor/partes/escalador.js" type="module"></script>
+		<script src="func/visor/partes/mostrador.js" type="module"></script>
+		<script src="func/visor/partes/regla.js" type="module"></script>
+		<script src="func/visor/posicionador/extremos.js" type="module"></script>
+		<script src="func/visor/posicionador/grupos.js" type="module"></script>
+		<script src="func/visor/posicionador/horizontal.js" type="module"></script>
+		<script src="func/visor/posicionador/longitud.js" type="module"></script>
+		<script src="func/visor/posicionador/vertical.js" type="module"></script>
+		<script src="func/visor/visor.js" type="module"></script>
+		<!-- Comienzo del Flujo Principal -->
+		<script src="func/principal.js" type="module"></script>
+	</div>
 	<script src="https://kit.fontawesome.com/9fbde9ecdb.js" crossorigin="anonymous"></script>
 </body>
 
