@@ -7,7 +7,9 @@ const tema_claro = "claro";
 const ruta_tema = "estilos/temas/";
 const terminación = ".css";
 
-export function configurar_tema() {
+configurar_tema();
+
+function configurar_tema() {
 	definir_tema_actual();
 	escuchar_botón_tema();
 }

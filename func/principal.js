@@ -1,5 +1,4 @@
 import { configurar_idioma } from "./config/idioma.js";
-import { configurar_tema } from "./config/tema.js";
 import { cargar_editor } from "./modo/editor/cargador.js";
 import { cargar_vista } from "./modo/vista/cargador.js";
 import { cargar_tablero } from "./modo/tablero/cargador.js";
@@ -8,7 +7,6 @@ import { cargar_formularios } from "./ventanas/formulario.js";
 import { cargar_ventana_info } from "./ventanas/info.js";
 
 configurar_idioma();
-configurar_tema();
 
 cargar_formularios();
 cargar_ventana_info();
