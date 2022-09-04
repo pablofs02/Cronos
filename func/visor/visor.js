@@ -4,7 +4,7 @@ import { escuchar_desplazadores, cargar_desplazador } from "./partes/desplazador
 import { añadir_eventos, añadir_periodos, cargar_mostrador } from "./partes/mostrador.js";
 import { cargar_regla } from "./partes/regla.js";
 import { cargar_escalador, escala, escuchar_escalador } from "./partes/escalador.js";
-import { añadir_margen, definir_límites } from "./posicionador/extremos.js";
+import { definir_límites } from "./posicionador/extremos.js";
 import { actualizar_posición, definir_posición, desplazar_elementos } from "./posicionador/horizontal.js";
 import { actualizar_longitud, definir_longitud } from "./posicionador/longitud.js";
 import { comprobar_altura, definir_altitud } from "./posicionador/vertical.js";
@@ -75,7 +75,6 @@ export async function cargar_tempo() {
 }
 
 export function actualizar_visor() {
-	añadir_margen();
 	actualizar_barra_h(escala);
 	definir_posición();
 	actualizar_posición();

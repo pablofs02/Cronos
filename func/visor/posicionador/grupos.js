@@ -3,9 +3,6 @@ export let grupos = {};
 export function crear_etiqueta_grupo(grupo, altura, primero) {
 	const nodo = document.createElement("div");
 	nodo.classList.add("grupo");
-	const texto = document.createElement("span");
-	texto.textContent = grupo;
-	nodo.appendChild(texto);
 	if (!primero)
 		altura++;
 	nodo.setAttribute("altura", altura);

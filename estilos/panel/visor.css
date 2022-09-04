@@ -53,11 +53,11 @@
 }
 
 .grupo {
-	width: 11.5%;
+	width: 100%;
 	position: absolute;
 	background-color: var(--verde);
 	overflow: hidden;
-	z-index: 5;
+	z-index: 2;
 }
 
 /**** REGLA ****/

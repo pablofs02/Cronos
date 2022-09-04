@@ -62,12 +62,6 @@ function comprobar_máximo(fecha) {
 		máximo = fecha;
 }
 
-export function añadir_margen() {
-	const rango = (en_años(máximo) - en_años(mínimo));
-	if (hay_grupos())
-		mínimo = en_objeto(en_años(mínimo) - 0.14 * rango);
-}
-
 export function definir_límites(tempo) {
 	if (tempo.inicio.año)
 		mínimo = tempo.inicio;

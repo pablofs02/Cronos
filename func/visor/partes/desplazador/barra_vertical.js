@@ -1,5 +1,5 @@
 import { desunizar } from "../../../util/elementos.js";
-import { elevar_elementos } from "../../posicionador/vertical.js";
+import { altura_máxima, elevar_elementos, límite_altura } from "../../posicionador/vertical.js";
 
 let desplazador = null;
 let barra = null;
