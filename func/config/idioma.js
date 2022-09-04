@@ -12,7 +12,9 @@ const extensión_idioma = ".json";
 const idiomas = { "español": "es", "english": "en", "français": "fr", "deutsch": "de", "italiano": "it", "português": "pt", "日本語": "ja", "中文": "zh", "한국어": "ko" };
 const idiomas_disponibles = ["español", "english"];
 
-export function configurar_idioma() {
+configurar_idioma();
+
+function configurar_idioma() {
 	definir_idioma_actual();
 	crear_listado_idiomas();
 	escuchar_botón_idiomas();
