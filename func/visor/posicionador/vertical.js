@@ -131,6 +131,17 @@ export function elevar_elementos() {
 		const posición_desplazada = posición_base - desplazamiento;
 		periodo.style.bottom = posición_desplazada + "px";
 	}
+	const grupos = document.getElementById("grupos").children;
+	for (let i = 0; i < grupos.length; i++) {
+		const grupo = grupos[i];
+		const posición_base = grupo.getAttribute("altura") * 22;
+		const long_panel = document.getElementById("mostrador").clientHeight;
+		const long_total = (Number(altura_máxima()) + 1) * 22;
+		const dif_tot_pan = long_total - long_panel;
+		const desplazamiento = altura_actual() / 100 * dif_tot_pan;
+		const posición_desplazada = posición_base - desplazamiento;
+		grupo.style.bottom = posición_desplazada + "px";
+	}
 }
 
 function vaciar_visitados() {
