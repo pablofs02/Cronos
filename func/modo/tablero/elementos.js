@@ -10,7 +10,7 @@ export function crear_elemento(tempo) {
 		mostrar_info(tempo));
 	elemento.children[1].addEventListener("click", () =>
 		mostrar_info(tempo));
-	elemento.appendChild(crear_opciones(tempo));
+	elemento.appendChild(crear_opciones(tempo, elemento));
 	return elemento;
 }
 
@@ -44,9 +44,9 @@ function crear_comentario(tempo) {
 	return comentario;
 }
 
-function crear_opciones(tempo) {
+function crear_opciones(tempo, elemento) {
 	const fragmento = document.createDocumentFragment();
-	const botones = crear_botones(tempo);
+	const botones = crear_botones(tempo, elemento);
 	fragmento.appendChild(crear_desplegable(botones));
 	fragmento.appendChild(botones);
 	return fragmento;

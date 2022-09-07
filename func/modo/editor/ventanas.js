@@ -67,25 +67,26 @@ function escuchar_ventana_periodo() {
 	escuchar_formulario_periodo();
 	escuchar_cerrar_periodo();
 }
-
+	
 function escuchar_formulario_periodo() {
 	const formulario_periodo = document.getElementById("formulario_periodo");
 	formulario_periodo.addEventListener("submit", entrada => {
 		entrada.preventDefault();
 		const periodo = crear_periodo(entrada.target);
-		if (en_años(periodo.fin) > en_años(periodo.inicio)) {
-			tempo_actual.periodos.push(periodo);
-			if (editando_periodo())
-				borrar_periodo_actual();
-			actualizar_mínimo(periodo);
-			actualizar_máximo(periodo);
-			visualizar_tempo(tempo_actual);
-			escuchar_elementos();
-			guardar_tempo(tempo_actual);
-			restablecer_periodo();
-			ocultar_ventana_periodo();
-		} else
-			alert("¡El fin del periodo no puede se anterior al inicio!");
+		if (periodo.inicio.año != 0 || periodo.fin.año != 0)
+			if (en_años(periodo.fin) > en_años(periodo.inicio)) {
+				tempo_actual.periodos.push(periodo);
+				if (editando_periodo())
+					borrar_periodo_actual();
+				actualizar_mínimo(periodo);
+				actualizar_máximo(periodo);
+				visualizar_tempo(tempo_actual);
+				escuchar_elementos();
+				guardar_tempo(tempo_actual);
+				restablecer_periodo();
+				ocultar_ventana_periodo();
+			} else
+				alert("¡El fin del periodo no puede se anterior al inicio!");
 	});
 }
 

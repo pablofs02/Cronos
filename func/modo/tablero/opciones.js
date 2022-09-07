@@ -2,11 +2,11 @@ import { borrar_tempo } from "../../util/almacenamiento.js";
 import { cargar_editor } from "../editor/cargador.js";
 import { cargar_vista } from "../vista/cargador.js";
 
-export function crear_botones(tempo) {
+export function crear_botones(tempo, elemento) {
 	const opciones = document.createElement("div");
 	opciones.classList.add("opciones_tempo");
 	opciones.appendChild(crear_editar(tempo));
-	opciones.appendChild(crear_borrar(tempo));
+	opciones.appendChild(crear_borrar(tempo, elemento));
 	opciones.appendChild(crear_ver(tempo));
 	opciones.appendChild(crear_descargar(tempo));
 	return opciones;
@@ -23,12 +23,13 @@ function crear_editar(tempo) {
 	return editar;
 }
 
-function crear_borrar(tempo) {
+function crear_borrar(tempo, elemento) {
 	const borrar = document.createElement("div");
 	borrar.classList.add("eliminar");
 	borrar.innerHTML = "<i class=\"fa-solid fa-trash-can\"></i>";
 	borrar.addEventListener("click", () => {
-		confirmar(tempo);
+		if (confirmar(tempo))
+			elemento.remove();
 		ocultar_ocultador();
 	});
 	return borrar;
@@ -62,8 +63,10 @@ function editar_tempo(tempo) {
 }
 
 function confirmar(tempo) {
-	if (confirm("¿Estás seguro de que deseas borrarlo?"))
+	if (confirm("¿Estás seguro de que deseas borrarlo?")) {
 		borrar_tempo(tempo);
+		return true;
+	}
 }
 
 function ver_tempo(tempo) {
