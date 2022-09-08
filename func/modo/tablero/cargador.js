@@ -17,6 +17,13 @@ export function traducir_tablero(tablero) {
 	traducir_botones(tablero.botones);
 }
 
+export function recargar_tablero() {
+	document.getElementById("tablero").remove();
+	document.getElementById("panel").appendChild(crear_div("tablero"));
+	setTimeout(() =>
+		enlistar_tempos_en_tablero(), 50);
+}
+
 function cargar_tablero_en_panel() {
 	if (!estar_cargado_tablero_en_panel()) {
 		limpiar_panel();

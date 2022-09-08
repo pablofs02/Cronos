@@ -1,5 +1,6 @@
 import { guardar_tempo, listar_tempos } from "../../util/almacenamiento.js";
 import { crear_botón } from "../../util/elementos.js";
+import { recargar_tablero } from "./cargador.js";
 
 export function cargar_botones_tablero() {
 	if (!estar_cargado_botones_tablero()) {
@@ -40,6 +41,7 @@ function almacenar_archivos(archivos) {
 	for (let i = 0; i < archivos.length; i++)
 		archivos[i].text().then(texto =>
 			guardar_tempo(JSON.parse(texto)));
+	recargar_tablero();
 }
 
 function cargar_botón_descargar_todo() {
