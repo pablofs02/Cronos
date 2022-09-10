@@ -63,6 +63,8 @@ function cargar_botón_editar_info_tempo() {
 }
 
 function abrir_ventana_editar_info_tempo() {
+	if (document.getElementById("tempo").classList.contains("oculto"))
+		cerrar_ventanas();
 	tomar_tempo(sessionStorage.getItem("tempo")).then(tempo => {
 		modificar_ventana("tempo", { título: "Editar Tempo", info: { nombre: tempo.nombre, comentario: tempo.comentario } });
 		mostrar_ventana_tempo();

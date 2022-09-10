@@ -22,13 +22,18 @@ function escuchar_botones_cabecera() {
 function escuchar_botón_inicio() {
 	const inicio = document.getElementById("inicio");
 	inicio.addEventListener("click", () =>
-		cargar_tablero());
+		ir_a_tablero());
 }
 
 function escuchar_botón_tablero() {
 	const tablero = document.getElementById("b_tablero");
 	tablero.addEventListener("click", () =>
-		cargar_tablero());
+		ir_a_tablero());
+}
+
+function ir_a_tablero() {
+	cerrar_ventanas();
+	cargar_tablero();
 }
 
 function cambiar_inicio(inicio) {
@@ -104,6 +109,7 @@ function escuchar_formulario_tempo() {
 	});
 
 	botón_nuevo_tempo.addEventListener("click", () => {
+		cerrar_ventanas();
 		modificar_ventana("tempo", { título: "Nuevo Tempo" });
 		mostrar_ventana_tempo();
 	});

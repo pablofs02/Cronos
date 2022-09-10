@@ -51,6 +51,7 @@ function ocultar_ventana_evento() {
 function restablecer() {
 	restablecer_periodo();
 	restablecer_evento();
+	restablecer_tempo();
 }
 
 function restablecer_periodo() {
@@ -63,11 +64,16 @@ function restablecer_evento() {
 	formulario_evento.reset();
 }
 
+function restablecer_tempo() {
+	const formulario_tempo = document.getElementById("formulario_tempo");
+	formulario_tempo.reset();
+}
+
 function escuchar_ventana_periodo() {
 	escuchar_formulario_periodo();
 	escuchar_cerrar_periodo();
 }
-	
+
 function escuchar_formulario_periodo() {
 	const formulario_periodo = document.getElementById("formulario_periodo");
 	formulario_periodo.addEventListener("submit", entrada => {
