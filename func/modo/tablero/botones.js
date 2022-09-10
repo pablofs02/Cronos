@@ -1,4 +1,4 @@
-import { guardar_tempo, listar_tempos } from "../../util/almacenamiento.js";
+import { borrar_tempo, guardar_tempo, listar_tempos } from "../../util/almacenamiento.js";
 import { crear_botón } from "../../util/elementos.js";
 import { recargar_tablero } from "./cargador.js";
 
