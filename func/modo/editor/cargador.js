@@ -3,7 +3,7 @@ import { modificar_ventana } from "../../ventanas/formulario.js";
 import { cargar_botones_editor, traducir_botones } from "./botones.js";
 import { cerrar_ventanas, escuchar_ventanas, mostrar_ventana_evento, mostrar_ventana_periodo } from "./ventanas.js";
 import { crear_botón } from "../../util/elementos.js";
-import { corregir_extremos, mínimo } from "../../visor/posicionador/extremos.js";
+import { corregir_extremos } from "../../visor/posicionador/extremos.js";
 
 export let tempo_actual;
 let elemento;

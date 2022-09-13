@@ -1,7 +1,6 @@
 import { tempo_actual } from "../../modo/editor/cargador.js";
 import { guardar_tempo } from "../../util/almacenamiento.js";
-import { en_años, en_objeto } from "../../util/elementos.js";
-import { hay_grupos } from "./grupos.js";
+import { en_años } from "../../util/elementos.js";
 
 export let máximo;
 export let mínimo;
